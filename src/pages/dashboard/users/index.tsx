@@ -15,13 +15,11 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Button,
 } from "@mui/material";
 import AddAndSearchTable from "../../commons/add-search-table";
 import HeaderTableCommon from "../../commons/header-table";
 import PaginationTableCommon from "../../commons/pagination-table";
 import ActionTableCommon from "../../commons/actions-table";
-import { FcViewDetails } from "react-icons/fc";
 import TitleHeaderPage from "../../commons/title-header";
 import { validateRoleSa } from "../../../utils/permission.util";
 
@@ -96,16 +94,6 @@ const UserManagementPage = (props: IpropUserMgt) => {
                           <TableCell>{row.code}</TableCell>
                           <TableCell>{row.status}</TableCell>
                           <TableCell>{row.role}</TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outlined"
-                              className="border-0"
-                              size="small"
-                              startIcon={<FcViewDetails />}
-                            >
-                              View
-                            </Button>
-                          </TableCell>
                           <TableCell>
                             <ActionTableCommon
                               setState={setState}

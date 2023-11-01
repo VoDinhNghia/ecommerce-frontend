@@ -2,6 +2,7 @@
 // @ts-ignore
 import { NotificationManager } from "react-notifications";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Row, Col, Button } from "react-bootstrap";
 import "./index.css";
 import { login } from "../../services/auth.service";
@@ -23,6 +24,7 @@ const LoginPage = () => {
   } = useForm<IregisterInputLoginForm>({
     resolver: zodResolver(registerSchemaLoginForm),
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -41,7 +43,7 @@ const LoginPage = () => {
     if (res?.statusCode === 200) {
       NotificationManager.success(res?.message, "Login", 4000);
       setTimeout(() => {
-        window.location.href = routes.dashboard;
+        navigate(routes.dashboard);
       }, 200);
     } else {
       NotificationManager.error(res?.message, "Login", 4000);
