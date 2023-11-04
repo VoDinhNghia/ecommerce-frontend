@@ -13,14 +13,16 @@ const ModalBootstrapCommon = (props: ImodalBootstrapCommon) => {
     onUpdate,
     nameTitle,
     body,
+    size = null,
   } = props;
 
   return (
-    <Modal show={isShowModal}>
+    <Modal show={isShowModal} size={size}>
       <Modal.Header closeButton={true} onHide={() => onCloseModal()}>
         {type === modalTypes.ADD ? <h4>Add {nameTitle}</h4> : null}
         {type === modalTypes.DELETE ? <h4>Delete {nameTitle}</h4> : null}
         {type === modalTypes.UPDATE ? <h4>Update {nameTitle}</h4> : null}
+        {type === modalTypes.OPTIONS ? <h4>Select {nameTitle}</h4> : null}
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
       <Modal.Footer>

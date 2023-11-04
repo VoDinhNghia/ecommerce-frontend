@@ -144,6 +144,7 @@ export interface ImodalBootstrapCommon extends IpropModalCommon {
   onDelete?: any;
   body: any;
   nameTitle: string;
+  size?: string | any;
 }
 
 export interface IpropTitleHeader {

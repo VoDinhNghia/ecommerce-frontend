@@ -1,0 +1,47 @@
+.MenuPage {
+  background-color: #0418ce;
+  margin-bottom: 1px;
+}
+
+.LogoMenu {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.SearchMenu {
+  width: 60% !important;
+}
+
+.RightMenu {
+  color: white !important;
+}
+
+.NumberCartMenu {
+  color: rgb(165, 28, 28);
+  font-weight: bold;
+}
+
+.TextMenuHeader {
+  font-size: 16px;
+}
+
+.NavbarHeader {
+  width: 70% !important;
+  margin: auto;
+}
+
+@media only screen and (max-width: 575px) {
+  .SearchMenu {
+    width: 100% !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .NavbarHeader {
+    width: 100% !important;
+    color: white !important;
+  }
+  .IconMenuResponsive {
+    background-color: white !important;
+  }
+}

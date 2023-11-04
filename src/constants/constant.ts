@@ -3,7 +3,21 @@ export const routes = {
   login: "/login",
   home: "/home",
   userMgt: "/user-mgt",
-  settings: "/settings"
+  settings: "/settings",
+  register: "/register",
+  aboutUs: "/about-us",
+  cartDetail: "/cart-detail",
+  category: "/category-mgt",
+  product: "/product-mgt",
+  slideAdv: "/slide-adv-mgt",
+  blogs: "/blogs",
+  blogAdmin: "/blogs-mgt",
+  settingPage: "/settings-page",
+  orderUser: "/user-order-mgt",
+  orderAdmin: "/order-mgt",
+  aboutUsMgt: "/about-us-mgt",
+  contactQuestion: "/contact-question",
+  contactAdmin: "/contact-question-mgt"
 };
 
 export const API_URL = process.env.REACT_APP_API_URL;
@@ -16,6 +30,7 @@ export const userRoles = {
 export const moduleNames = {
   USER_MANAGEMENT: "Users Management",
   SETTINGS: "Settings",
+  HOME_PAGE: "Home Page",
 };
 
 export const moduleOptions = [
@@ -43,6 +58,7 @@ export const modalTypes = {
   VIEW: "VIEW",
   IMPORT: "IMPORT",
   FILTER: "FILTER",
+  OPTIONS: "OPTIONS",
 };
 
 export const userGenderOptions = [
@@ -67,3 +83,14 @@ export const inputTypes = {
   PASSWORD: "password",
   DATE: "date",
 };
+
+export const optionLanguage = [
+  {
+    label: "English",
+    value: "eng",
+  }, 
+  {
+    label: "VietNamese",
+    value: "vie",
+  },
+]
