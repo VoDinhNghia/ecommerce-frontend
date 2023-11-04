@@ -6,7 +6,7 @@ import { getCurrentUser, logOut } from "../../../services/auth.service";
 import { moduleNames, routes } from "../../../constants/constant";
 import "./index.css";
 import UserMgtIcon from "@rsuite/icons/legacy/Group";
-import SettingIcon from "@rsuite/icons/legacy/GearCircle"; 
+import SettingIcon from "@rsuite/icons/legacy/GearCircle";
 import { validateRoleSa } from "../../../utils/permission.util";
 
 const MenuPage = () => {
@@ -53,6 +53,14 @@ const MenuPage = () => {
       <Sidenav expanded={expand} appearance="subtle">
         <Sidenav.Body>
           <Nav>
+            <Nav.Item
+              eventKey={moduleNames.HOME_PAGE}
+              icon={<SettingIcon />}
+              className="ItemMenuPage"
+              href={routes.home}
+            >
+              {moduleNames.HOME_PAGE}
+            </Nav.Item>
             {isRoleSa ? (
               <Nav.Item
                 eventKey={moduleNames.USER_MANAGEMENT}

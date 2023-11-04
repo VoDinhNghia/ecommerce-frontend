@@ -39,6 +39,7 @@ const DialogModalCommonPage = (props: ImodalCommon) => {
         {type === modalTypes.VIEW ? `View Detail ${nameTitle}` : ""}
         {type === modalTypes.IMPORT ? `Import multi ${nameTitle}` : ""}
         {type === modalTypes.FILTER ? `Filter ${nameTitle}` : ""}
+        {type === modalTypes.OPTIONS ? `Select ${nameTitle}` : ""}
         <IconButton className="DialogTitleClose" onClick={() => onCloseModal()}>
           X
         </IconButton>
