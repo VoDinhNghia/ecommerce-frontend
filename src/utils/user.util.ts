@@ -24,11 +24,6 @@ export const headersUserTable = () => {
       minWidth: 170,
     },
     {
-      id: "status",
-      label: "Status",
-      minWidth: 170,
-    },
-    {
       id: "role",
       label: "Role",
       minWidth: 170,
@@ -50,7 +45,6 @@ export const handleDataUserTable = (listUsers = []) => {
       name: `${user?.lastName} ${user?.middleName} ${user?.firstName}`,
       email: user?.email,
       code: user?.code,
-      status: user?.status,
       role: user?.role,
     };
   });

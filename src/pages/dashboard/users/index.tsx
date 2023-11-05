@@ -22,6 +22,8 @@ import PaginationTableCommon from "../../commons/pagination-table";
 import ActionTableCommon from "../../commons/actions-table";
 import TitleHeaderPage from "../../commons/title-header";
 import { validateRoleSa } from "../../../utils/permission.util";
+import ModalUserPage from "./modals";
+import { modalTypes } from "../../../constants/constant";
 
 const UserManagementPage = (props: IpropUserMgt) => {
   const { dispatch, listUsers = [], totalUser = 0 } = props;
@@ -29,6 +31,9 @@ const UserManagementPage = (props: IpropUserMgt) => {
     limit: 5,
     page: 0,
     isShowModalAdd: false,
+    isShowModalUpdate: false,
+    isShowModalDelete: false,
+    rowData: {},
   });
   const isRoleSa = validateRoleSa();
   const columns = headersUserTable();
@@ -36,6 +41,10 @@ const UserManagementPage = (props: IpropUserMgt) => {
   const {
     page,
     limit,
+    isShowModalAdd,
+    isShowModalDelete,
+    isShowModalUpdate,
+    rowData,
   } = state;
 
   const fetchUsers = (page: number, limit: number) => {
@@ -92,7 +101,6 @@ const UserManagementPage = (props: IpropUserMgt) => {
                           </TableCell>
                           <TableCell>{row.email}</TableCell>
                           <TableCell>{row.code}</TableCell>
-                          <TableCell>{row.status}</TableCell>
                           <TableCell>{row.role}</TableCell>
                           <TableCell>
                             <ActionTableCommon
@@ -116,6 +124,27 @@ const UserManagementPage = (props: IpropUserMgt) => {
                 fetchList={(page: number, limit: number) =>
                   fetchUsers(page, limit)
                 }
+              />
+              <ModalUserPage
+                type={modalTypes.ADD}
+                isShowModal={isShowModalAdd}
+                userInfo={{}}
+                onCloseModal={() => setState({ ...state, isShowModalAdd: false })}
+                fetchUsers={() => fetchUsers(page + 1, limit)} 
+              />
+              <ModalUserPage
+                type={modalTypes.UPDATE}
+                isShowModal={isShowModalUpdate}
+                userInfo={rowData}
+                onCloseModal={() => setState({ ...state, isShowModalUpdate: false })}
+                fetchUsers={() => fetchUsers(page + 1, limit)} 
+              />
+              <ModalUserPage
+                type={modalTypes.DELETE}
+                isShowModal={isShowModalDelete}
+                userInfo={rowData}
+                onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
+                fetchUsers={() => fetchUsers(page + 1, limit)} 
               />
             </Container>
           </Container>

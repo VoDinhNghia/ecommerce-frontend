@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { IpropModalCommon } from "./common.interface";
+
 export interface IpayloadUpdateUser {
   email?: string;
   role?: string;
@@ -36,8 +38,6 @@ export interface IrowUserTable {
   email?: string;
   code?: string;
   role?: string;
-  status?: string;
-  award?: any;
 }
 
 export interface IpayloadAddUser {
@@ -49,4 +49,9 @@ export interface IpayloadAddUser {
   passWord?: string;
   role?: string;
   email?: string;
+}
+
+export interface IpropModalUser extends IpropModalCommon {
+  fetchUsers?: any;
+  userInfo?: IrowUserTable;
 }
