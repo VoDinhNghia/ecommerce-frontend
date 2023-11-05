@@ -47,12 +47,14 @@ const HeaderMenuPage = (props: IpropHeaderMenu) => {
             href={routes.login}
           >
             <FaSignInAlt />{" "}
-            {currentUser ? (
+            {currentUser?.role ? (
               <a href="/" onClick={() => logout()}>
                 {t("SignOut")}
               </a>
             ) : (
-              "SignIn"
+              <a href={routes.login}>
+                {t("SignIn")}
+              </a>
             )}
           </Dropdown.Toggle>
           {" | "}
