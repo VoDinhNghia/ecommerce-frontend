@@ -31,6 +31,7 @@ export const moduleNames = {
   USER_MANAGEMENT: "Users Management",
   SETTINGS: "Settings",
   HOME_PAGE: "Home Page",
+  CATEGORY: "Categories Management",
 };
 
 export const moduleOptions = [

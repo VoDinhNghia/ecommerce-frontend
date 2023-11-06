@@ -17,6 +17,7 @@ import ProtectedRoutes from "./utils/protected-route.util";
 import HomePage from "./pages/home";
 import in18 from "./i18n/i18n";
 import { I18nextProvider } from "react-i18next";
+import CategoryMgtPage from "./pages/dashboard/categories";
 
 const App = () => {
   return (
@@ -48,6 +49,14 @@ const App = () => {
               element={
                 <ProtectedAdminRoutes>
                   <SettingMgtPage />
+                </ProtectedAdminRoutes>
+              }
+            />
+            <Route
+              path={routes.category}
+              element={
+                <ProtectedAdminRoutes>
+                  <CategoryMgtPage />
                 </ProtectedAdminRoutes>
               }
             />
