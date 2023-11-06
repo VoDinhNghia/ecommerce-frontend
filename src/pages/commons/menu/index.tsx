@@ -73,6 +73,16 @@ const MenuPage = () => {
             ) : null}
             {isRoleSa ? (
               <Nav.Item
+                eventKey={moduleNames.CATEGORY}
+                icon={<UserMgtIcon />}
+                className="ItemMenuPage"
+                href={routes.category}
+              >
+                {moduleNames.CATEGORY}
+              </Nav.Item>
+            ) : null}
+            {isRoleSa ? (
+              <Nav.Item
                 eventKey={moduleNames.SETTINGS}
                 icon={<SettingIcon />}
                 className="ItemMenuPage"
