@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
+
+import { Icategory } from "./category.interface";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IeventOnchangeInput {
   target: {
@@ -43,6 +46,10 @@ export interface IuserReducer {
 
 export interface IstateRedux {
   UserReducer: IuserReducer;
+  CategoryReducer: {
+    listCategories: Icategory[];
+    totalCategory: number;
+  };
 }
 
 export interface IpropsNavToggle {
