@@ -115,7 +115,6 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
                                 }
                                 setReadMore={() => handleReadMore(category)}
                                 lengthSlice={40}
-                                title="Description: "
                               >
                                 {category?.description}
                               </ReadMoreCommon>

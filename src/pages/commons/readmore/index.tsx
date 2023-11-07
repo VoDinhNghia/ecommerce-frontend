@@ -9,10 +9,8 @@ const ReadMoreCommon = (props: IpropReadMore) => {
     isReadMore,
     setReadMore,
     lengthSlice = 30,
-    title = "",
   } = props;
-  const text =
-    children?.length > lengthSlice ? `${title} ${children}` : children;
+  const text = children;
 
   return (
     <p className="ReadMoreCommon">
