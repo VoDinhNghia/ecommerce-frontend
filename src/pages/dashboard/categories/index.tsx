@@ -28,6 +28,8 @@ import { headerTableCategory } from "../../../utils/category.util";
 import ActionTableCommon from "../../commons/actions-table";
 import PaginationTableCommon from "../../commons/pagination-table";
 import ReadMoreCommon from "../../commons/readmore";
+import ModalCategory from "./modals";
+import { modalTypes } from "../../../constants/constant";
 
 const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
   const { dispatch, listCategories = [], totalCategory = 0 } = props;
@@ -38,8 +40,18 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
     isShowModalAdd: false,
     rowData: {},
     readMore: {},
+    isShowModalUpdate: false,
+    isShowModalDelete: false,
   });
-  const { page, limit, readMore, rowData } = state;
+  const {
+    page,
+    limit,
+    readMore,
+    rowData,
+    isShowModalAdd,
+    isShowModalDelete,
+    isShowModalUpdate,
+  } = state;
 
   const categoryReadMore: IallStateReadMore = rowData;
   const allStateReadMore: IallStateReadMore = readMore;
@@ -142,6 +154,33 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
                 fetchList={(page: number, limit: number) =>
                   fetchCategories(page, limit)
                 }
+              />
+              <ModalCategory
+                type={modalTypes.ADD}
+                isShowModal={isShowModalAdd}
+                categoryInfo={{}}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalAdd: false })
+                }
+                fetchCategories={() => fetchCategories(page + 1, limit)}
+              />
+              <ModalCategory
+                type={modalTypes.UPDATE}
+                isShowModal={isShowModalUpdate}
+                categoryInfo={rowData}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalUpdate: false })
+                }
+                fetchCategories={() => fetchCategories(page + 1, limit)}
+              />
+              <ModalCategory
+                type={modalTypes.DELETE}
+                isShowModal={isShowModalDelete}
+                categoryInfo={rowData}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalDelete: false })
+                }
+                fetchCategories={() => fetchCategories(page + 1, limit)}
               />
             </Container>
           </Container>
