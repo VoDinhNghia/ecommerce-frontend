@@ -1,3 +1,5 @@
+import { TypeOf, object, string } from "zod";
+
 export const headerTableCategory = [
   {
     id: "index",
@@ -20,3 +22,10 @@ export const headerTableCategory = [
     minWidth: 120,
   },
 ];
+
+export const registerSchemaCategory = object({
+  name: string().nonempty("name is required"),
+  description: string().nonempty("description is required")
+});
+
+export type IregisterCategoryInput = TypeOf<typeof registerSchemaCategory>;

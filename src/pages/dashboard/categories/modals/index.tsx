@@ -1,19 +1,74 @@
 import React, { useEffect } from "react";
 import DialogModalCommonPage from "../../../commons/dialog-mui";
 import { connect } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ImodalCategory } from "../../../../interfaces/category.interface";
 import { inputTypes, modalTypes } from "../../../../constants/constant";
 import { Button } from "@mui/material";
 import TextFieldCommon from "../../../commons/textfield-input";
+import {
+  IregisterCategoryInput,
+  registerSchemaCategory,
+} from "../../../../utils/category.util";
+import { categoryActions } from "../../../../store/actions";
 
 const ModalCategory = (props: ImodalCategory) => {
-  const { isShowModal, onCloseModal, type, categoryInfo } = props;
   const {
+    isShowModal,
+    onCloseModal,
+    type,
+    categoryInfo,
+    dispatch,
+    fetchCategories,
+  } = props;
+  const {
+    handleSubmit,
     register,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm();
+  } = useForm<IregisterCategoryInput>({
+    resolver: zodResolver(registerSchemaCategory),
+  });
+
+  const addHandle: SubmitHandler<IregisterCategoryInput> = (values) => {
+    dispatch({
+      type: categoryActions.ADD_CATEGORY,
+      payload: {
+        name: values?.name,
+        description: values?.description,
+      },
+    });
+    fetchAndCloseModal();
+  };
+
+  const updateHandle: SubmitHandler<IregisterCategoryInput> = (values) => {
+    dispatch({
+      type: categoryActions.UPDATE_CATEGORY,
+      id: categoryInfo?.id,
+      payload: {
+        name: values?.name,
+        description: values?.description,
+      },
+    });
+    fetchAndCloseModal();
+  };
+
+  const onDelete = () => {
+    dispatch({
+      type: categoryActions.DELETE_CATEGORY,
+      id: categoryInfo?.id,
+    });
+    fetchAndCloseModal();
+  };
+
+  const fetchAndCloseModal = () => {
+    setTimeout(() => {
+      fetchCategories();
+      onCloseModal();
+    }, 100);
+  };
+
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
@@ -24,7 +79,13 @@ const ModalCategory = (props: ImodalCategory) => {
   const content = (
     <div>
       {type === modalTypes.ADD || type === modalTypes.UPDATE ? (
-        <form>
+        <form
+          onSubmit={
+            type === modalTypes.ADD
+              ? handleSubmit(addHandle)
+              : handleSubmit(updateHandle)
+          }
+        >
           <p>Name: </p>
           <TextFieldCommon
             field="name"
@@ -65,6 +126,7 @@ const ModalCategory = (props: ImodalCategory) => {
       onCloseModal={() => onCloseModal()}
       content={content}
       nameTitle="category"
+      onDelete={() => onDelete()}
     />
   );
 };
