@@ -32,6 +32,7 @@ export const moduleNames = {
   SETTINGS: "Settings",
   HOME_PAGE: "Home Page",
   CATEGORY: "Categories Management",
+  PRODUCT: "Products Management",
 };
 
 export const moduleOptions = [
