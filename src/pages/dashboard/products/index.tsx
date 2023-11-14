@@ -4,6 +4,8 @@ import MenuPage from "../../commons/menu";
 import FooterPage from "../../commons/footer";
 import { validateRoleSa } from "../../../utils/permission.util";
 import ForbidenPage from "../../commons/forbiden";
+import TitleHeaderPage from "../../commons/title-header";
+import AddAndSearchTable from "../../commons/add-search-table";
 
 const ProductMgtPage = () => {
   const isRoleSa = validateRoleSa();
@@ -15,7 +17,10 @@ const ProductMgtPage = () => {
           <Container>
             <MenuPage />
             <Container className="p-3">
-              <div>Product content page</div>
+              <TitleHeaderPage title="Products Management" />
+              <AddAndSearchTable
+                title="Add product"
+              />
             </Container>
           </Container>
           <FooterPage />
