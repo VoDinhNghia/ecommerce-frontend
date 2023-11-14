@@ -1,4 +1,5 @@
 import { Icategory } from "./category.interface";
+import { IpropModalCommon } from "./common.interface";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IcreateProduct {
@@ -22,4 +23,9 @@ export interface IpropProductPage {
   dispatch?: any;
   listProducts?: Iproduct[];
   totalProduct?: number;
+}
+
+export interface ImodalProductPage extends IpropModalCommon {
+  productInfo: Iproduct;
+  fetchProducts: any;
 }

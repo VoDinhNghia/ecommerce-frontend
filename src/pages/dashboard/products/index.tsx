@@ -25,6 +25,8 @@ import { Button } from "react-bootstrap";
 import ActionTableCommon from "../../commons/actions-table";
 import { productActions } from "../../../store/actions";
 import PaginationTableCommon from "../../commons/pagination-table";
+import ModalProductPage from "./modals";
+import { modalTypes } from "../../../constants/constant";
 
 const ProductMgtPage = (props: IpropProductPage) => {
   const { dispatch, listProducts = [], totalProduct = 0 } = props;
@@ -37,7 +39,14 @@ const ProductMgtPage = (props: IpropProductPage) => {
     isShowModalDelete: false,
   });
   const isRoleSa = validateRoleSa();
-  const { page, limit } = state;
+  const {
+    page,
+    limit,
+    isShowModalAdd,
+    isShowModalDelete,
+    isShowModalUpdate,
+    rowData,
+  } = state;
 
   const fetchProducts = (page: number, limit: number) => {
     dispatch({
@@ -144,6 +153,33 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 fetchList={(page: number, limit: number) =>
                   fetchProducts(page, limit)
                 }
+              />
+              <ModalProductPage
+                isShowModal={isShowModalAdd}
+                type={modalTypes.ADD}
+                productInfo={{}}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalAdd: false })
+                }
+                fetchProducts={() => fetchProducts(page + 1, limit)}
+              />
+              <ModalProductPage
+                isShowModal={isShowModalUpdate}
+                type={modalTypes.UPDATE}
+                productInfo={rowData}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalUpdate: false })
+                }
+                fetchProducts={() => fetchProducts(page + 1, limit)}
+              />
+              <ModalProductPage
+                isShowModal={isShowModalDelete}
+                type={modalTypes.DELETE}
+                productInfo={rowData}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalDelete: false })
+                }
+                fetchProducts={() => fetchProducts(page + 1, limit)}
               />
             </Container>
           </Container>
