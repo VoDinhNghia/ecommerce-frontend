@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { Icategory } from "./category.interface";
+import { Iproduct } from "./product.inteface";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IeventOnchangeInput {
@@ -49,6 +50,10 @@ export interface IstateRedux {
   CategoryReducer: {
     listCategories: Icategory[];
     totalCategory: number;
+  };
+  ProductReducer: {
+    listProducts: Iproduct[];
+    totalProduct: number;
   };
 }
 
