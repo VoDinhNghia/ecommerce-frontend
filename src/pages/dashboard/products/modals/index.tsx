@@ -24,6 +24,7 @@ const ModalProductPage = (props: ImodalProductPage) => {
     productInfo = {},
     dispatch,
     listCategories = [],
+    fetchProducts
   } = props;
   const categoryOptions = handleCategoryOptions(listCategories);
   const {
@@ -37,11 +38,20 @@ const ModalProductPage = (props: ImodalProductPage) => {
   });
 
   const handleAdd: SubmitHandler<IregisterSchemaProduct> = (values) => {
-    console.log(values);
+    dispatch({
+      type: productActions.ADD_PRODUCT,
+      payload: values,
+    });
+    fetchAndCloseModal();
   };
 
   const handleUpdate: SubmitHandler<IregisterSchemaProduct> = (values) => {
-    console.log(values);
+    dispatch({
+      type: productActions.UPDATE_PRODUCT,
+      id: productInfo?.id,
+      payload: values,
+    });
+    fetchAndCloseModal();
   };
 
   const onDelete = () => {
@@ -56,6 +66,13 @@ const ModalProductPage = (props: ImodalProductPage) => {
       type: categoryActions.GET_LIST_CATEGORY,
     });
   };
+
+  const fetchAndCloseModal = () => {
+    setTimeout(() => {
+      fetchProducts();
+      onCloseModal();
+    }, 100);
+  }
 
   useEffect(() => {
     if (isSubmitSuccessful) {
