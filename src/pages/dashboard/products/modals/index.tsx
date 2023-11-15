@@ -1,13 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import DialogModalCommonPage from "../../../commons/dialog-mui";
 import { ImodalProductPage } from "../../../../interfaces/product.inteface";
-import { modalTypes } from "../../../../constants/constant";
+import { inputTypes, modalTypes } from "../../../../constants/constant";
 import { Button } from "@mui/material";
-import { productActions } from "../../../../store/actions";
+import { categoryActions, productActions } from "../../../../store/actions";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  IregisterSchemaProduct,
+  registerSchemaProduct,
+} from "../../../../utils/product.util";
+import { IstateRedux } from "../../../../interfaces/common.interface";
+import { handleCategoryOptions } from "../../../../utils/util";
+import TextFieldCommon from "../../../commons/textfield-input";
+import SelectReactCommon from "../../../commons/select-react";
 
 const ModalProductPage = (props: ImodalProductPage) => {
-  const { isShowModal, type, onCloseModal, productInfo = {}, dispatch } = props;
+  const {
+    isShowModal,
+    type,
+    onCloseModal,
+    productInfo = {},
+    dispatch,
+    listCategories = [],
+  } = props;
+  const categoryOptions = handleCategoryOptions(listCategories);
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+    control,
+  } = useForm<IregisterSchemaProduct>({
+    resolver: zodResolver(registerSchemaProduct),
+  });
+
+  const handleAdd: SubmitHandler<IregisterSchemaProduct> = (values) => {
+    console.log(values);
+  };
+
+  const handleUpdate: SubmitHandler<IregisterSchemaProduct> = (values) => {
+    console.log(values);
+  };
 
   const onDelete = () => {
     dispatch({
@@ -16,10 +51,72 @@ const ModalProductPage = (props: ImodalProductPage) => {
     });
   };
 
+  const fetchCategories = () => {
+    dispatch({
+      type: categoryActions.GET_LIST_CATEGORY,
+    });
+  };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+    reset({
+      ...productInfo,
+      categoryId: productInfo?.category?.id,
+    });
+    fetchCategories();
+  }, [isSubmitSuccessful, productInfo]);
+
   const content = (
     <div>
       {type === modalTypes.ADD || type === modalTypes.UPDATE ? (
-        <form>
+        <form
+          onSubmit={
+            type === modalTypes.ADD
+              ? handleSubmit(handleAdd)
+              : handleSubmit(handleUpdate)
+          }
+        >
+          <p>Category Id: </p>
+          <SelectReactCommon
+            field="categoryId"
+            errors={errors}
+            control={control}
+            options={categoryOptions}
+            defaultValue={productInfo?.category?.id || ""}
+          />
+          <p className="mt-2">Name: </p>
+          <TextFieldCommon
+            field="name"
+            errors={errors}
+            register={register}
+            defaultValue={productInfo?.name || ""}
+          />
+          <p className="mt-2">Price: </p>
+          <TextFieldCommon
+            field="price"
+            errors={errors}
+            register={register}
+            type={inputTypes.NUMBER}
+            defaultValue={productInfo?.price || ""}
+          />
+          <p className="mt-2">Quantity: </p>
+          <TextFieldCommon
+            field="quantity"
+            errors={errors}
+            register={register}
+            type={inputTypes.NUMBER}
+            defaultValue={productInfo?.quantity || ""}
+          />
+          <p className="mt-2">Description: </p>
+          <TextFieldCommon
+            field="description"
+            type={inputTypes.TEXT_AREA}
+            errors={errors}
+            register={register}
+            defaultValue={productInfo?.description || ""}
+          />
           <Button variant="contained" className="mt-3 w-100" type="submit">
             Save
           </Button>
@@ -49,4 +146,10 @@ const ModalProductPage = (props: ImodalProductPage) => {
   );
 };
 
-export default connect()(ModalProductPage);
+const mapStateToProp = (state: IstateRedux) => {
+  return {
+    listCategories: state.CategoryReducer.listCategories,
+  };
+};
+
+export default connect(mapStateToProp)(ModalProductPage);

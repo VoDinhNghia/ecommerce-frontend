@@ -1,3 +1,5 @@
+import { TypeOf, number, object, string } from "zod";
+
 export const headerProductTable = [
   {
     id: "index",
@@ -60,3 +62,19 @@ export const headerProductTable = [
     minWidth: 120,
   },
 ];
+
+export const registerSchemaProduct = object({
+  name: string().nonempty("name must is required"),
+  description: string().nonempty("description must is required"),
+  price: string()
+    .nonempty("price must is required")
+    .transform((p) => parseFloat(p))
+    .pipe(number().max(10000000000).min(0)),
+  quantity: string()
+    .nonempty("quantity must is required")
+    .transform((q) => parseInt(q))
+    .pipe(number().max(10000000).min(0)),
+  categoryId: string().nonempty("categoryId must is required"),
+});
+
+export type IregisterSchemaProduct = TypeOf<typeof registerSchemaProduct>;

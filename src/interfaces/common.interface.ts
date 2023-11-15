@@ -123,7 +123,7 @@ export interface ImodalCommon extends IpropModalCommon {
 
 export interface IpropTextFieldForm {
   field: string;
-  defaultValue?: string;
+  defaultValue?: string | number | boolean;
   register: any;
   errors: any;
   type?: string;
