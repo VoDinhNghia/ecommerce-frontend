@@ -17,7 +17,7 @@ export interface Iproduct extends IcreateProduct {
   discounts?: any;
   images?: any;
   reviews?: any;
-  rate?: any;
+  rates?: any;
 }
 export interface IpropProductPage {
   dispatch?: any;

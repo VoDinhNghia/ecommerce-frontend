@@ -97,15 +97,11 @@ const ProductMgtPage = (props: IpropProductPage) => {
                           key={product?.id}
                         >
                           <TableCell>{index + 1}</TableCell>
-                          <TableCell>{product?.name}</TableCell>
+                          <TableCell className="text-primary">{product?.name}</TableCell>
                           <TableCell>{product?.description}</TableCell>
                           <TableCell>{product?.price}</TableCell>
                           <TableCell>{product?.quantity}</TableCell>
-                          <TableCell>
-                            <Button variant="outline-primary" size="sm">
-                              View
-                            </Button>
-                          </TableCell>
+                          <TableCell className="text-primary">{product?.category?.name}</TableCell>
                           <TableCell>
                             <Button variant="outline-primary" size="sm">
                               View

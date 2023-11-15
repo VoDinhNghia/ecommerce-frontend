@@ -24,7 +24,7 @@ const ModalProductPage = (props: ImodalProductPage) => {
     productInfo = {},
     dispatch,
     listCategories = [],
-    fetchProducts
+    fetchProducts,
   } = props;
   const categoryOptions = handleCategoryOptions(listCategories);
   const {
@@ -72,7 +72,7 @@ const ModalProductPage = (props: ImodalProductPage) => {
       fetchProducts();
       onCloseModal();
     }, 100);
-  }
+  };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -101,7 +101,11 @@ const ModalProductPage = (props: ImodalProductPage) => {
             errors={errors}
             control={control}
             options={categoryOptions}
-            defaultValue={productInfo?.category?.id || ""}
+            defaultValue={
+              categoryOptions.find(
+                (item) => item.value === productInfo?.category?.id
+              ) || ""
+            }
           />
           <p className="mt-2">Name: </p>
           <TextFieldCommon
