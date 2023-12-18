@@ -10,10 +10,26 @@ export interface IcreateProduct {
   categoryId?: string;
 }
 
+export interface IcreateProductDetail {
+  dateOfManufacture?: Date | string;
+  country?: string;
+  productId: string;
+  color?: string;
+  inputPower?: string;
+  mainboard?: string;
+  memory?: string;
+  size?: string;
+  warrantyExpiration?: string;
+}
+
+export interface IproductDetail extends IcreateProductDetail {
+  id: string;
+}
+
 export interface Iproduct extends IcreateProduct {
   id?: string;
   category?: Icategory;
-  detail?: any;
+  detail?: IproductDetail;
   discounts?: any;
   images?: any;
   reviews?: any;
@@ -29,4 +45,8 @@ export interface ImodalProductPage extends IpropModalCommon {
   productInfo: Iproduct;
   fetchProducts: any;
   listCategories: Icategory[] | any;
+}
+
+export interface IpropProductDetail {
+  detail: IproductDetail;
 }

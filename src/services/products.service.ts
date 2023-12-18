@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../constants/constant";
-import { IcreateProduct } from "../interfaces/product.inteface";
+import { IcreateProduct, IcreateProductDetail } from "../interfaces/product.inteface";
 import { setHeaderAxios } from "./auth.service";
 import { IparamsFetchList } from "../interfaces/common.interface";
 
@@ -31,3 +31,17 @@ export const deleteProduct = async (id: string) => {
   });
   return res;
 };
+
+export const createProductDetail = async (payload: IcreateProductDetail) => {
+  const res = await axios.post(`${API_URL}/api/products/detail`, payload, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+}
+
+export const updateProductDetail = async (id: string, payload: IcreateProductDetail) => {
+  const res = await axios.put(`${API_URL}/api/products/deatail/${id}`, payload, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+}
