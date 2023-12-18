@@ -47,6 +47,7 @@ export interface ImodalProductPage extends IpropModalCommon {
   listCategories: Icategory[] | any;
 }
 
-export interface IpropProductDetail {
-  detail: IproductDetail;
+export interface IpropProductDetail extends IpropModalCommon {
+  productInfo: Iproduct;
+  fetchProducts: any;
 }

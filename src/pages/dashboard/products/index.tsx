@@ -27,6 +27,7 @@ import { productActions } from "../../../store/actions";
 import PaginationTableCommon from "../../commons/pagination-table";
 import ModalProductPage from "./modals";
 import { modalTypes, routes } from "../../../constants/constant";
+import ProductDetail from "./detail";
 
 const ProductMgtPage = (props: IpropProductPage) => {
   const { dispatch, listProducts = [], totalProduct = 0 } = props;
@@ -37,6 +38,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
     rowData: {},
     isShowModalUpdate: false,
     isShowModalDelete: false,
+    isShowModalDetail: false,
   });
   const isRoleSa = validateRoleSa();
   const {
@@ -46,6 +48,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
     isShowModalDelete,
     isShowModalUpdate,
     rowData,
+    isShowModalDetail,
   } = state;
 
   const fetchProducts = (page: number, limit: number) => {
@@ -97,13 +100,29 @@ const ProductMgtPage = (props: IpropProductPage) => {
                           key={product?.id}
                         >
                           <TableCell>{index + 1}</TableCell>
-                          <TableCell className="text-primary">{product?.name}</TableCell>
+                          <TableCell className="text-primary">
+                            {product?.name}
+                          </TableCell>
                           <TableCell>{product?.description}</TableCell>
-                          <TableCell><span>{product?.price?.toLocaleString("en-US")}đ</span></TableCell>
-                          <TableCell>{product?.quantity}</TableCell>
-                          <TableCell className="text-primary"><a href={routes.category}>{product?.category?.name}</a></TableCell>
                           <TableCell>
-                            <Button variant="outline-primary" size="sm">
+                            <span>
+                              {product?.price?.toLocaleString("en-US")}đ
+                            </span>
+                          </TableCell>
+                          <TableCell>{product?.quantity}</TableCell>
+                          <TableCell className="text-primary">
+                            <a href={routes.category}>
+                              {product?.category?.name}
+                            </a>
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={() =>
+                                setState({ ...state, isShowModalDetail: true, rowData: product })
+                              }
+                            >
                               View
                             </Button>
                           </TableCell>
@@ -174,6 +193,15 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 productInfo={rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDelete: false })
+                }
+                fetchProducts={() => fetchProducts(page + 1, limit)}
+              />
+              <ProductDetail
+                isShowModal={isShowModalDetail}
+                type={modalTypes.VIEW}
+                productInfo={rowData}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalDetail: false })
                 }
                 fetchProducts={() => fetchProducts(page + 1, limit)}
               />
