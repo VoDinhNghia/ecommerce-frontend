@@ -26,7 +26,7 @@ import ActionTableCommon from "../../commons/actions-table";
 import { productActions } from "../../../store/actions";
 import PaginationTableCommon from "../../commons/pagination-table";
 import ModalProductPage from "./modals";
-import { modalTypes } from "../../../constants/constant";
+import { modalTypes, routes } from "../../../constants/constant";
 
 const ProductMgtPage = (props: IpropProductPage) => {
   const { dispatch, listProducts = [], totalProduct = 0 } = props;
@@ -99,9 +99,9 @@ const ProductMgtPage = (props: IpropProductPage) => {
                           <TableCell>{index + 1}</TableCell>
                           <TableCell className="text-primary">{product?.name}</TableCell>
                           <TableCell>{product?.description}</TableCell>
-                          <TableCell>{product?.price}</TableCell>
+                          <TableCell><span>{product?.price?.toLocaleString("en-US")}đ</span></TableCell>
                           <TableCell>{product?.quantity}</TableCell>
-                          <TableCell className="text-primary">{product?.category?.name}</TableCell>
+                          <TableCell className="text-primary"><a href={routes.category}>{product?.category?.name}</a></TableCell>
                           <TableCell>
                             <Button variant="outline-primary" size="sm">
                               View

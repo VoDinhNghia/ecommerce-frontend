@@ -11,7 +11,7 @@ const FooterPage = () => {
           <Col xl={3}>
             <h5>About us</h5>
             <div className="mt-2">
-              <p>University name</p>
+              <p>Store name</p>
               <p>Address: </p>
               <p>Mobile: </p>
               <p>Fax: </p>
