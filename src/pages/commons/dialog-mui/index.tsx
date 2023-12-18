@@ -36,7 +36,7 @@ const DialogModalCommonPage = (props: ImodalCommon) => {
         {type === modalTypes.ADD ? `Add new ${nameTitle}` : ""}
         {type === modalTypes.UPDATE ? `Update ${nameTitle}` : ""}
         {type === modalTypes.DELETE ? `Delete ${nameTitle}` : ""}
-        {type === modalTypes.VIEW ? `View detail ${nameTitle}` : ""}
+        {type === modalTypes.VIEW ? nameTitle : ""}
         {type === modalTypes.IMPORT ? `Import multi ${nameTitle}` : ""}
         {type === modalTypes.FILTER ? `Filter ${nameTitle}` : ""}
         {type === modalTypes.OPTIONS ? `Select ${nameTitle}` : ""}
