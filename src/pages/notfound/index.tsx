@@ -6,8 +6,8 @@ const NotfoundPage = () => {
   return (
     <div className="NotFoundPage fs-6">
       <p>
-        <a href={routes.dashboard} className="fs-5">
-          Go to dashboard
+        <a href={routes.home} className="fs-5">
+          Go to homepage
         </a>
       </p>
       <img src="/images/notfound.jpg" width="100%" />
