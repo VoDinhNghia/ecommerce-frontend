@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import FooterPage from "../commons/footer";
 import MenuHomePage from "../menu-home";
@@ -12,6 +12,12 @@ import ProductListHomePage from "./product-list";
 
 const HomePage = (props: IpropHomePage) => {
   const { dispatch, listCategories = [] } = props;
+
+  const [state, setState] = useState({
+    categoryId: "",
+  });
+
+  const { categoryId } = state;
 
   const fetchCategories = () => {
     dispatch({
@@ -28,10 +34,14 @@ const HomePage = (props: IpropHomePage) => {
       <MenuHomePage numberCart={0} />
       <Row className="mt-2">
         <Col xl={3} className="HomePageCategoryLeft">
-          <CategoryHomePage listCategories={listCategories} />
+          <CategoryHomePage
+            listCategories={listCategories}
+            state={state}
+            setState={setState}
+          />
         </Col>
         <Col xl={9}>
-          <ProductListHomePage />
+          <ProductListHomePage categoryId={categoryId || listCategories[0]?.id}/>
         </Col>
       </Row>
       <FooterPage />

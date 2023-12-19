@@ -7,9 +7,10 @@ import {
   CDBSidebarContent,
   CDBSidebarMenu,
 } from "cdbreact";
+import { Button } from "react-bootstrap";
 
 const CategoryHomePage = (props: IpropCategoryHomePage) => {
-  const { listCategories = [] } = props;
+  const { listCategories = [], state, setState } = props;
 
   return (
     <CDBSidebar
@@ -35,7 +36,13 @@ const CategoryHomePage = (props: IpropCategoryHomePage) => {
           {listCategories?.map((category) => {
             return (
               <CDBSidebarMenuItem icon="" key={category?.id} className="fs-6">
-                {category?.name}
+                <Button
+                  variant="outline-light"
+                  className="text-dark w-100 text-start"
+                  onClick={() => setState({ ...state, categoryId: category?.id })}
+                >
+                  {category?.name}
+                </Button>
               </CDBSidebarMenuItem>
             );
           })}

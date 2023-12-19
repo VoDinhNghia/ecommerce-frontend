@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Icategory } from "./category.interface";
+import { Iproduct } from "./product.inteface";
 
 export interface IpropHomePage {
   dispatch: any;
@@ -8,8 +9,12 @@ export interface IpropHomePage {
 
 export interface IpropCategoryHomePage {
   listCategories: Icategory[];
+  state?: any;
+  setState?: any;
 }
 
 export interface IpropProductHomePage {
-  listCategories: Icategory[];
+  dispatch?: any;
+  categoryId: any;
+  listProducts?: Iproduct[];
 }
