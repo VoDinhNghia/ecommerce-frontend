@@ -10,8 +10,9 @@ import {
   registerSchemaProductDetail,
 } from "../../../../utils/product.util";
 import TextFieldCommon from "../../../commons/textfield-input";
-import { inputTypes } from "../../../../constants/constant";
+import { formatDate, inputTypes } from "../../../../constants/constant";
 import { productActions } from "../../../../store/actions";
+import moment from "moment";
 
 const ProductDetail = (props: IpropProductDetail) => {
   const {
@@ -55,7 +56,19 @@ const ProductDetail = (props: IpropProductDetail) => {
   const content = (
     <div>
       {productInfo?.detail ? (
-        <div>view detail</div>
+        <div className="fs-6">
+          <p>
+            dateOfManufacture:{" "}
+            {moment(productInfo?.detail?.dateOfManufacture).format(formatDate)}
+          </p>
+          <p>country: {productInfo?.detail?.country}</p>
+          <p>color: {productInfo?.detail?.color}</p>
+          <p>inputPower: {productInfo?.detail?.inputPower}</p>
+          <p>mainboard: {productInfo?.detail?.mainboard}</p>
+          <p>memory: {productInfo?.detail?.memory}</p>
+          <p>size: {productInfo?.detail?.size}</p>
+          <p>warrantyExpiration: {productInfo?.detail?.warrantyExpiration}</p>
+        </div>
       ) : (
         <div>
           <form onSubmit={handleSubmit(handleAdd)}>
