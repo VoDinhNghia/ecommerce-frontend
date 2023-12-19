@@ -80,14 +80,14 @@ export const registerSchemaProduct = object({
 export type IregisterSchemaProduct = TypeOf<typeof registerSchemaProduct>;
 
 export const registerSchemaProductDetail = object({
-  dateOfManufacture: string().nullable(),
-  country: string().nullable(),
+  dateOfManufacture: string().nonempty('dateOfManufacture is required'),
+  country: string().nonempty('country is required'),
   color: string().nullable(),
   inputPower: string().nullable(),
   mainboard: string().nullable(),
   memory: string().nullable(),
   size: string().nullable(),
-  warrantyExpiration: string().nullable(),
+  warrantyExpiration: string().nonempty('warrantyExpiration is required'),
 });
 
 export type IregisterSchemaProductDetail = TypeOf<

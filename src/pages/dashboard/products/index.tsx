@@ -123,7 +123,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
                                 setState({ ...state, isShowModalDetail: true, rowData: product })
                               }
                             >
-                              View
+                              {product.detail ? "View" : "Add"}
                             </Button>
                           </TableCell>
                           <TableCell>

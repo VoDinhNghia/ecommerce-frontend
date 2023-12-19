@@ -11,9 +11,17 @@ import {
 } from "../../../../utils/product.util";
 import TextFieldCommon from "../../../commons/textfield-input";
 import { inputTypes } from "../../../../constants/constant";
+import { productActions } from "../../../../store/actions";
 
 const ProductDetail = (props: IpropProductDetail) => {
-  const { isShowModal, onCloseModal, type, productInfo } = props;
+  const {
+    isShowModal,
+    onCloseModal,
+    type,
+    productInfo,
+    dispatch,
+    fetchProducts,
+  } = props;
 
   const {
     handleSubmit,
@@ -25,7 +33,17 @@ const ProductDetail = (props: IpropProductDetail) => {
   });
 
   const handleAdd: SubmitHandler<IregisterSchemaProductDetail> = (values) => {
-    console.log(values);
+    dispatch({
+      type: productActions.ADD_PRODUCT_DETAIL,
+      payload: {
+        productId: productInfo?.id,
+        ...values,
+      },
+    });
+    setTimeout(() => {
+      fetchProducts();
+      onCloseModal();
+    }, 70);
   };
 
   useEffect(() => {
@@ -86,7 +104,7 @@ const ProductDetail = (props: IpropProductDetail) => {
               register={register}
               errors={errors}
             />
-            <Button variant="contained" className="mt-3 w-100">
+            <Button variant="contained" className="mt-3 w-100" type="submit">
               Save
             </Button>{" "}
           </form>
