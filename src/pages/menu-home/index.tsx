@@ -18,7 +18,7 @@ const MenuHomePage = (props: IpropMenuHomePage) => {
   return (
     <div>
       <HeaderMenuPage />
-      <div className="MenuPage">
+      <div className="MenuPage bg-primary">
         <Navbar collapseOnSelect expand="sm" className="p-3 NavbarHeader">
           <Container>
             <Navbar.Brand>

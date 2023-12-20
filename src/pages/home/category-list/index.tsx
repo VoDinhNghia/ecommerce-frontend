@@ -22,7 +22,7 @@ const CategoryHomePage = (props: IpropCategoryHomePage) => {
       minWidth={""}
       maxWidth={""}
     >
-      <CDBSidebarHeader prefix={null}>
+      <CDBSidebarHeader prefix={null} className="bg-success text-white">
         <div
           className="container"
           style={{ display: "flex", alignItems: "center" }}
@@ -35,15 +35,17 @@ const CategoryHomePage = (props: IpropCategoryHomePage) => {
         <CDBSidebarMenu>
           {listCategories?.map((category) => {
             return (
-              <CDBSidebarMenuItem icon="" key={category?.id} className="fs-6">
-                <Button
-                  variant="outline-light"
+              <Button
+                  variant="outline-success border-start border-end border-top fw-bold"
+                  size="sm"
+                  key={category?.id}
                   className="text-dark w-100 text-start"
                   onClick={() => setState({ ...state, categoryId: category?.id })}
                 >
+              <CDBSidebarMenuItem icon="bars" className="fs-6">
                   {category?.name}
-                </Button>
               </CDBSidebarMenuItem>
+              </Button>
             );
           })}
         </CDBSidebarMenu>

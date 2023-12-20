@@ -1,6 +1,6 @@
 .MenuPage {
-  background-color: #0418ce;
   margin-bottom: 1px;
+  border-bottom: 1px solid lightgray;
 }
 
 .LogoMenu {
@@ -15,6 +15,7 @@
 
 .RightMenu {
   color: white !important;
+  font-weight: 500 !important;
 }
 
 .NumberCartMenu {

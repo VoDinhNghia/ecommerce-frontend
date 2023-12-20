@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Form, Button, Card, Col, Row } from "react-bootstrap";
-import { CiSearch } from "react-icons/ci";
 import { IpropProductHomePage } from "../../../interfaces/home.interface";
 import { connect } from "react-redux";
 import { IstateRedux } from "../../../interfaces/common.interface";
@@ -33,20 +32,17 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
   }, [categoryId]);
 
   return (
-    <div className="mt-2 me-2">
+    <div className="mt-2">
       <Card className="bg-light">
         <Card.Body>
           <Form className="d-flex">
             <Form.Control
               type="search"
               placeholder="Search product by name..."
-              className="me-2"
+              className=""
               aria-label="Search"
               onChange={(event) => onSearch(event?.target?.value)}
             />
-            <Button>
-              <CiSearch />
-            </Button>
           </Form>
         </Card.Body>
       </Card>
