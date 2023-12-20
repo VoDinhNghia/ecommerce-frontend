@@ -17,7 +17,7 @@ export const routes = {
   orderAdmin: "/order-mgt",
   aboutUsMgt: "/about-us-mgt",
   contactQuestion: "/contact-question",
-  contactAdmin: "/contact-question-mgt"
+  contactAdmin: "/contact-question-mgt",
 };
 
 export const API_URL = process.env.REACT_APP_API_URL;
@@ -90,9 +90,20 @@ export const optionLanguage = [
   {
     label: "English",
     value: "eng",
-  }, 
+  },
   {
     label: "VietNamese",
     value: "vie",
   },
-]
+];
+
+export const productImageTab = {
+  carousel: {
+    key: "carousel",
+    title: "Carousel",
+  },
+  uploadImage: {
+    key: "uploadImage",
+    title: "Upload Image",
+  },
+};

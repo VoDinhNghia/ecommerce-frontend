@@ -76,7 +76,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
               </Card>
             </Col>
           );
-        }) : (<p className="mt-2 text-center"><img src="/images/product-not-found.jpg"/></p>)}
+        }) : (<p className="mt-2 text-center"><img src="/images/product-not-found.jpg" width="70%" height="350px"/></p>)}
       </Row>
     </div>
   );

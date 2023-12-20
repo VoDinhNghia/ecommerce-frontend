@@ -28,6 +28,7 @@ import PaginationTableCommon from "../../commons/pagination-table";
 import ModalProductPage from "./modals";
 import { modalTypes, routes } from "../../../constants/constant";
 import ProductDetail from "./detail";
+import ProductImages from "./images";
 
 const ProductMgtPage = (props: IpropProductPage) => {
   const { dispatch, listProducts = [], totalProduct = 0 } = props;
@@ -39,6 +40,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
     isShowModalUpdate: false,
     isShowModalDelete: false,
     isShowModalDetail: false,
+    isShowModalImage: false,
   });
   const isRoleSa = validateRoleSa();
   const {
@@ -49,6 +51,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
     isShowModalUpdate,
     rowData,
     isShowModalDetail,
+    isShowModalImage,
   } = state;
 
   const fetchProducts = (page: number, limit: number) => {
@@ -120,7 +123,11 @@ const ProductMgtPage = (props: IpropProductPage) => {
                               variant="outline-primary"
                               size="sm"
                               onClick={() =>
-                                setState({ ...state, isShowModalDetail: true, rowData: product })
+                                setState({
+                                  ...state,
+                                  isShowModalDetail: true,
+                                  rowData: product,
+                                })
                               }
                             >
                               {product.detail ? "View" : "Add"}
@@ -142,7 +149,13 @@ const ProductMgtPage = (props: IpropProductPage) => {
                             </Button>
                           </TableCell>
                           <TableCell>
-                            <Button variant="outline-primary" size="sm">
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={() =>
+                                setState({ ...state, isShowModalImage: true })
+                              }
+                            >
                               View
                             </Button>
                           </TableCell>
@@ -202,6 +215,15 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 productInfo={rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDetail: false })
+                }
+                fetchProducts={() => fetchProducts(page + 1, limit)}
+              />
+              <ProductImages
+                isShowModal={isShowModalImage}
+                type={modalTypes.VIEW}
+                productInfo={rowData}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalImage: false })
                 }
                 fetchProducts={() => fetchProducts(page + 1, limit)}
               />

@@ -51,3 +51,14 @@ export interface IpropProductDetail extends IpropModalCommon {
   productInfo: Iproduct;
   fetchProducts: any;
 }
+
+export interface IpropProductImage extends IpropModalCommon {
+  dispatch?: any;
+  productInfo: Iproduct;
+  fetchProducts?: any;
+}
+
+export interface IproductImage {
+  id?: string;
+  url?: string;
+}
