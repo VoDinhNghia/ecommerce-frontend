@@ -47,7 +47,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
         </Card.Body>
       </Card>
       <Row>
-        {listProducts?.map((product) => {
+        {listProducts?.length > 0 ? listProducts?.map((product) => {
           return (
             <Col xl={3} key={product?.id}>
               <Card className="mt-3 ProductItemHomePage">
@@ -76,7 +76,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
               </Card>
             </Col>
           );
-        })}
+        }) : (<p className="mt-2 text-center"><img src="/images/product-not-found.jpg"/></p>)}
       </Row>
     </div>
   );
