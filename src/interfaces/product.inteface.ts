@@ -75,3 +75,9 @@ export interface IcreateProductDiscount {
   endDate: Date;
   productId: string;
 }
+
+export interface IpropProductDiscount extends IpropModalCommon {
+  dispatch?: any;
+  productInfo: Iproduct;
+  fetchProducts?: any;
+}

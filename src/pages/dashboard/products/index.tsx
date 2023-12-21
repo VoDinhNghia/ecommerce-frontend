@@ -29,6 +29,7 @@ import ModalProductPage from "./modals";
 import { modalTypes, routes } from "../../../constants/constant";
 import ProductDetail from "./detail";
 import ProductImages from "./images";
+import ProductDiscount from "./discounts";
 
 const ProductMgtPage = (props: IpropProductPage) => {
   const { dispatch, listProducts = [], totalProduct = 0 } = props;
@@ -41,6 +42,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
     isShowModalDelete: false,
     isShowModalDetail: false,
     isShowModalImage: false,
+    isShowModalDiscount: false,
   });
   const isRoleSa = validateRoleSa();
   const {
@@ -52,6 +54,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
     rowData,
     isShowModalDetail,
     isShowModalImage,
+    isShowModalDiscount,
   } = state;
 
   const fetchProducts = (page: number, limit: number) => {
@@ -144,7 +147,17 @@ const ProductMgtPage = (props: IpropProductPage) => {
                             </Button>
                           </TableCell>
                           <TableCell>
-                            <Button variant="outline-primary" size="sm">
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={() =>
+                                setState({
+                                  ...state,
+                                  isShowModalDiscount: true,
+                                  rowData: product,
+                                })
+                              }
+                            >
                               View
                             </Button>
                           </TableCell>
@@ -228,6 +241,15 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 productInfo={rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalImage: false })
+                }
+                fetchProducts={() => fetchProducts(page + 1, limit)}
+              />
+              <ProductDiscount
+                isShowModal={isShowModalDiscount}
+                type={modalTypes.VIEW}
+                productInfo={rowData}
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalDiscount: false })
                 }
                 fetchProducts={() => fetchProducts(page + 1, limit)}
               />

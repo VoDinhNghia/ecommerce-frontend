@@ -107,3 +107,14 @@ export const productImageTab = {
     title: "Upload Image",
   },
 };
+
+export const productDiscountTab = {
+  table: {
+    key: "discountTable",
+    title: "Discount List",
+  },
+  addDiscount: {
+    key: "addDiscount",
+    title: "Add New Discount",
+  },
+};
