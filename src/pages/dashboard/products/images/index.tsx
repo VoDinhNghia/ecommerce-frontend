@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./index.css";
 import {
   IproductImage,
   IpropProductImage,
@@ -61,10 +62,21 @@ const ProductImages = (props: IpropProductImage) => {
       setTimeout(() => {
         fetchProducts();
         onCloseModal();
-      }, 70);
+      }, 100);
     } else {
       setState({ ...state, message: "please choose file to upload" });
     }
+  };
+
+  const deleteImage = () => {
+    dispatch({
+      type: productActions.DELETE_PRODUCT_IMAGE,
+      id: state?.imageId,
+    });
+    setTimeout(() => {
+      fetchProducts();
+      onCloseModal();
+    }, 100);
   };
 
   const content = (
@@ -93,13 +105,24 @@ const ProductImages = (props: IpropProductImage) => {
           onSelect={(index) => getIndexImage(index)}
         >
           {productInfo?.images?.map((image: IproductImage) => {
+            const imgId = image?.id || "";
             return (
-              <Carousel.Item key={image?.id}>
-                <img src={`${API_URL}/${image?.url}`} alt="" width="100%" height={380} />
+              <Carousel.Item key={imgId}>
+                <img
+                  src={`${API_URL}/${image?.url}`}
+                  alt=""
+                  width="100%"
+                  height={380}
+                />
               </Carousel.Item>
             );
           })}
         </Carousel>
+        <p className="text-end mt-2">
+          <Button variant="danger" size="sm" onClick={() => deleteImage()}>
+            Delete
+          </Button>
+        </p>
       </Tab>
       <Tab
         eventKey={productImageTab.uploadImage.key}
