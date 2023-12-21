@@ -68,3 +68,10 @@ export interface IproductImage {
   id?: string;
   url?: string;
 }
+
+export interface IcreateProductDiscount {
+  discount: number;
+  startDate: Date;
+  endDate: Date;
+  productId: string;
+}

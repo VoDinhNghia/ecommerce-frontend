@@ -8,6 +8,9 @@ import {
   createProductDetail,
   createImage,
   deleteImage,
+  createDiscount,
+  updateDiscount,
+  deleteDiscount,
 } from "../../services/products.service";
 import { productActions } from "../actions";
 import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
@@ -55,6 +58,18 @@ function* removeImage(params: IparamSaga) {
   yield removeSagaCommon(deleteImage, params, "Delete product image");
 }
 
+function* addDiscount(params: IparamSaga) {
+  yield addSagaCommon(createDiscount, params, "Add product discount");
+}
+
+function* editDiscount(params: IparamSaga) {
+  yield updateSagaCommon(updateDiscount, params, "Update product discount");
+}
+
+function* removeDiscount(params: IparamSaga) {
+  yield removeSagaCommon(deleteDiscount, params, "Delete product discount");
+}
+
 function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(productActions.ADD_PRODUCT, addProduct);
   yield takeLatest<ItakeLatestSaga>(productActions.UPDATE_PRODUCT, editProduct);
@@ -81,6 +96,18 @@ function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(
     productActions.DELETE_PRODUCT_IMAGE,
     removeImage
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.ADD_PRODUCT_DISCOUNT,
+    addDiscount
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.UPDATE_PRODUCT_DISCOUNT,
+    editDiscount
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.DELETE_PRODUCT_DISCOUNT,
+    removeDiscount
   );
 }
 

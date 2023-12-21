@@ -63,6 +63,7 @@ const ProductImages = (props: IpropProductImage) => {
         fetchProducts();
         onCloseModal();
       }, 100);
+      setState({ ...state, message: "" });
     } else {
       setState({ ...state, message: "please choose file to upload" });
     }

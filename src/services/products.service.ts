@@ -3,6 +3,7 @@ import { API_URL } from "../constants/constant";
 import {
   IcreateProduct,
   IcreateProductDetail,
+  IcreateProductDiscount,
   IcreateProductImage,
 } from "../interfaces/product.inteface";
 import { setHeaderAxios, setMultipartHeader } from "./auth.service";
@@ -66,6 +67,34 @@ export const createImage = async (payload: IcreateProductImage) => {
 
 export const deleteImage = async (id: string) => {
   const res = await axios.delete(`${API_URL}/api/products/images/${id}`, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+};
+
+export const createDiscount = async (payload: IcreateProductDiscount) => {
+  const res = await axios.post(`${API_URL}/api/products/discount`, payload, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+};
+
+export const updateDiscount = async (
+  id: string,
+  payload: IcreateProductDiscount
+) => {
+  const res = await axios.put(
+    `${API_URL}/api/products/discount/${id}`,
+    payload,
+    {
+      headers: setHeaderAxios(),
+    }
+  );
+  return res;
+};
+
+export const deleteDiscount = async (id: string) => {
+  const res = await axios.delete(`${API_URL}/api/products/discount/${id}`, {
     headers: setHeaderAxios(),
   });
   return res;
