@@ -32,7 +32,7 @@ const HomePage = (props: IpropHomePage) => {
   return (
     <div>
       <MenuHomePage numberCart={0} />
-      <Row className="mt-2">
+      <Row className="mt-2 mb-3">
         <Col xl={3} className="HomePageCategoryLeft">
           <CategoryHomePage
             listCategories={listCategories}

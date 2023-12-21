@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { IstateRedux } from "../../../interfaces/common.interface";
 import { productActions } from "../../../store/actions";
 import { BsCartFill } from "react-icons/bs";
+import { getAvatarProductImage } from "../../../utils/product.util";
 
 const ProductListHomePage = (props: IpropProductHomePage) => {
   const { categoryId, listProducts = [], dispatch } = props;
@@ -56,7 +57,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                     <Card.Img
                       variant="top"
                       className="img-fluid ImageProductHomePage"
-                      src={"/images/category.png"}
+                      src={getAvatarProductImage(product)}
                     />
                   </a>
                   <Card.Body className="text-center">

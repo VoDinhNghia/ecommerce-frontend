@@ -1,4 +1,7 @@
 import { TypeOf, number, object, string } from "zod";
+import { Iproduct } from "../interfaces/product.inteface";
+import { API_URL, formatDate } from "../constants/constant";
+import moment from "moment";
 
 export const headerProductTable = [
   {
@@ -80,16 +83,39 @@ export const registerSchemaProduct = object({
 export type IregisterSchemaProduct = TypeOf<typeof registerSchemaProduct>;
 
 export const registerSchemaProductDetail = object({
-  dateOfManufacture: string().nonempty('dateOfManufacture is required'),
-  country: string().nonempty('country is required'),
+  dateOfManufacture: string().nonempty("dateOfManufacture is required"),
+  country: string().nonempty("country is required"),
   color: string().nullable(),
   inputPower: string().nullable(),
   mainboard: string().nullable(),
   memory: string().nullable(),
   size: string().nullable(),
-  warrantyExpiration: string().nonempty('warrantyExpiration is required'),
+  warrantyExpiration: string().nonempty("warrantyExpiration is required"),
 });
 
 export type IregisterSchemaProductDetail = TypeOf<
   typeof registerSchemaProductDetail
 >;
+
+export const getAvatarProductImage = (product: Iproduct) => {
+  const images = product?.images || [];
+  const isAvatar = images?.find((img: { isAvatar: boolean }) => img.isAvatar)
+    ?.url;
+  const srcImage = isAvatar
+    ? `${API_URL}/${isAvatar}`
+    : images.length > 0
+    ? `${API_URL}/${images[0]?.url}`
+    : "";
+  return srcImage;
+};
+
+export const getDiscountProduct = (product: Iproduct) => {
+  const discounts = product?.discounts?.find(
+    (dis: { startDate: Date; endDate: Date }) =>
+      moment(new Date()).format(formatDate) >=
+        moment(dis?.startDate).format(formatDate) &&
+      moment(new Date()).format(formatDate) <=
+        moment(dis?.endDate).format(formatDate)
+  );
+  return discounts;
+};
