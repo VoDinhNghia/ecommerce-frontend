@@ -20,12 +20,21 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
   };
 
   const onSearch = (searchKey: string) => {
-    dispatch({
-      type: productActions.GET_LIST_PRODUCT,
-      payload: {
-        searchKey,
-      },
-    });
+    if (searchKey) {
+      dispatch({
+        type: productActions.GET_LIST_PRODUCT,
+        payload: {
+          searchKey,
+        },
+      });
+    } else {
+      dispatch({
+        type: productActions.GET_LIST_PRODUCT,
+        payload: {
+          categoryId,
+        },
+      });
+    }
   };
 
   useEffect(() => {
