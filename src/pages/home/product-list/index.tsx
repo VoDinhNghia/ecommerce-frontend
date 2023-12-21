@@ -20,12 +20,12 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
 
   const onSearch = (searchKey: string) => {
     dispatch({
-        type: productActions.GET_LIST_PRODUCT,
-        payload: {
-            searchKey,
-        }
+      type: productActions.GET_LIST_PRODUCT,
+      payload: {
+        searchKey,
+      },
     });
-  }
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -47,36 +47,46 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
         </Card.Body>
       </Card>
       <Row>
-        {listProducts?.length > 0 ? listProducts?.map((product) => {
-          return (
-            <Col xl={3} key={product?.id}>
-              <Card className="mt-3 ProductItemHomePage">
-                <a href={`#${product?.name}`}>
-                  <Card.Img
-                    variant="top"
-                    className="img-fluid ImageProductHomePage"
-                    src={"/images/category.png"}
-                  />
-                </a>
-                <Card.Body className="text-center">
-                  <Card.Title className="text-center fs-6">
-                    <a href={`#${product?.name}`}>{product?.name}</a>
-                  </Card.Title>
-                  <Card.Text>
-                    <del className="OriginPrice">
-                      {product?.price?.toLocaleString("en-US")} đ
-                    </del>
-                  </Card.Text>
-                </Card.Body>
-                <span className="text-center">
-                  <Button variant="outline-primary" className="w-100">
-                    Add to card <BsCartFill />
-                  </Button>{" "}
-                </span>
-              </Card>
-            </Col>
-          );
-        }) : (<p className="mt-2 text-center"><img src="/images/product-not-found.jpg" width="70%" height="350px"/></p>)}
+        {listProducts?.length > 0 ? (
+          listProducts?.map((product) => {
+            return (
+              <Col xl={3} key={product?.id}>
+                <Card className="mt-3 ProductItemHomePage">
+                  <a href={`#${product?.name}`}>
+                    <Card.Img
+                      variant="top"
+                      className="img-fluid ImageProductHomePage"
+                      src={"/images/category.png"}
+                    />
+                  </a>
+                  <Card.Body className="text-center">
+                    <Card.Title className="text-center fs-6">
+                      <a href={`#${product?.name}`}>{product?.name}</a>
+                    </Card.Title>
+                    <Card.Text>
+                      <del className="OriginPrice">
+                        {product?.price?.toLocaleString("en-US")} đ
+                      </del>
+                    </Card.Text>
+                  </Card.Body>
+                  <span className="text-center">
+                    <Button variant="outline-primary" className="w-100">
+                      Add to card <BsCartFill />
+                    </Button>{" "}
+                  </span>
+                </Card>
+              </Col>
+            );
+          })
+        ) : (
+          <p className="mt-2 text-center">
+            <img
+              src="/images/product-not-found.jpg"
+              width="70%"
+              height="400px"
+            />
+          </p>
+        )}
       </Row>
     </div>
   );

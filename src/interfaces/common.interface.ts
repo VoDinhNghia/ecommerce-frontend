@@ -174,3 +174,7 @@ export interface IpropCheckBoxMui {
   defaultValue?: string | any;
   errors?: any;
 }
+
+export type IcheckBoxEvent = any;
+export type IchangeFileEvent = any;
+export type IformDataType = any;

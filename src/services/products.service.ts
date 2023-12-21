@@ -1,7 +1,11 @@
 import axios from "axios";
 import { API_URL } from "../constants/constant";
-import { IcreateProduct, IcreateProductDetail } from "../interfaces/product.inteface";
-import { setHeaderAxios } from "./auth.service";
+import {
+  IcreateProduct,
+  IcreateProductDetail,
+  IcreateProductImage,
+} from "../interfaces/product.inteface";
+import { setHeaderAxios, setMultipartHeader } from "./auth.service";
 import { IparamsFetchList } from "../interfaces/common.interface";
 
 export const createProduct = async (payload: IcreateProduct) => {
@@ -37,11 +41,32 @@ export const createProductDetail = async (payload: IcreateProductDetail) => {
     headers: setHeaderAxios(),
   });
   return res;
-}
+};
 
-export const updateProductDetail = async (id: string, payload: IcreateProductDetail) => {
-  const res = await axios.put(`${API_URL}/api/products/deatail/${id}`, payload, {
+export const updateProductDetail = async (
+  id: string,
+  payload: IcreateProductDetail
+) => {
+  const res = await axios.put(
+    `${API_URL}/api/products/deatail/${id}`,
+    payload,
+    {
+      headers: setHeaderAxios(),
+    }
+  );
+  return res;
+};
+
+export const createImage = async (payload: IcreateProductImage) => {
+  const res = await axios.post(`${API_URL}/api/products/images`, payload, {
+    headers: setMultipartHeader(),
+  });
+  return res;
+};
+
+export const deleteImage = async (id: string) => {
+  const res = await axios.delete(`${API_URL}/api/products/images/${id}`, {
     headers: setHeaderAxios(),
   });
   return res;
-}
+};

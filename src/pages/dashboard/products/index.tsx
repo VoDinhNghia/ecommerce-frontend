@@ -153,7 +153,11 @@ const ProductMgtPage = (props: IpropProductPage) => {
                               variant="outline-primary"
                               size="sm"
                               onClick={() =>
-                                setState({ ...state, isShowModalImage: true })
+                                setState({
+                                  ...state,
+                                  isShowModalImage: true,
+                                  rowData: product,
+                                })
                               }
                             >
                               View

@@ -6,6 +6,8 @@ import {
   getProducts,
   updateProductDetail,
   createProductDetail,
+  createImage,
+  deleteImage,
 } from "../../services/products.service";
 import { productActions } from "../actions";
 import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
@@ -45,6 +47,14 @@ function* editProductDetail(params: IparamSaga) {
   yield updateSagaCommon(updateProductDetail, params, "Update product detail");
 }
 
+function* uploadImage(params: IparamSaga) {
+  yield addSagaCommon(createImage, params, "Upload product image");
+}
+
+function* removeImage(params: IparamSaga) {
+  yield removeSagaCommon(deleteImage, params, "Delete product image");
+}
+
 function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(productActions.ADD_PRODUCT, addProduct);
   yield takeLatest<ItakeLatestSaga>(productActions.UPDATE_PRODUCT, editProduct);
@@ -63,6 +73,14 @@ function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(
     productActions.UPDATE_PRODUCT_DETAIL,
     editProductDetail
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.UPLOAD_PRODUCT_IMAGE,
+    uploadImage
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.DELETE_PRODUCT_IMAGE,
+    removeImage
   );
 }
 

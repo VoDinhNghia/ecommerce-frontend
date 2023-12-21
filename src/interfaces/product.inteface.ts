@@ -22,6 +22,12 @@ export interface IcreateProductDetail {
   warrantyExpiration?: string;
 }
 
+export interface IcreateProductImage {
+  file: any;
+  isAvatar: boolean | string;
+  productId: string;
+}
+
 export interface IproductDetail extends IcreateProductDetail {
   id: string;
 }

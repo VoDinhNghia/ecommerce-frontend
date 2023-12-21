@@ -3,18 +3,33 @@ import {
   IproductImage,
   IpropProductImage,
 } from "../../../../interfaces/product.inteface";
-import { Tabs, Tab, Form, Carousel } from "react-bootstrap";
-import { productImageTab } from "../../../../constants/constant";
+import { Tabs, Tab, Form, Carousel, Button } from "react-bootstrap";
+import { API_URL, productImageTab } from "../../../../constants/constant";
 import { FcPrevious, FcNext } from "react-icons/fc";
 import DialogModalCommonPage from "../../../commons/dialog-mui";
+import {
+  IchangeFileEvent,
+  IcheckBoxEvent,
+  IformDataType,
+} from "../../../../interfaces/common.interface";
+import { connect } from "react-redux";
+import { productActions } from "../../../../store/actions";
 
 const ProductImages = (props: IpropProductImage) => {
-  const { isShowModal, onCloseModal, type, productInfo = {} } = props;
+  const {
+    isShowModal,
+    onCloseModal,
+    type,
+    productInfo = {},
+    dispatch,
+    fetchProducts,
+  } = props;
   const [state, setState] = useState({
     isShowBtnUpload: false,
     file: null,
     imageId: null,
     isAvatar: false,
+    message: "",
   });
 
   const onSelectTab = (key: string | null) => {
@@ -31,6 +46,25 @@ const ProductImages = (props: IpropProductImage) => {
       ...state,
       imageId: imageList?.length > 0 ? imageList[index]?.id : null,
     });
+  };
+
+  const uploadImage = () => {
+    if (state?.file) {
+      const formData: IformDataType = new FormData();
+      formData.append("file", state?.file);
+      formData.append("productId", productInfo?.id);
+      formData.append("isAvatar", state?.isAvatar);
+      dispatch({
+        type: productActions.UPLOAD_PRODUCT_IMAGE,
+        payload: formData,
+      });
+      setTimeout(() => {
+        fetchProducts();
+        onCloseModal();
+      }, 70);
+    } else {
+      setState({ ...state, message: "please choose file to upload" });
+    }
   };
 
   const content = (
@@ -61,7 +95,7 @@ const ProductImages = (props: IpropProductImage) => {
           {productInfo?.images?.map((image: IproductImage) => {
             return (
               <Carousel.Item key={image?.id}>
-                <img src={image?.url} alt="" width="100%" height={380} />
+                <img src={`${API_URL}/${image?.url}`} alt="" width="100%" height={380} />
               </Carousel.Item>
             );
           })}
@@ -72,8 +106,25 @@ const ProductImages = (props: IpropProductImage) => {
         title={productImageTab.uploadImage.title}
       >
         <div className="mt-2 ms-2">
-          <Form.Control type="file" />
-          <Form.Check label="isAvatar" className="mt-3" />
+          <Form.Control
+            type="file"
+            onChange={(e: IchangeFileEvent) =>
+              setState({ ...state, file: e.target.files[0] })
+            }
+          />
+          <p className="text-danger ms-3">{state?.message}</p>
+          <Form.Check
+            label="isAvatar"
+            className="mt-3"
+            onClick={(e: IcheckBoxEvent) =>
+              setState({ ...state, isAvatar: e.target.checked })
+            }
+          />
+          <p className="text-end">
+            <Button className="mt-3" onClick={() => uploadImage()}>
+              Upload
+            </Button>
+          </p>
         </div>
       </Tab>
     </Tabs>
@@ -91,4 +142,4 @@ const ProductImages = (props: IpropProductImage) => {
   );
 };
 
-export default ProductImages;
+export default connect()(ProductImages);
