@@ -6,7 +6,7 @@ export interface IcreateProduct {
   name?: string;
   description?: string;
   price?: number;
-  quantity?: number;
+  quantity?: number | any;
   categoryId?: string;
 }
 

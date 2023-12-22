@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
+import { NotificationManager } from "react-notifications";
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { Form, Button, Card, Col, Row } from "react-bootstrap";
@@ -11,12 +14,42 @@ import {
   getAvatarProductImage,
   getDiscountProduct,
 } from "../../../utils/product.util";
+import { Iproduct } from "../../../interfaces/product.inteface";
+import { getCart, addTocart } from "../../../services/cart.service";
 
 const ProductListHomePage = (props: IpropProductHomePage) => {
-  const { category, listProducts = [], dispatch } = props;
+  const { category, listProducts = [], dispatch, fetchCart } = props;
   const [state, setState] = useState({
     title: "",
   });
+
+  const addCart = (product: Iproduct) => {
+    const carts = getCart();
+    const srcImage = getAvatarProductImage(product);
+    const checkDiscount = getDiscountProduct(product);
+    const productCheck = carts?.find(
+      (cart: { id: string }) => cart?.id === product?.id
+    );
+    const productDetail = {
+      name: product?.name,
+      images: srcImage,
+      id: product?.id,
+      price: checkDiscount
+        ? calculatorPrice(product?.price, checkDiscount?.discount)
+        : product?.price,
+    };
+    if (productCheck?.quantity >= product?.quantity) {
+      NotificationManager.error(
+        "quantity in warehouse is not enough",
+        "Add to cart",
+        4000
+      );
+    } else {
+      addTocart(productDetail);
+      fetchCart();
+      NotificationManager.success("Add to cart success", "Add to cart", 4000);
+    }
+  };
 
   const fetchProducts = () => {
     dispatch({
@@ -99,7 +132,8 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                                 discounts?.discount
                               )
                             ).toLocaleString("en-US")
-                          : product?.price?.toLocaleString("en-US")}đ
+                          : product?.price?.toLocaleString("en-US")}
+                        đ
                       </span>{" "}
                       {discounts ? (
                         <del className="OriginPrice">
@@ -109,7 +143,11 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                     </Card.Text>
                   </Card.Body>
                   <span className="text-center">
-                    <Button variant="outline-primary" className="w-100">
+                    <Button
+                      variant="outline-primary"
+                      className="w-100"
+                      onClick={() => addCart(product)}
+                    >
                       Add to card <BsCartFill />
                     </Button>{" "}
                   </span>

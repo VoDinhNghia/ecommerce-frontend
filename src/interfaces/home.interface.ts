@@ -17,4 +17,5 @@ export interface IpropProductHomePage {
   dispatch?: any;
   category: any;
   listProducts?: Iproduct[];
+  fetchCart?: any;
 }
