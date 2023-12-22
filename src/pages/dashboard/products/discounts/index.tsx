@@ -9,6 +9,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import {
   formatDate,
   inputTypes,
+  modalTypes,
   productDiscountTab,
 } from "../../../../constants/constant";
 import {
@@ -31,6 +32,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import TextFieldCommon from "../../../commons/textfield-input";
 import { productActions } from "../../../../store/actions";
+import ProductDiscountAction from "./actions";
 
 const ProductDiscount = (props: IpropProductDiscount) => {
   const {
@@ -147,6 +149,7 @@ const ProductDiscount = (props: IpropProductDiscount) => {
     </Tabs>
   );
   return (
+    <>
     <DialogModalCommonPage
       isShowModal={isShowModal}
       type={type}
@@ -155,6 +158,14 @@ const ProductDiscount = (props: IpropProductDiscount) => {
       content={content}
       size={"sm"}
     />
+    <ProductDiscountAction 
+      isShowModal={state.isShowModalDelete}
+      type={modalTypes.DELETE}
+      discountInfo={state.rowData}
+      onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
+      fetchProducts={() => fetchProducts()}
+    />
+    </>
   );
 };
 

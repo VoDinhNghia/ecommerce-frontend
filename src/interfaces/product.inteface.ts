@@ -85,3 +85,9 @@ export interface IpropProductDiscount extends IpropModalCommon {
   productInfo: Iproduct;
   fetchProducts?: any;
 }
+
+export interface IpropActionDiscount extends IpropModalCommon {
+  dispatch?: any;
+  fetchProducts?: any;
+  discountInfo?: IproductDiscount | any;
+}
