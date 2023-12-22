@@ -14,10 +14,10 @@ const HomePage = (props: IpropHomePage) => {
   const { dispatch, listCategories = [] } = props;
 
   const [state, setState] = useState({
-    categoryId: "",
+    category: null,
   });
 
-  const { categoryId } = state;
+  const { category } = state;
 
   const fetchCategories = () => {
     dispatch({
@@ -41,7 +41,7 @@ const HomePage = (props: IpropHomePage) => {
           />
         </Col>
         <Col xl={9}>
-          <ProductListHomePage categoryId={categoryId || listCategories[0]?.id}/>
+          <ProductListHomePage category={category || listCategories[0]}/>
         </Col>
       </Row>
       <FooterPage />

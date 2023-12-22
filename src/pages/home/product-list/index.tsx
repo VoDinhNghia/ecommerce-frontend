@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Card, Col, Row } from "react-bootstrap";
 import { IpropProductHomePage } from "../../../interfaces/home.interface";
 import { connect } from "react-redux";
@@ -8,13 +8,16 @@ import { BsCartFill } from "react-icons/bs";
 import { getAvatarProductImage } from "../../../utils/product.util";
 
 const ProductListHomePage = (props: IpropProductHomePage) => {
-  const { categoryId, listProducts = [], dispatch } = props;
+  const { category, listProducts = [], dispatch } = props;
+  const [state, setState] = useState({
+    title: "",
+  });
 
   const fetchProducts = () => {
     dispatch({
       type: productActions.GET_LIST_PRODUCT,
       payload: {
-        categoryId,
+        categoryId: category?.id,
       },
     });
   };
@@ -27,19 +30,21 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
           searchKey,
         },
       });
+      setState({ ...state, title: "Search results" });
     } else {
       dispatch({
         type: productActions.GET_LIST_PRODUCT,
         payload: {
-          categoryId,
+          categoryId: category?.id,
         },
       });
+      setState({ ...state, title: "" });
     }
   };
 
   useEffect(() => {
     fetchProducts();
-  }, [categoryId]);
+  }, [category]);
 
   return (
     <div className="mt-2">
@@ -57,6 +62,12 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
         </Card.Body>
       </Card>
       <Row>
+        <div className="mt-2 fs-5 ms-2 text-center fw-bold">
+          {state?.title || category?.name}{" "}
+          <span className="badge bg-primary rounded-pill">
+            {listProducts?.length || 0}
+          </span>
+        </div>
         {listProducts?.length > 0 ? (
           listProducts?.map((product) => {
             return (

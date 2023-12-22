@@ -15,6 +15,6 @@ export interface IpropCategoryHomePage {
 
 export interface IpropProductHomePage {
   dispatch?: any;
-  categoryId: any;
+  category: any;
   listProducts?: Iproduct[];
 }
