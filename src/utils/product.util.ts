@@ -161,4 +161,11 @@ export const registerSchemaProductDiscount = object({
     .transform((ed) => moment(ed).format(formatDate)),
 });
 
-export type IregisterSchemaProductDiscount = TypeOf<typeof registerSchemaProductDiscount>;
+export type IregisterSchemaProductDiscount = TypeOf<
+  typeof registerSchemaProductDiscount
+>;
+
+export const calculatorPrice = (price = 0, discount = 0) => {
+  const result = Number(price - (discount * price) / 100);
+  return result;
+};

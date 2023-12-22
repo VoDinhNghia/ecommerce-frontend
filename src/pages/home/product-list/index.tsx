@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
+import "./index.css";
 import { Form, Button, Card, Col, Row } from "react-bootstrap";
 import { IpropProductHomePage } from "../../../interfaces/home.interface";
 import { connect } from "react-redux";
 import { IstateRedux } from "../../../interfaces/common.interface";
 import { productActions } from "../../../store/actions";
 import { BsCartFill } from "react-icons/bs";
-import { getAvatarProductImage } from "../../../utils/product.util";
+import {
+  calculatorPrice,
+  getAvatarProductImage,
+  getDiscountProduct,
+} from "../../../utils/product.util";
 
 const ProductListHomePage = (props: IpropProductHomePage) => {
   const { category, listProducts = [], dispatch } = props;
@@ -70,6 +75,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
         </div>
         {listProducts?.length > 0 ? (
           listProducts?.map((product) => {
+            const discounts = getDiscountProduct(product);
             return (
               <Col xl={3} key={product?.id}>
                 <Card className="mt-3 ProductItemHomePage">
@@ -85,9 +91,21 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                       <a href={`#${product?.name}`}>{product?.name}</a>
                     </Card.Title>
                     <Card.Text>
-                      <del className="OriginPrice">
-                        {product?.price?.toLocaleString("en-US")} đ
-                      </del>
+                      <span>
+                        {discounts
+                          ? Number(
+                              calculatorPrice(
+                                product?.price,
+                                discounts?.discount
+                              )
+                            ).toLocaleString("en-US")
+                          : product?.price?.toLocaleString("en-US")}đ
+                      </span>{" "}
+                      {discounts ? (
+                        <del className="OriginPrice">
+                          (<i>{product?.price?.toLocaleString("en-US")}đ</i>)
+                        </del>
+                      ) : null}
                     </Card.Text>
                   </Card.Body>
                   <span className="text-center">

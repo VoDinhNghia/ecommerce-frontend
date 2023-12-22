@@ -1,0 +1,9 @@
+.ImageProductHomePage {
+  width: 100%;
+  height: 180px !important;
+}
+
+.OriginPrice {
+  color: red !important;
+  font-size: 13px;
+}
