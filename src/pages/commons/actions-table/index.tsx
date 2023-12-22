@@ -4,7 +4,7 @@ import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { IpropActionTableCommon } from "../../../interfaces/common.interface";
 
 const ActionTableCommon = (props: IpropActionTableCommon) => {
-  const { setState, state, rowData } =
+  const { setState, state, rowData, disableBtnUpdate = false } =
     props;
 
   return (
@@ -12,6 +12,7 @@ const ActionTableCommon = (props: IpropActionTableCommon) => {
       <Button
         variant="outline-primary"
         size="sm"
+        disabled={disableBtnUpdate}
         onClick={() =>
           setState({
             ...state,

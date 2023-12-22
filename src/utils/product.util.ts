@@ -119,3 +119,46 @@ export const getDiscountProduct = (product: Iproduct) => {
   );
   return discounts;
 };
+
+export const headerDiscountTable = [
+  {
+    id: "index",
+    label: "#",
+    minWidth: 120,
+  },
+  {
+    id: "discount",
+    label: "Discount",
+    minWidth: 120,
+  },
+  {
+    id: "startDate",
+    label: "StartDate",
+    minWidth: 120,
+  },
+  {
+    id: "endDate",
+    label: "EndDate",
+    minWidth: 120,
+  },
+  {
+    id: "actions",
+    label: "Action",
+    minWidth: 102,
+  },
+];
+
+export const registerSchemaProductDiscount = object({
+  discount: string()
+    .nonempty("discount is required")
+    .transform((d) => parseInt(d))
+    .pipe(number().max(100).min(0)),
+  startDate: string()
+    .nonempty("startDate is required")
+    .transform((st) => moment(st).format(formatDate)),
+  endDate: string()
+    .nonempty("endDate is required")
+    .transform((ed) => moment(ed).format(formatDate)),
+});
+
+export type IregisterSchemaProductDiscount = TypeOf<typeof registerSchemaProductDiscount>;

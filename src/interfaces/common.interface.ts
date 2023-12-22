@@ -109,6 +109,7 @@ export interface IpropActionTableCommon {
   state: any;
   setState: any;
   rowData?: any;
+  disableBtnUpdate?: any;
 }
 
 export interface ImodalCommon extends IpropModalCommon {

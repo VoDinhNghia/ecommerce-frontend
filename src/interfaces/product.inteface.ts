@@ -76,6 +76,10 @@ export interface IcreateProductDiscount {
   productId: string;
 }
 
+export interface IproductDiscount extends IcreateProductDiscount {
+  id: string;
+}
+
 export interface IpropProductDiscount extends IpropModalCommon {
   dispatch?: any;
   productInfo: Iproduct;
