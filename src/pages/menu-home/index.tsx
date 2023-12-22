@@ -32,8 +32,8 @@ const MenuHomePage = (props: IpropMenuHomePage) => {
             />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="gap-2 TextMenuHeader">
-                <Nav.Link className="RightMenu" href={routes.home}>
-                  <BiCategory /> {t("Shop")}
+                <Nav.Link className="RightMenu" href={routes.services}>
+                  <BiCategory /> {t("Services")}
                 </Nav.Link>
                 <Nav.Link className="RightMenu" href={routes.aboutUs}>
                   <BsInfoCircle /> {t("AboutUs")}
