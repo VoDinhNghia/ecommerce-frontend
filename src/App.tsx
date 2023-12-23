@@ -19,6 +19,7 @@ import in18 from "./i18n/i18n";
 import { I18nextProvider } from "react-i18next";
 import CategoryMgtPage from "./pages/dashboard/categories";
 import ProductMgtPage from "./pages/dashboard/products";
+import CartDetailPage from "./pages/carts";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             <Route path={routes.login} element={<LoginPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path={routes.home} element={<HomePage />} />
+            <Route path={routes.cartDetail} element={<CartDetailPage />} />
             <Route
               path={routes.dashboard}
               element={
