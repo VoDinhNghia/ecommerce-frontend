@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import MenuHomePage from "../menu-home";
 import FooterPage from "../commons/footer";
-import { addTocart, getCart } from "../../services/cart.service";
+import { addTocart, getCart, removeCart } from "../../services/cart.service";
 import {
   TableBody,
   TableContainer,
@@ -67,6 +67,25 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
     setState({ ...state, numberQuantity: null });
   };
 
+  const subtractCart = (product: Iproduct) => {
+    const quantity = numberQuantity ? Number(numberQuantity) : 1;
+    removeCart(product, quantity);
+    setTimeout(() => {
+      fetchCarts();
+    }, 70);
+    NotificationManager.success(
+      `${
+        product?.quantity - 1 === 0 ? "remove" : "subtract quantity"
+      } product success`,
+      "Subtract cart",
+      3000
+    );
+    setState({
+      ...state,
+      numberQuantity: null,
+    });
+  };
+
   useEffect(() => {
     fetchCarts();
     fetchProducts();
@@ -117,6 +136,7 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
                           variant="outline-danger"
                           size="sm"
                           className="ms-1"
+                          onClick={() => subtractCart(cart)}
                         >
                           <BsDashLg />
                         </Button>
