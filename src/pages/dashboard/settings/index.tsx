@@ -7,6 +7,7 @@ import { Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import TitleHeaderPage from "../../commons/title-header";
 import { validateRoleSa } from "../../../utils/permission.util";
+import SlideImageAdvSetting from "./slide-images";
 
 const SettingMgtPage = () => {
   const slideImage = "Show slide image";
@@ -37,7 +38,7 @@ const SettingMgtPage = () => {
                     </TabList>
                   </Box>
                   <TabPanel value={slideImage}>
-                    <p>Slide image setting page</p>
+                    <SlideImageAdvSetting />
                   </TabPanel>
                 </TabContext>
               </Box>
