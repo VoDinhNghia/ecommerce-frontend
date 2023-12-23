@@ -2,6 +2,7 @@
 
 import { Icategory } from "./category.interface";
 import { Iproduct } from "./product.inteface";
+import { IslideImageAdv } from "./settings.interface";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IeventOnchangeInput {
@@ -54,6 +55,10 @@ export interface IstateRedux {
   ProductReducer: {
     listProducts: Iproduct[];
     totalProduct: number;
+  };
+  SlideImgAdvReducer: {
+    listSlideImgAdv: IslideImageAdv[];
+    totalSlideImgAdv: number;
   };
 }
 
