@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
+import { NotificationManager } from "react-notifications";
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import MenuHomePage from "../menu-home";
 import FooterPage from "../commons/footer";
-import { getCart } from "../../services/cart.service";
+import { addTocart, getCart } from "../../services/cart.service";
 import {
   TableBody,
   TableContainer,
@@ -15,20 +18,58 @@ import { headerTableCart } from "../../utils/cart.util";
 import { Container, ButtonGroup, Button, Form } from "react-bootstrap";
 import { Iproduct } from "../../interfaces/product.inteface";
 import { BsPlus, BsDashLg } from "react-icons/bs";
+import { connect } from "react-redux";
+import { IstateRedux } from "../../interfaces/common.interface";
+import {
+  IformAddToCart,
+  IpropCartDetailPage,
+} from "../../interfaces/cart.interface";
+import { productActions } from "../../store/actions";
 
-const CartDetailPage = () => {
+const CartDetailPage = (props: IpropCartDetailPage) => {
+  const { dispatch, listProducts } = props;
   const [state, setState] = useState({
     numberCart: 0,
     carts: [],
+    numberQuantity: null,
   });
-  const { numberCart, carts } = state;
+  const { numberCart, carts, numberQuantity } = state;
   const fetchCarts = () => {
     const carts = getCart();
     setState({ ...state, numberCart: carts?.length || 0, carts });
   };
 
+  const fetchProducts = () => {
+    dispatch({
+      type: productActions.GET_LIST_PRODUCT,
+    });
+  };
+
+  const addCart = (product: Iproduct) => {
+    const quantity = numberQuantity ? Number(numberQuantity) : 1;
+    const findProduct = listProducts?.find((pro) => pro?.id === product?.id);
+    if (
+      findProduct?.quantity < quantity ||
+      findProduct?.quantity < product?.quantity
+    ) {
+      NotificationManager.error(
+        "quantity number in warehouse is not enough",
+        "Add to cart",
+        4000
+      );
+    } else {
+      addTocart(product, quantity);
+      setTimeout(() => {
+        fetchCarts();
+      }, 70);
+      NotificationManager.success("Add to cart success", "Add to cart", 3000);
+    }
+    setState({ ...state, numberQuantity: null });
+  };
+
   useEffect(() => {
     fetchCarts();
+    fetchProducts();
   }, []);
 
   return (
@@ -57,6 +98,7 @@ const CartDetailPage = () => {
                           variant="outline-primary"
                           className="me-1"
                           size="sm"
+                          onClick={() => addCart(cart)}
                         >
                           <BsPlus />
                         </Button>{" "}
@@ -64,6 +106,12 @@ const CartDetailPage = () => {
                           type="number"
                           className="FormControl"
                           size="sm"
+                          onChange={(e: IformAddToCart) =>
+                            setState({
+                              ...state,
+                              numberQuantity: e?.target?.value,
+                            })
+                          }
                         />
                         <Button
                           variant="outline-danger"
@@ -86,4 +134,10 @@ const CartDetailPage = () => {
   );
 };
 
-export default CartDetailPage;
+const mapStateToProp = (state: IstateRedux) => {
+  return {
+    listProducts: state.ProductReducer.listProducts,
+  };
+};
+
+export default connect(mapStateToProp)(CartDetailPage);
