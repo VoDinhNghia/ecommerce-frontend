@@ -31,7 +31,7 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
   const [state, setState] = useState({
     numberCart: 0,
     carts: [],
-    numberQuantity: null,
+    numberQuantity: 0,
   });
   const { numberCart, carts, numberQuantity } = state;
   const fetchCarts = () => {
@@ -46,10 +46,9 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
   };
 
   const addCart = (product: Iproduct) => {
-    const quantity = numberQuantity ? Number(numberQuantity) : 1;
     const findProduct = listProducts?.find((pro) => pro?.id === product?.id);
     if (
-      findProduct?.quantity < quantity ||
+      findProduct?.quantity < numberQuantity ||
       findProduct?.quantity < product?.quantity
     ) {
       NotificationManager.error(
@@ -58,18 +57,17 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
         4000
       );
     } else {
-      addTocart(product, quantity);
-      setTimeout(() => {
-        fetchCarts();
-      }, 70);
+      addTocart(product, numberQuantity > 0 ? numberQuantity : 1);
       NotificationManager.success("Add to cart success", "Add to cart", 3000);
     }
-    setState({ ...state, numberQuantity: null });
+    setTimeout(() => {
+      fetchCarts();
+    }, 70);
+    setState({ ...state, numberQuantity: 0 });
   };
 
   const subtractCart = (product: Iproduct) => {
-    const quantity = numberQuantity ? Number(numberQuantity) : 1;
-    removeCart(product, quantity);
+    removeCart(product, numberQuantity > 0 ? numberQuantity : 1);
     setTimeout(() => {
       fetchCarts();
     }, 70);
@@ -82,7 +80,7 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
     );
     setState({
       ...state,
-      numberQuantity: null,
+      numberQuantity: 0,
     });
   };
 
@@ -128,7 +126,7 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
                           onChange={(e: IformAddToCart) =>
                             setState({
                               ...state,
-                              numberQuantity: e?.target?.value,
+                              numberQuantity: Number(e?.target?.value),
                             })
                           }
                         />
