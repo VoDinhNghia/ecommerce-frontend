@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import FooterPage from "../commons/footer";
 import MenuHomePage from "../menu-home";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { IstateRedux } from "../../interfaces/common.interface";
 import { IpropHomePage } from "../../interfaces/home.interface";
@@ -39,7 +39,8 @@ const HomePage = (props: IpropHomePage) => {
   return (
     <div>
       <MenuHomePage numberCart={numberCart || getCart()?.length} />
-      <Row className="mt-2 mb-3">
+      <Container>
+        <Row className="mt-2 mb-4">
         <Col xl={3} className="HomePageCategoryLeft">
           <CategoryHomePage
             listCategories={listCategories}
@@ -53,7 +54,8 @@ const HomePage = (props: IpropHomePage) => {
             fetchCart={() => fetchCart()}
           />
         </Col>
-      </Row>
+        </Row>
+      </Container>
       <FooterPage />
     </div>
   );

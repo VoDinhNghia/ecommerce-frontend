@@ -110,7 +110,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
           listProducts?.map((product) => {
             const discounts = getDiscountProduct(product);
             return (
-              <Col xl={3} key={product?.id}>
+              <Col xl={4} key={product?.id}>
                 <Card className="mt-3 ProductItemHomePage">
                   <a href={`#${product?.name}`}>
                     <Card.Img

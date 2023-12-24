@@ -1,3 +1,7 @@
+.ContainerHomePage {
+  width: 98%;
+}
+
 @media screen and (max-width: 600px) {
   .HomePageCategoryLeft {
     display: none;
