@@ -10,6 +10,7 @@ import { categoryActions } from "../../store/actions";
 import CategoryHomePage from "./category-list";
 import ProductListHomePage from "./product-list";
 import { getCart } from "../../services/cart.service";
+import SlideImgAdvHomePage from "./slide-adv";
 
 const HomePage = (props: IpropHomePage) => {
   const { dispatch, listCategories = [] } = props;
@@ -39,6 +40,7 @@ const HomePage = (props: IpropHomePage) => {
   return (
     <div>
       <MenuHomePage numberCart={numberCart || getCart()?.length} />
+      <SlideImgAdvHomePage />
       <Container>
         <Row className="mt-2 mb-4">
         <Col xl={3} className="HomePageCategoryLeft">

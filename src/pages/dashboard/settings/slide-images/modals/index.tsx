@@ -53,7 +53,7 @@ const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
       type: settingActions.UPDATE_SLIDE_IMAGE,
       id: slideImageInfo?.id,
       payload: {
-        isActive: state?.isActive || slideImageInfo?.isActive,
+        isActive: state?.isActive,
         description: state?.description || slideImageInfo?.description,
       },
     });
@@ -90,7 +90,7 @@ const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
           <Form.Check
             label="isActive"
             className="mt-3"
-            defaultChecked={slideImageInfo?.isActive || true}
+            defaultChecked={slideImageInfo?.isActive}
             onClick={(e: IcheckBoxEvent) =>
               setState({ ...state, isActive: e.target.checked })
             }

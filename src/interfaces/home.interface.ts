@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Icategory } from "./category.interface";
 import { Iproduct } from "./product.inteface";
+import { IslideImageAdv } from "./settings.interface";
 
 export interface IpropHomePage {
   dispatch: any;
@@ -18,4 +19,9 @@ export interface IpropProductHomePage {
   category: any;
   listProducts?: Iproduct[];
   fetchCart?: any;
+}
+
+export interface IpropSlideImgAdv {
+  dispatch?: any;
+  listSlideImgAdv: IslideImageAdv[];
 }
