@@ -23,7 +23,7 @@ const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
   } = props;
   const [state, setState] = useState({
     file: null,
-    isActive: true,
+    isActive: null,
     description: "",
     message: "",
   });
@@ -49,11 +49,29 @@ const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
   };
 
   const updateSlideImg = () => {
-    alert("Update slide image");
+    dispatch({
+      type: settingActions.UPDATE_SLIDE_IMAGE,
+      id: slideImageInfo?.id,
+      payload: {
+        isActive: state?.isActive || slideImageInfo?.isActive,
+        description: state?.description || slideImageInfo?.description,
+      },
+    });
+    setTimeout(() => {
+      fetchSlideImg();
+      onCloseModal();
+    }, 100);
   };
 
   const onDelete = () => {
-    alert("This is fcn delete slide image");
+    dispatch({
+      type: settingActions.DELETE_SLIDE_IMAGE,
+      id: slideImageInfo?.id,
+    });
+    setTimeout(() => {
+      fetchSlideImg();
+      onCloseModal();
+    }, 100);
   };
 
   const content = (

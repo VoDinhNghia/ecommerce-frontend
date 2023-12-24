@@ -13,6 +13,13 @@ export const createSlideImg = async (payload: IcreateSlideImg) => {
   return res;
 };
 
+export const updateSlideImg = async (id: string, payload: IcreateSlideImg) => {
+  const res = await axios.put(`${API_URL}/api/slide-image/${id}`, payload, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+};
+
 export const getAllSlideImg = async (payload: IfetchSlideImg) => {
   const res = await axios.get(`${API_URL}/api/slide-image`, {
     params: payload,

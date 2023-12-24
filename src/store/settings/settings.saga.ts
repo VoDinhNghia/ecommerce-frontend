@@ -4,11 +4,13 @@ import {
   createSlideImg,
   deleteSlideImg,
   getAllSlideImg,
+  updateSlideImg,
 } from "../../services/settings.service";
 import {
   addSagaCommon,
   fetchListSagaCommon,
   removeSagaCommon,
+  updateSagaCommon,
 } from "../common";
 import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
 
@@ -23,6 +25,10 @@ function* fetchSlideImageAdv(params: IparamSaga) {
     "Get list slide image",
     params
   );
+}
+
+function* editSlideImage(params: IparamSaga) {
+  yield updateSagaCommon(updateSlideImg, params, "Update slide image");
 }
 
 function* deleteSlideImageAdv(params: IparamSaga) {
@@ -41,6 +47,10 @@ function* SlideImageAdvSaga() {
   yield takeLatest<ItakeLatestSaga>(
     settingActions.GET_SLIDE_IMAGE,
     fetchSlideImageAdv
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    settingActions.UPDATE_SLIDE_IMAGE,
+    editSlideImage
   );
 }
 
