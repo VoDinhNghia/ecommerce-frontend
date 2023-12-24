@@ -1,9 +1,13 @@
-import { IpropModalCommon } from "./common.interface";
+import { IparamsFetchList, IpropModalCommon } from "./common.interface";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IcreateSlideImg {
   file?: any;
   description?: string;
+  isActive?: boolean;
+}
+
+export interface IfetchSlideImg extends IparamsFetchList {
   isActive?: boolean;
 }
 

@@ -66,11 +66,12 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>
                     <img
-                      src={`${API_URL}/${slide?.url}`}
+                      src={`${API_URL}/slide-images/${slide?.url}`}
                       width={180}
                       height={120}
                     />
                   </TableCell>
+                  <TableCell>{slide?.originName}</TableCell>
                   <TableCell>{slide?.isActive?.toString()}</TableCell>
                   <TableCell>{slide?.description}</TableCell>
                   <TableCell>

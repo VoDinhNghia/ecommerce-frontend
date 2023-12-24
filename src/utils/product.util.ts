@@ -102,7 +102,7 @@ export const getAvatarProductImage = (product: Iproduct) => {
   const isAvatar = images?.find((img: { isAvatar: boolean }) => img.isAvatar)
     ?.url;
   const srcImage = isAvatar
-    ? `${API_URL}/${isAvatar}`
+    ? `${API_URL}/products/${isAvatar}`
     : images.length > 0
     ? `${API_URL}/${images[0]?.url}`
     : "";

@@ -8,10 +8,19 @@ import { Form } from "react-bootstrap";
 import {
   IchangeFileEvent,
   IcheckBoxEvent,
+  IformDataType,
 } from "../../../../../interfaces/common.interface";
+import { settingActions } from "../../../../../store/actions";
 
 const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
-  const { isShowModal, onCloseModal, type, slideImageInfo } = props;
+  const {
+    isShowModal,
+    onCloseModal,
+    type,
+    slideImageInfo,
+    dispatch,
+    fetchSlideImg,
+  } = props;
   const [state, setState] = useState({
     file: null,
     isActive: true,
@@ -20,7 +29,23 @@ const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
   });
 
   const addSlideImg = () => {
-    alert("Add slide image");
+    if (state?.file) {
+      const formData: IformDataType = new FormData();
+      formData.append("file", state?.file);
+      formData.append("description", state?.description);
+      formData.append("isActive", state?.isActive);
+      dispatch({
+        type: settingActions.ADD_SLIDE_IMAGE,
+        payload: formData,
+      });
+      setTimeout(() => {
+        fetchSlideImg();
+        onCloseModal();
+      }, 100);
+      setState({ ...state, message: "" });
+    } else {
+      setState({ ...state, message: "please choose file to upload" });
+    }
   };
 
   const updateSlideImg = () => {
@@ -58,6 +83,9 @@ const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
             defaultValue={slideImageInfo?.description}
             rows={3}
             placeholder="write something description at here..."
+            onChange={(e) =>
+              setState({ ...state, description: e?.target?.value })
+            }
           />
           <Button
             variant="contained"

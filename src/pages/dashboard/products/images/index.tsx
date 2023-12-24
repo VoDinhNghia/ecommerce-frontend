@@ -110,7 +110,7 @@ const ProductImages = (props: IpropProductImage) => {
             return (
               <Carousel.Item key={imgId}>
                 <img
-                  src={`${API_URL}/${image?.url}`}
+                  src={`${API_URL}/products/${image?.url}`}
                   alt=""
                   width="100%"
                   height={380}

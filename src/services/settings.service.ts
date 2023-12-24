@@ -1,7 +1,10 @@
 import axios from "axios";
 import { API_URL } from "../constants/constant";
 import { setHeaderAxios, setMultipartHeader } from "./auth.service";
-import { IcreateSlideImg } from "../interfaces/settings.interface";
+import {
+  IcreateSlideImg,
+  IfetchSlideImg,
+} from "../interfaces/settings.interface";
 
 export const createSlideImg = async (payload: IcreateSlideImg) => {
   const res = await axios.post(`${API_URL}/api/slide-image`, payload, {
@@ -10,8 +13,10 @@ export const createSlideImg = async (payload: IcreateSlideImg) => {
   return res;
 };
 
-export const getAllSlideImg = async () => {
-  const res = await axios.get(`${API_URL}/api/slide-image`);
+export const getAllSlideImg = async (payload: IfetchSlideImg) => {
+  const res = await axios.get(`${API_URL}/api/slide-image`, {
+    params: payload,
+  });
   return res;
 };
 

@@ -10,6 +10,11 @@ export const headerSlideImageTable = [
     minWidth: 120,
   },
   {
+    id: "name",
+    label: "Name",
+    minWidth: 120,
+  },
+  {
     id: "isActive",
     label: "IsActive",
     minWidth: 120,
