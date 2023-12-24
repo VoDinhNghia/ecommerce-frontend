@@ -119,27 +119,25 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                       src={getAvatarProductImage(product)}
                     />
                   </a>
-                  <Card.Body className="text-center">
-                    <Card.Title className="text-center fs-6">
+                  <Card.Body className="">
+                    <Card.Title className="fs-6">
                       <a href={`#${product?.name}`}>{product?.name}</a>
                     </Card.Title>
-                    <Card.Text>
-                      <span>
+                    <Card.Text className="fs-6 fw-bold">
+                      <div>
                         {discounts
-                          ? Number(
+                          ? <p>
+                            {Number(
                               calculatorPrice(
                                 product?.price,
                                 discounts?.discount
                               )
-                            ).toLocaleString("en-US")
-                          : product?.price?.toLocaleString("en-US")}
-                        đ
-                      </span>{" "}
-                      {discounts ? (
-                        <del className="OriginPrice">
-                          (<i>{product?.price?.toLocaleString("en-US")}đ</i>)
-                        </del>
-                      ) : null}
+                            ).toLocaleString("en-US")}đ{" "}
+                            <span className="text-danger fw-bold">(-{discounts?.discount}%)</span>
+                            <p><del className="OriginPrice">{product?.price?.toLocaleString("en-US")}đ</del></p>
+                          </p>
+                          : <p>{product?.price?.toLocaleString("en-US")}đ</p>}
+                      </div>{" "}
                     </Card.Text>
                   </Card.Body>
                   <span className="text-center">

@@ -5,5 +5,9 @@
 
 .OriginPrice {
   color: red !important;
-  font-size: 13px;
+  font-size: 15px;
+}
+
+.ProductItemHomePage {
+  height: 350px !important;
 }
