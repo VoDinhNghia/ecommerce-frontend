@@ -142,7 +142,6 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                   </Card.Body>
                   <span className="text-center">
                     <Button
-                      variant="outline-primary"
                       className="w-100"
                       onClick={() => addCart(product)}
                     >

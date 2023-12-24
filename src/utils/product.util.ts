@@ -104,7 +104,7 @@ export const getAvatarProductImage = (product: Iproduct) => {
   const srcImage = isAvatar
     ? `${API_URL}/products/${isAvatar}`
     : images.length > 0
-    ? `${API_URL}/${images[0]?.url}`
+    ? `${API_URL}/products/${images[0]?.url}`
     : "";
   return srcImage;
 };

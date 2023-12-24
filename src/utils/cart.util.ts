@@ -5,13 +5,13 @@ export const headerTableCart = [
     minWidth: 120,
   },
   {
-    id: "name",
-    label: "Name",
+    id: "image",
+    label: "Image",
     minWidth: 120,
   },
   {
-    id: "image",
-    label: "Image",
+    id: "name",
+    label: "Name",
     minWidth: 120,
   },
   {

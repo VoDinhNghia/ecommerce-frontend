@@ -101,10 +101,10 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
                 return (
                   <TableRow key={cart?.id} hover role="checkbox" tabIndex={-1}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell className="text-primary">{cart?.name}</TableCell>
                     <TableCell>
                       <img src={cart?.images} alt="" width={100} height={50} />
                     </TableCell>
+                    <TableCell className="text-primary">{cart?.name}</TableCell>
                     <TableCell>
                       {cart?.price?.toLocaleString("en-US")}đ
                     </TableCell>
