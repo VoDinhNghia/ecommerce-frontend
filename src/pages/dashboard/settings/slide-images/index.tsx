@@ -31,6 +31,15 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
     });
   };
 
+  const onSearch = (searchKey: string) => {
+    dispatch({
+      type: settingActions.GET_SLIDE_IMAGE,
+      payload: {
+        searchKey,
+      }
+    });
+  }
+
   useEffect(() => {
     fetchSlideImg();
   }, []);
@@ -39,8 +48,9 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
     <div>
       <AddAndSearchTable
         title="Add Image"
-        disableSearch={true}
+        disableSearch={false}
         onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
+        onSearch={(e: string) => onSearch(e)}
       />
       <TableContainer>
         <Table stickyHeader arial-label="slide image table">
