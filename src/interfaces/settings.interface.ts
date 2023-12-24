@@ -1,3 +1,5 @@
+import { IpropModalCommon } from "./common.interface";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IcreateSlideImg {
   file?: any;
@@ -17,4 +19,10 @@ export interface IslideImageAdv {
 export interface IpropSlideImgAdvPage {
   dispatch?: any;
   listSlideImgAdv: IslideImageAdv[];
+}
+
+export interface IpropModalSlideImgAdv extends IpropModalCommon {
+  listSlideImgAdv?: IslideImageAdv[];
+  fetchSlideImg?: any;
+  slideImageInfo?: IslideImageAdv | any;
 }

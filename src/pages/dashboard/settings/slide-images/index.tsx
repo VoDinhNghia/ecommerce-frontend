@@ -14,7 +14,8 @@ import {
 import HeaderTableCommon from "../../../commons/header-table";
 import { headerSlideImageTable } from "../../../../utils/settings.util";
 import ActionTableCommon from "../../../commons/actions-table";
-import { API_URL } from "../../../../constants/constant";
+import { API_URL, modalTypes } from "../../../../constants/constant";
+import ModalSlideImages from "./modals";
 
 const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
   const { dispatch, listSlideImgAdv = [] } = props;
@@ -24,6 +25,9 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
     isShowModalUpdate: false,
     isShowModalDelete: false,
   });
+
+  const { isShowModalAdd, isShowModalDelete, isShowModalUpdate, rowData } =
+    state;
 
   const fetchSlideImg = () => {
     dispatch({
@@ -36,9 +40,9 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
       type: settingActions.GET_SLIDE_IMAGE,
       payload: {
         searchKey,
-      }
+      },
     });
-  }
+  };
 
   useEffect(() => {
     fetchSlideImg();
@@ -82,6 +86,27 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <ModalSlideImages
+        isShowModal={isShowModalAdd}
+        type={modalTypes.ADD}
+        slideImageInfo={{}}
+        fetchSlideImg={() => fetchSlideImg()}
+        onCloseModal={() => setState({ ...state, isShowModalAdd: false })}
+      />
+      <ModalSlideImages
+        isShowModal={isShowModalUpdate}
+        type={modalTypes.UPDATE}
+        slideImageInfo={rowData}
+        fetchSlideImg={() => fetchSlideImg()}
+        onCloseModal={() => setState({ ...state, isShowModalUpdate: false })}
+      />
+      <ModalSlideImages
+        isShowModal={isShowModalDelete}
+        type={modalTypes.DELETE}
+        slideImageInfo={rowData}
+        fetchSlideImg={() => fetchSlideImg()}
+        onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
+      />
     </div>
   );
 };
