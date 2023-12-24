@@ -73,6 +73,8 @@ export interface IpropAddAndSearchTable {
   onSearch?: Function | any;
   onShowAdd?: Function | any;
   titleSearch?: string;
+  disableSearch?: boolean;
+  disableBtnAdd?: boolean;
 }
 
 export interface IpropModalCommon {
