@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Icategory } from "./category.interface";
+import { IpropModalCommon } from "./common.interface";
 import { Iproduct } from "./product.inteface";
 import { IslideImageAdv } from "./settings.interface";
 
@@ -24,4 +25,10 @@ export interface IpropProductHomePage {
 export interface IpropSlideImgAdv {
   dispatch?: any;
   listSlideImgAdv: IslideImageAdv[];
+}
+
+export interface IpropProductDetailHomePage extends IpropModalCommon {
+  dispatch?: any;
+  productDetail?: Iproduct;
+  productId?: string;
 }

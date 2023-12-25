@@ -99,3 +99,8 @@ export const deleteDiscount = async (id: string) => {
   });
   return res;
 };
+
+export const getProductDetail = async (id: string) => {
+  const res = await axios.get(`${API_URL}/api/products/${id}`);
+  return res;
+};

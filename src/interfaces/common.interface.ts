@@ -55,6 +55,7 @@ export interface IstateRedux {
   ProductReducer: {
     listProducts: Iproduct[];
     totalProduct: number;
+    productDetail: Iproduct;
   };
   SlideImgAdvReducer: {
     listSlideImgAdv: IslideImageAdv[];

@@ -30,6 +30,26 @@ export function* fetchListSagaCommon(
   }
 }
 
+export function* fetchDetailSagaCommon(
+  fetchFunction: any,
+  params: IparamSaga,
+  action: string,
+  message: string,
+): ReturnType<IreturnTypeSaga> {
+  const { id } = params;
+  try {
+    const res: IresponseAxios = yield call(fetchFunction, id);
+    yield put({
+      type: action,
+      payload: res?.data?.data,
+    });
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      NotificationManager.error(error?.response?.data?.message, message, 4000);
+    }
+  }
+}
+
 export function* updateSagaCommon(
   updateFunction: any,
   params: IparamSaga,

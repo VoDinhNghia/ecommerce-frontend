@@ -11,11 +11,13 @@ import {
   createDiscount,
   updateDiscount,
   deleteDiscount,
+  getProductDetail,
 } from "../../services/products.service";
 import { productActions } from "../actions";
 import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
 import {
   addSagaCommon,
+  fetchDetailSagaCommon,
   fetchListSagaCommon,
   removeSagaCommon,
   updateSagaCommon,
@@ -70,6 +72,15 @@ function* removeDiscount(params: IparamSaga) {
   yield removeSagaCommon(deleteDiscount, params, "Delete product discount");
 }
 
+function* fetchProductDetail(params: IparamSaga) {
+  yield fetchDetailSagaCommon(
+    getProductDetail,
+    params,
+    productActions.GET_PRODUCT_DETAIL_SUCCESS,
+    "Get product detail success"
+  );
+}
+
 function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(productActions.ADD_PRODUCT, addProduct);
   yield takeLatest<ItakeLatestSaga>(productActions.UPDATE_PRODUCT, editProduct);
@@ -108,6 +119,10 @@ function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(
     productActions.DELETE_PRODUCT_DISCOUNT,
     removeDiscount
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.GET_PRODUCT_DETAIL,
+    fetchProductDetail
   );
 }
 

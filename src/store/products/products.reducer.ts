@@ -4,6 +4,7 @@ import { productActions } from "../actions";
 const initState = {
   listProducts: [],
   totalProduct: 0,
+  productDetail: {},
 };
 
 const ProductReducer = (state = initState, action: IactionRedux) => {
@@ -20,6 +21,12 @@ const ProductReducer = (state = initState, action: IactionRedux) => {
         totalProduct: action?.payload?.total,
         loading: false,
       };
+    case productActions.GET_PRODUCT_DETAIL_SUCCESS:
+      return {
+        ...state,
+        productDetail: action?.payload,
+        loading: false,
+      }
     default:
       return state;
   }
