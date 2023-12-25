@@ -51,7 +51,9 @@ const MenuHomePage = (props: IpropMenuHomePage) => {
                 ) : null}
                 <Nav.Link className="RightMenu" href={routes.cartDetail}>
                   <BsCartFill />{" "}
-                  <span className="NumberCartMenu">{numberCart}</span>
+                  <span className="position-absolute translate-middle badge rounded-pill bg-danger NumberCartMenu">
+                    {numberCart}
+                  </span>
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>
