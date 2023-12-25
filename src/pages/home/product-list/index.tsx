@@ -100,12 +100,12 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
         </Card.Body>
       </Card>
       <Row>
-        <div className="mt-2 fs-5 ms-2 text-center fw-bold">
+        <p className="mt-2 fs-5 ms-2 text-center fw-bold">
           {state?.title || category?.name}{" "}
           <span className="badge bg-primary rounded-pill">
             {listProducts?.length || 0}
           </span>
-        </div>
+        </p>
         {listProducts?.length > 0 ? (
           listProducts?.map((product) => {
             const discounts = getDiscountProduct(product);
@@ -124,27 +124,32 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                       <a href={`#${product?.name}`}>{product?.name}</a>
                     </Card.Title>
                     <Card.Text className="fs-6 fw-bold">
-                      <div>
-                        {discounts
-                          ? <p>
+                      {discounts ? (
+                        <>
+                          <span>
                             {Number(
                               calculatorPrice(
                                 product?.price,
                                 discounts?.discount
                               )
-                            ).toLocaleString("en-US")}đ{" "}
-                            <span className="text-danger fw-bold">(-{discounts?.discount}%)</span>
-                            <p><del className="OriginPrice">{product?.price?.toLocaleString("en-US")}đ</del></p>
-                          </p>
-                          : <p>{product?.price?.toLocaleString("en-US")}đ</p>}
-                      </div>{" "}
+                            ).toLocaleString("en-US")}
+                            đ {" "}
+                            <span className="text-danger fw-bold">
+                              (-{discounts?.discount}%)
+                            </span>
+                          </span>
+                          <br />
+                            <del className="OriginPrice">
+                              {product?.price?.toLocaleString("en-US")}đ
+                            </del>
+                        </>
+                      ) : (
+                        `${product?.price?.toLocaleString("en-US")}đ`
+                      )}
                     </Card.Text>
                   </Card.Body>
                   <span className="text-center">
-                    <Button
-                      className="w-100"
-                      onClick={() => addCart(product)}
-                    >
+                    <Button className="w-100" onClick={() => addCart(product)}>
                       Add to card <BsCartFill />
                     </Button>{" "}
                   </span>
@@ -153,13 +158,13 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
             );
           })
         ) : (
-          <p className="mt-2 text-center">
+          <div className="mt-2 text-center">
             <img
               src="/images/product-not-found.jpg"
               width="70%"
               height="400px"
             />
-          </p>
+          </div>
         )}
       </Row>
     </div>

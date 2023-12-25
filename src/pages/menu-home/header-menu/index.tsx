@@ -44,17 +44,14 @@ const HeaderMenuPage = (props: IpropHeaderMenu) => {
           <Dropdown.Toggle
             className="bg-light text-primary"
             size="sm"
-            href={routes.login}
+            href={!currentUser?.role ? routes.login : ""}
+            onClick={currentUser?.role ? () => logout() : undefined}
           >
             <FaSignInAlt />{" "}
             {currentUser?.role ? (
-              <a href="/" onClick={() => logout()}>
-                {t("SignOut")}
-              </a>
+              <span>{t("SignOut")}</span>
             ) : (
-              <a href={routes.login}>
-                {t("SignIn")}
-              </a>
+              <span>{t("SignIn")}</span>
             )}
           </Dropdown.Toggle>
           {" | "}
