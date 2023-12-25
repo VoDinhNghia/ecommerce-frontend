@@ -16,11 +16,15 @@ import {
 } from "../../../utils/product.util";
 import { Iproduct } from "../../../interfaces/product.inteface";
 import { getCart, addTocart } from "../../../services/cart.service";
+import ProductDetailHomePage from "./product-detail";
+import { modalTypes } from "../../../constants/constant";
 
 const ProductListHomePage = (props: IpropProductHomePage) => {
   const { category, listProducts = [], dispatch, fetchCart } = props;
   const [state, setState] = useState({
     title: "",
+    isShowModalDetail: false,
+    productId: "",
   });
 
   const addCart = (product: Iproduct) => {
@@ -117,10 +121,26 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                       variant="top"
                       className="img-fluid ImageProductHomePage"
                       src={getAvatarProductImage(product)}
+                      onClick={() =>
+                        setState({
+                          ...state,
+                          isShowModalDetail: true,
+                          productId: product?.id || "",
+                        })
+                      }
                     />
                   </a>
                   <Card.Body className="">
-                    <Card.Title className="fs-6">
+                    <Card.Title
+                      className="fs-6"
+                      onClick={() =>
+                        setState({
+                          ...state,
+                          isShowModalDetail: true,
+                          productId: product?.id || "",
+                        })
+                      }
+                    >
                       <a href={`#${product?.name}`}>{product?.name}</a>
                     </Card.Title>
                     <Card.Text className="fs-6 fw-bold">
@@ -133,15 +153,15 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                                 discounts?.discount
                               )
                             ).toLocaleString("en-US")}
-                            đ {" "}
+                            đ{" "}
                             <span className="text-danger fw-bold">
                               (-{discounts?.discount}%)
                             </span>
                           </span>
                           <br />
-                            <del className="OriginPrice">
-                              {product?.price?.toLocaleString("en-US")}đ
-                            </del>
+                          <del className="OriginPrice">
+                            {product?.price?.toLocaleString("en-US")}đ
+                          </del>
                         </>
                       ) : (
                         `${product?.price?.toLocaleString("en-US")}đ`
@@ -167,6 +187,12 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
           </div>
         )}
       </Row>
+      <ProductDetailHomePage
+        type={modalTypes.VIEW}
+        productId={state.productId}
+        isShowModal={state.isShowModalDetail}
+        onCloseModal={() => setState({ ...state, isShowModalDetail: false })}
+      />
     </div>
   );
 };
