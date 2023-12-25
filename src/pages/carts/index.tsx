@@ -5,7 +5,11 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import MenuHomePage from "../menu-home";
 import FooterPage from "../commons/footer";
-import { addTocart, getCart, removeCart } from "../../services/cart.service";
+import {
+  addTocart,
+  getCart,
+  removeCart,
+} from "../../services/cart.service";
 import {
   TableBody,
   TableContainer,
@@ -17,7 +21,7 @@ import HeaderTableCommon from "../commons/header-table";
 import { headerTableCart } from "../../utils/cart.util";
 import { Container, ButtonGroup, Button, Form } from "react-bootstrap";
 import { Iproduct } from "../../interfaces/product.inteface";
-import { BsPlus, BsDashLg } from "react-icons/bs";
+import { BsPlus, BsDashLg, BsTrash } from "react-icons/bs";
 import { connect } from "react-redux";
 import { IstateRedux } from "../../interfaces/common.interface";
 import {
@@ -84,6 +88,13 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
     });
   };
 
+  const clearCarts = (product: Iproduct) => {
+    removeCart(product, product?.quantity);
+    setTimeout(() => {
+      fetchCarts();
+    }, 70);
+  };
+
   useEffect(() => {
     fetchCarts();
     fetchProducts();
@@ -139,6 +150,15 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
                           <BsDashLg />
                         </Button>
                       </ButtonGroup>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => clearCarts(cart)}
+                      >
+                        <BsTrash />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );

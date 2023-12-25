@@ -29,4 +29,9 @@ export const headerTableCart = [
     label: "Actions",
     minWidth: 102,
   },
+  {
+    id: "clear",
+    label: "Clear",
+    minWidth: 120
+  }
 ];
