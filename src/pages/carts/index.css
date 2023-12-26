@@ -1,4 +1,5 @@
 .FormControl {
-  width: 50px !important;
+  width: 45px !important;
   border: 1px solid green !important;
+  text-align: center;
 }

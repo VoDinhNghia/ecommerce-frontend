@@ -134,6 +134,7 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
                           type="number"
                           className="FormControl"
                           size="sm"
+                          defaultValue={1}
                           onChange={(e: IformAddToCart) =>
                             setState({
                               ...state,
