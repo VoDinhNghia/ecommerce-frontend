@@ -8,9 +8,10 @@ import {
   CDBSidebarMenu,
 } from "cdbreact";
 import { Button } from "react-bootstrap";
+import { withTranslation } from "react-i18next";
 
 const CategoryHomePage = (props: IpropCategoryHomePage) => {
-  const { listCategories = [], state, setState } = props;
+  const { listCategories = [], state, setState, t } = props;
 
   return (
     <div className="rounded-top rounded-bottom">
@@ -33,7 +34,7 @@ const CategoryHomePage = (props: IpropCategoryHomePage) => {
               alt=""
               style={{ width: "30px" }}
             />
-            <h6 className="ms-2">CATEGORIES</h6>
+            <h6 className="ms-2">{t("CATEGORIES")}</h6>
           </div>
         </CDBSidebarHeader>
         <CDBSidebarContent>
@@ -60,4 +61,4 @@ const CategoryHomePage = (props: IpropCategoryHomePage) => {
   );
 };
 
-export default CategoryHomePage;
+export default withTranslation()(CategoryHomePage);

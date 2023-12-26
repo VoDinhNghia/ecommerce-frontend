@@ -62,7 +62,7 @@ export const headerProductTable = [
   {
     id: "actions",
     label: "Actions",
-    minWidth: 120,
+    minWidth: 102,
   },
 ];
 

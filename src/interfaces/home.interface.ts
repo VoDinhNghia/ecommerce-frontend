@@ -13,6 +13,7 @@ export interface IpropCategoryHomePage {
   listCategories: Icategory[];
   state?: any;
   setState?: any;
+  t?: any;
 }
 
 export interface IpropProductHomePage {
