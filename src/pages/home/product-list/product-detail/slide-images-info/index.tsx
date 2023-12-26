@@ -47,12 +47,18 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
         </Col>
         <Col xl={4}>
           <p className="text-center mb-3">
-            <Rating
-              // initialRating={3}
-              initialValue={rating}
-              allowHover={false}
-              size={30}
-            />
+            <Button
+              variant="outline-light"
+              className="border-0"
+              disabled={true}
+            >
+              <Rating
+                // initialRating={3}
+                initialValue={rating}
+                allowHover={false}
+                size={30}
+              />
+            </Button>
           </p>
           <Table>
             <tbody>
