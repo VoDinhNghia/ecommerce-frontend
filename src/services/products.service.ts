@@ -5,6 +5,8 @@ import {
   IcreateProductDetail,
   IcreateProductDiscount,
   IcreateProductImage,
+  IcreateProductRate, 
+  IcreateProductReview
 } from "../interfaces/product.inteface";
 import { setHeaderAxios, setMultipartHeader } from "./auth.service";
 import { IparamsFetchList } from "../interfaces/common.interface";
@@ -104,3 +106,31 @@ export const getProductDetail = async (id: string) => {
   const res = await axios.get(`${API_URL}/api/products/${id}`);
   return res;
 };
+
+export const createRate = async (payload: IcreateProductRate) => {
+  const res = await axios.post(`${API_URL}/api/products/rate`, payload, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+}
+
+export const createReview = async (payload: IcreateProductReview) => {
+  const res = await axios.post(`${API_URL}/api/products/review`, payload, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+}
+
+export const updateReview = async (id: string, payload: IcreateProductReview) => {
+  const res = await axios.put(`${API_URL}/api/products/review/${id}`, payload, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+}
+
+export const deleteReview = async (id: string) => {
+  const res = await axios.delete(`${API_URL}/api/products/review/${id}`, {
+    headers: setHeaderAxios(),
+  });
+  return res;
+}

@@ -12,6 +12,10 @@ import {
   updateDiscount,
   deleteDiscount,
   getProductDetail,
+  createRate,
+  createReview,
+  updateReview,
+  deleteReview,
 } from "../../services/products.service";
 import { productActions } from "../actions";
 import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
@@ -81,6 +85,22 @@ function* fetchProductDetail(params: IparamSaga) {
   );
 }
 
+function* addRate(params: IparamSaga) {
+  yield addSagaCommon(createRate, params, "Create product rate");
+}
+
+function* addReview(params: IparamSaga) {
+  yield addSagaCommon(createReview, params, "Create product review");
+}
+
+function* editReview(params: IparamSaga) {
+  yield updateSagaCommon(updateReview, params, "Update product review");
+}
+
+function* removeReview(params: IparamSaga) {
+  yield removeSagaCommon(deleteReview, params, "Delete product review");
+}
+
 function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(productActions.ADD_PRODUCT, addProduct);
   yield takeLatest<ItakeLatestSaga>(productActions.UPDATE_PRODUCT, editProduct);
@@ -123,6 +143,19 @@ function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(
     productActions.GET_PRODUCT_DETAIL,
     fetchProductDetail
+  );
+  yield takeLatest<ItakeLatestSaga>(productActions.ADD_PRODUCT_RATE, addRate);
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.ADD_PRODUCT_REVIEW,
+    addReview
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.UPDATE_PRODUCT_REVIEW,
+    editReview
+  );
+  yield takeLatest<ItakeLatestSaga>(
+    productActions.DELETE_PRODUCT_REVIEW,
+    removeReview
   );
 }
 

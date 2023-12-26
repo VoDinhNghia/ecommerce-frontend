@@ -118,7 +118,7 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
               </Card>
             );
           })}
-          {currentUser ? (
+          {currentUser?.id ? (
             <Card className="text-black">
               <Card.Body>
                 <Card.Text>Rate product</Card.Text>
