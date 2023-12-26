@@ -16,6 +16,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MenuHome from "../menu-home";
 import FooterPage from "../commons/footer";
+import { getCart } from "../../services/cart.service";
 
 const LoginPage = () => {
   const {
@@ -54,7 +55,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <MenuHome numberCart={0} />
+      <MenuHome numberCart={getCart()?.length || 0} />
       <div className="LoginPage">
         <Row>
           <Col xl={6}>

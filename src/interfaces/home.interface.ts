@@ -39,3 +39,7 @@ export interface IpropProductDetailImageAndInfo {
   productDetail?: Iproduct;
   addToCart?: any;
 }
+
+export interface IpropProductDetailComponent {
+  productDetail?: Iproduct;
+}

@@ -6,6 +6,7 @@ import { IstateRedux } from "../../../../interfaces/common.interface";
 import { productActions } from "../../../../store/actions";
 import ProductDetailImagesAndInfo from "./slide-images-info";
 import { Iproduct } from "../../../../interfaces/product.inteface";
+import ProductDetailComponent from "./detail";
 
 const ProductDetailHomePage = (props: IpropProductDetailHomePage) => {
   const {
@@ -35,7 +36,7 @@ const ProductDetailHomePage = (props: IpropProductDetailHomePage) => {
         productDetail={productDetail}
         addToCart={(product: Iproduct) => addToCart(product)}
       />
-      <p>Product Detail</p>
+      <ProductDetailComponent productDetail={productDetail}/>
     </div>
   );
 

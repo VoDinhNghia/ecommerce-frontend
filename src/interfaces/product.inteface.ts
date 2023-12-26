@@ -28,6 +28,25 @@ export interface IcreateProductImage {
   productId: string;
 }
 
+export interface IcreateProductReview {
+  content?: string;
+  productId?: string;
+}
+
+export interface IcreateProductRate {
+  rate?: number;
+  productId?: string;
+}
+
+export interface IproductRate extends IcreateProductRate {
+  id?: string;
+}
+
+export interface IproductReview extends IcreateProductReview {
+  id?: string;
+  createdAt?: Date;
+}
+
 export interface IproductDetail extends IcreateProductDetail {
   id: string;
 }
@@ -36,10 +55,10 @@ export interface Iproduct extends IcreateProduct {
   id?: string;
   category?: Icategory;
   detail?: IproductDetail;
-  discounts?: any;
-  images?: any;
-  reviews?: any;
-  rates?: any;
+  discounts?: IproductDiscount[] | any;
+  images?: IproductImage[] | any;
+  reviews?: IproductReview[] | any;
+  rates?: IproductRate[] | any;
 }
 export interface IpropProductPage {
   dispatch?: any;

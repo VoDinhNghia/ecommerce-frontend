@@ -18,7 +18,7 @@ export const routes = {
   aboutUsMgt: "/about-us-mgt",
   contactQuestion: "/contact-question",
   contactAdmin: "/contact-question-mgt",
-  services: "/services"
+  services: "/services",
 };
 
 export const API_URL = process.env.REACT_APP_API_URL;
@@ -117,5 +117,20 @@ export const productDiscountTab = {
   addDiscount: {
     key: "addDiscount",
     title: "Add New Discount",
+  },
+};
+
+export const proDetailHomepageTab = {
+  detail: {
+    key: "ProductDetailHomePage",
+    title: "Specifications",
+  },
+  description: {
+    key: "ProductDescriptionHomePage",
+    title: "Description",
+  },
+  reviewRate: {
+    key: "ProductReviewRateHomePage",
+    title: "Review",
   },
 };

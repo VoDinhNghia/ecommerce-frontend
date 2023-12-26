@@ -6,7 +6,10 @@ import { BsCartFill } from "react-icons/bs";
 import { FcPrevious, FcNext } from "react-icons/fc";
 import { Rating } from "react-simple-star-rating";
 import { API_URL, formatDate } from "../../../../../constants/constant";
-import { IproductImage } from "../../../../../interfaces/product.inteface";
+import {
+  IproductImage,
+  IproductRate,
+} from "../../../../../interfaces/product.inteface";
 import moment from "moment";
 import { getDiscountProduct } from "../../../../../utils/product.util";
 
@@ -15,7 +18,7 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
   const { images = [], rates = [] } = productDetail;
   const rating =
     rates?.reduce(
-      (pre: number, next: { rate: number }) => pre + next?.rate,
+      (pre: number, next: IproductRate) => pre + (next?.rate || 0),
       0
     ) / rates?.length;
   const currentDiscount = getDiscountProduct(productDetail);
@@ -72,10 +75,10 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
                   <tr>
                     <td>Discount:</td>
                     <td>
-                      <span className="me-3 position-absolute badge rounded-pill bg-primary DiscountLabel">
+                      <span className="badge rounded-pill bg-primary DiscountLabel">
                         -{currentDiscount?.discount}%
                       </span>
-                      <i className="DiscountProductDetail ms-5">
+                      <i className="DiscountProductDetail ms-1">
                         (from{" "}
                         <span className="text-dark fw-bold">
                           {moment(currentDiscount?.startDate).format(
