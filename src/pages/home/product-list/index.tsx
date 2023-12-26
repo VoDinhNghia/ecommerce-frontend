@@ -130,7 +130,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                       }
                     />
                   </a>
-                  <Card.Body className="">
+                  <Card.Body>
                     <Card.Title
                       className="fs-6"
                       onClick={() =>
@@ -141,12 +141,24 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                         })
                       }
                     >
-                      <a href={`#${product?.name}`}>{product?.name}</a>
+                      <a href={`#${product?.name}`}>
+                        {product?.name}
+                        {discounts ? (
+                          <span className="ms-1 position-absolute badge rounded-pill bg-danger">
+                            -{discounts?.discount}%
+                          </span>
+                        ) : null}
+                      </a>
                     </Card.Title>
-                    <Card.Text className="fs-6 fw-bold">
+                    <Card.Text className="fs-6 fw-bold text-center">
                       {discounts ? (
                         <>
-                          <span>
+                          <del className="OriginPrice">
+                            {product?.price?.toLocaleString("en-US")}đ
+                          </del>
+                          <br />
+                          only{"  "}
+                          <span className="text-success fs-6">
                             {Number(
                               calculatorPrice(
                                 product?.price,
@@ -154,17 +166,12 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                               )
                             ).toLocaleString("en-US")}
                             đ{" "}
-                            <span className="text-danger fw-bold">
-                              (-{discounts?.discount}%)
-                            </span>
                           </span>
-                          <br />
-                          <del className="OriginPrice">
-                            {product?.price?.toLocaleString("en-US")}đ
-                          </del>
                         </>
                       ) : (
-                        `${product?.price?.toLocaleString("en-US")}đ`
+                        <span className="OriginPrice">{`${product?.price?.toLocaleString(
+                          "en-US"
+                        )}đ`}</span>
                       )}
                     </Card.Text>
                   </Card.Body>

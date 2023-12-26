@@ -59,7 +59,7 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
               </tr>
               <tr>
                 <td>Price:</td>
-                <td className="fw-bold fs-6 text-danger">
+                <td className="fw-bold fs-6">
                   {productDetail?.price?.toLocaleString("en-US")} đ
                 </td>
               </tr>
@@ -72,18 +72,18 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
                   <tr>
                     <td>Discount:</td>
                     <td>
-                      <span className="text-danger fw-bold">
-                        {currentDiscount?.discount} %
-                      </span>{" "}
-                      <i className="DiscountProductDetail">
+                      <span className="me-3 position-absolute badge rounded-pill bg-primary DiscountLabel">
+                        -{currentDiscount?.discount}%
+                      </span>
+                      <i className="DiscountProductDetail ms-5">
                         (from{" "}
-                        <span className="text-danger fw-bold">
+                        <span className="text-dark fw-bold">
                           {moment(currentDiscount?.startDate).format(
                             formatDate
                           )}
                         </span>{" "}
                         to{" "}
-                        <span className="text-danger fw-bold">
+                        <span className="text-dark fw-bold">
                           {moment(currentDiscount?.endDate).format(formatDate)}
                         </span>
                         )
@@ -92,7 +92,7 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
                   </tr>
                   <tr>
                     <td>Only:</td>
-                    <td className="fw-bold fs-6 text-danger">
+                    <td className="fw-bold fs-6 text-success">
                       {productDetail?.price
                         ? Number(
                             productDetail?.price -

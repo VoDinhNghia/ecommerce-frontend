@@ -6,3 +6,7 @@
   font-size: 13px;
   color: gray;
 }
+
+.DiscountLabel {
+  font-size: 13px !important;
+}
