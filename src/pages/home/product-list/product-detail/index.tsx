@@ -4,6 +4,8 @@ import DialogModalCommonPage from "../../../commons/dialog-mui";
 import { IpropProductDetailHomePage } from "../../../../interfaces/home.interface";
 import { IstateRedux } from "../../../../interfaces/common.interface";
 import { productActions } from "../../../../store/actions";
+import ProductDetailImagesAndInfo from "./slide-images-info";
+import { Iproduct } from "../../../../interfaces/product.inteface";
 
 const ProductDetailHomePage = (props: IpropProductDetailHomePage) => {
   const {
@@ -13,6 +15,7 @@ const ProductDetailHomePage = (props: IpropProductDetailHomePage) => {
     productId,
     productDetail,
     dispatch,
+    addToCart,
   } = props;
 
   const fetchProductDetail = () => {
@@ -26,7 +29,15 @@ const ProductDetailHomePage = (props: IpropProductDetailHomePage) => {
     fetchProductDetail();
   }, [productId]);
 
-  const content = <div>product detail {productDetail?.name}</div>;
+  const content = (
+    <div>
+      <ProductDetailImagesAndInfo
+        productDetail={productDetail}
+        addToCart={(product: Iproduct) => addToCart(product)}
+      />
+      <p>Product Detail</p>
+    </div>
+  );
 
   return (
     <DialogModalCommonPage

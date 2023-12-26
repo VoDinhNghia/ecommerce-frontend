@@ -31,4 +31,10 @@ export interface IpropProductDetailHomePage extends IpropModalCommon {
   dispatch?: any;
   productDetail?: Iproduct;
   productId?: string;
+  addToCart?: any;
+}
+
+export interface IpropProductDetailImageAndInfo {
+  productDetail?: Iproduct;
+  addToCart?: any;
 }

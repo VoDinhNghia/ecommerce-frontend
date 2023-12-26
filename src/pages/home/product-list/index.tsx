@@ -192,6 +192,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
         productId={state.productId}
         isShowModal={state.isShowModalDetail}
         onCloseModal={() => setState({ ...state, isShowModalDetail: false })}
+        addToCart={(product: Iproduct) => addCart(product)}
       />
     </div>
   );
