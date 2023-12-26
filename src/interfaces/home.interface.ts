@@ -42,4 +42,6 @@ export interface IpropProductDetailImageAndInfo {
 
 export interface IpropProductDetailComponent {
   productDetail?: Iproduct;
+  fetchProductDetail?: any;
+  dispatch?: any;
 }

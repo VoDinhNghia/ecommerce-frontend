@@ -15,9 +15,10 @@ import {
   IproductRate,
   IproductReview,
 } from "../../../../../interfaces/product.inteface";
+import { productActions } from "../../../../../store/actions";
 
 const ProductDetailComponent = (props: IpropProductDetailComponent) => {
-  const { productDetail = {} } = props;
+  const { productDetail = {}, fetchProductDetail, dispatch } = props;
   const { detail, reviews = [], rates = [] } = productDetail;
   const currentUser = getCurrentUser();
   const rating =
@@ -26,8 +27,24 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
       0
     ) / rates?.length;
 
+  const addRate = (rate: number) => {
+    dispatch({
+      type: productActions.ADD_PRODUCT_RATE,
+      payload: {
+        productId: productDetail?.id,
+        rate,
+      },
+    });
+    setTimeout(() => {
+      fetchProductDetail();
+    }, 100);
+  };
+
   return (
-    <Tabs defaultActiveKey={proDetailHomepageTab.detail.key} className="mt-3 fw-bold fs-6">
+    <Tabs
+      defaultActiveKey={proDetailHomepageTab.detail.key}
+      className="mt-3 fw-bold fs-6"
+    >
       <Tab
         eventKey={proDetailHomepageTab.detail.key}
         title={proDetailHomepageTab.detail.title}
@@ -123,7 +140,11 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
               <Card.Body>
                 <Card.Text>Rate product</Card.Text>
                 <Card.Text>
-                  <Rating size={25} initialValue={25} />
+                  <Rating
+                    size={25}
+                    initialValue={25}
+                    onClick={(rate) => addRate(rate)}
+                  />
                 </Card.Text>
                 <Card.Text>Content</Card.Text>
                 <Card.Text>
