@@ -1,31 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
 import { IpropProductDetailComponent } from "../../../../../interfaces/home.interface";
 import { connect } from "react-redux";
 import {
   formatDate,
-  formatDateTime,
   proDetailHomepageTab,
 } from "../../../../../constants/constant";
 import { Tabs, Table, Tab, Card, Button, Form } from "react-bootstrap";
 import moment from "moment";
 import { Rating } from "react-simple-star-rating";
 import { getCurrentUser } from "../../../../../services/auth.service";
-import {
-  IproductRate,
-  IproductReview,
-} from "../../../../../interfaces/product.inteface";
+import { IproductReview } from "../../../../../interfaces/product.inteface";
 import { productActions } from "../../../../../store/actions";
 
 const ProductDetailComponent = (props: IpropProductDetailComponent) => {
   const { productDetail = {}, fetchProductDetail, dispatch } = props;
+  const [state, setState] = useState({
+    content: "",
+    message: "",
+  });
   const { detail, reviews = [], rates = [] } = productDetail;
   const currentUser = getCurrentUser();
-  const rating =
-    rates?.reduce(
-      (pre: number, next: IproductRate) => pre + (next?.rate || 0),
-      0
-    ) / rates?.length;
 
   const addRate = (rate: number) => {
     dispatch({
@@ -38,6 +33,33 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
     setTimeout(() => {
       fetchProductDetail();
     }, 100);
+  };
+
+  const addReview = () => {
+    if (state.content) {
+      dispatch({
+        type: productActions.ADD_PRODUCT_REVIEW,
+        payload: {
+          productId: productDetail?.id,
+          content: state.content,
+        },
+      });
+      setState({ ...state, message: "" });
+    } else {
+      setState({ ...state, message: "please enter review" });
+    }
+    setTimeout(() => {
+      fetchProductDetail();
+    }, 100);
+  };
+
+  const userReview = (review: IproductReview) => {
+    const findUserRateNumber = rates?.find(
+      (x: { userId: string }) => x?.userId === review?.userId
+    )?.rate;
+    return findUserRateNumber ? (
+      <Rating initialValue={findUserRateNumber} size={16} allowHover={false} />
+    ) : null;
   };
 
   return (
@@ -118,15 +140,15 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
               <Card key={review?.id} className="mb-3">
                 <Card.Header>
                   <img
-                    src="/images/avatar.jpg"
+                    src="/images/userIcon.jpg"
                     className="AvatarImageReview"
                     alt=""
                   />{" "}
-                  Anonymous (
-                  <Rating initialValue={rating} size={16} allowHover={false} />
-                  )<br />
+                  {`${review?.user?.lastName} ${review?.user?.middleName} ${review?.user?.firstName}`}{" "}
+                  ({userReview(review)})
+                  <br />
                   <span className="ReviewDateDisplay">
-                    {moment(review?.createdAt).format(formatDateTime)}
+                    {moment(review?.createdAt).format(formatDate)}
                   </span>
                 </Card.Header>
                 <Card.Body>
@@ -148,10 +170,21 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
                 </Card.Text>
                 <Card.Text>Content</Card.Text>
                 <Card.Text>
-                  <Form.Control as="textarea" rows={3} />
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    onChange={(e) =>
+                      setState({ ...state, content: e.target.value })
+                    }
+                  />
+                  <p className="text-danger">{state.message}</p>
                 </Card.Text>
                 <Card.Text>
-                  <Button size="sm" variant="outline-primary">
+                  <Button
+                    size="sm"
+                    variant="outline-primary"
+                    onClick={() => addReview()}
+                  >
                     Add review
                   </Button>
                 </Card.Text>

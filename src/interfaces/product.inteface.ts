@@ -1,5 +1,6 @@
 import { Icategory } from "./category.interface";
 import { IpropModalCommon } from "./common.interface";
+import { IuserInfo } from "./login.interface";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IcreateProduct {
@@ -40,11 +41,15 @@ export interface IcreateProductRate {
 
 export interface IproductRate extends IcreateProductRate {
   id?: string;
+  userId?: string;
+  user?: IuserInfo;
 }
 
 export interface IproductReview extends IcreateProductReview {
   id?: string;
   createdAt?: Date;
+  userId?: string;
+  user?: IuserInfo;
 }
 
 export interface IproductDetail extends IcreateProductDetail {
