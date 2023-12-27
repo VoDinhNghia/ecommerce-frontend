@@ -142,11 +142,6 @@ const ProductMgtPage = (props: IpropProductPage) => {
                             </Button>
                           </TableCell>
                           <TableCell>
-                            <Button variant="outline-primary" size="sm">
-                              View
-                            </Button>
-                          </TableCell>
-                          <TableCell>
                             <Button
                               variant="outline-primary"
                               size="sm"

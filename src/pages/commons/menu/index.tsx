@@ -7,6 +7,9 @@ import { moduleNames, routes } from "../../../constants/constant";
 import "./index.css";
 import UserMgtIcon from "@rsuite/icons/legacy/Group";
 import SettingIcon from "@rsuite/icons/legacy/GearCircle";
+import HomeIcon from "@rsuite/icons/legacy/Home";
+import ProductIcon from "@rsuite/icons/legacy/ProductHunt";
+import CategoryIcon from "@rsuite/icons/legacy/ListAlt";
 import { validateRoleSa } from "../../../utils/permission.util";
 
 const MenuPage = () => {
@@ -55,7 +58,7 @@ const MenuPage = () => {
           <Nav>
             <Nav.Item
               eventKey={moduleNames.HOME_PAGE}
-              icon={<SettingIcon />}
+              icon={<HomeIcon />}
               className="ItemMenuPage"
               href={routes.home}
             >
@@ -74,7 +77,7 @@ const MenuPage = () => {
             {isRoleSa ? (
               <Nav.Item
                 eventKey={moduleNames.CATEGORY}
-                icon={<UserMgtIcon />}
+                icon={<CategoryIcon />}
                 className="ItemMenuPage"
                 href={routes.category}
               >
@@ -84,7 +87,7 @@ const MenuPage = () => {
             {isRoleSa ? (
               <Nav.Item
                 eventKey={moduleNames.PRODUCT}
-                icon={<UserMgtIcon />}
+                icon={<ProductIcon />}
                 className="ItemMenuPage"
                 href={routes.product}
               >

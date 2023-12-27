@@ -40,11 +40,6 @@ export const headerProductTable = [
     minWidth: 120,
   },
   {
-    id: "rate",
-    label: "Rate",
-    minWidth: 120,
-  },
-  {
     id: "review",
     label: "Review",
     minWidth: 120,
