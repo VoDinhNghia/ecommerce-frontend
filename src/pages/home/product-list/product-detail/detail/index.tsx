@@ -177,7 +177,7 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
                       setState({ ...state, content: e.target.value })
                     }
                   />
-                  <p className="text-danger">{state.message}</p>
+                  <span className="text-danger">{state.message}</span>
                 </Card.Text>
                 <Card.Text>
                   <Button
