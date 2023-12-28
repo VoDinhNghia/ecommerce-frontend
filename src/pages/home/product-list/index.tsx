@@ -107,7 +107,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
       </Card>
       <Row>
         <p className="mt-2 fs-5 ms-2 text-center fw-bold">
-          {state?.title || category?.name}{" "}
+          {t(state?.title) || category?.name}{" "}
           <span className="badge bg-primary rounded-pill">
             {listProducts?.length || 0}
           </span>
