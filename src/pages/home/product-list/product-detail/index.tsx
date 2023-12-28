@@ -17,6 +17,7 @@ const ProductDetailHomePage = (props: IpropProductDetailHomePage) => {
     productDetail,
     dispatch,
     addToCart,
+    fetchProducts,
   } = props;
 
   const fetchProductDetail = () => {
@@ -38,6 +39,7 @@ const ProductDetailHomePage = (props: IpropProductDetailHomePage) => {
       />
       <ProductDetailComponent
         productDetail={productDetail}
+        fetchProducts={() => fetchProducts()}
         fetchProductDetail={() => fetchProductDetail()}
       />
     </div>

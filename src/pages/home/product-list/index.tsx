@@ -92,7 +92,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
 
   return (
     <div className="mt-2">
-      <Card className="bg-light">
+      <Card className="bg-success">
         <Card.Body>
           <Form className="d-flex">
             <Form.Control
@@ -203,7 +203,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                   </Card.Body>
                   <span className="text-center">
                     <Button className="w-100" onClick={() => addCart(product)}>
-                      {t("AddToCard")} <BsCartFill />
+                      <BsCartFill /> {t("AddToCard")}
                     </Button>{" "}
                   </span>
                 </Card>
@@ -226,6 +226,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
         isShowModal={state.isShowModalDetail}
         onCloseModal={() => setState({ ...state, isShowModalDetail: false })}
         addToCart={(product: Iproduct) => addCart(product)}
+        fetchProducts={() => fetchProducts()}
       />
     </div>
   );

@@ -23,5 +23,11 @@
     "LoginTitle": "Login",
     "Forget password": "Forget password",
     "EmailLogin": "Email",
-    "PasswordLogin": "Password"
+    "PasswordLogin": "Password",
+    "ProductDetailHomePage": "Product",
+    "PriceDetailHomePage": "Price",
+    "QuantityDetailHomePage": "Quantity",
+    "OnlyDetailHomePage": "Only",
+    "FromDetailHomePage": "from",
+    "ToDetailHomePage": "to"
 }

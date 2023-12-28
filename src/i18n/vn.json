@@ -22,5 +22,11 @@
     "LoginTitle": "Đăng nhập",
     "Forget password": "Quên mật khẩu",
     "EmailLogin": "Tên đăng nhập",
-    "PasswordLogin": "Mật khẩu"
+    "PasswordLogin": "Mật khẩu",
+    "ProductDetailHomePage": "Tên sản phẩm",
+    "PriceDetailHomePage": "Giá bán",
+    "QuantityDetailHomePage": "Số lượng",
+    "OnlyDetailHomePage": "Chỉ còn",
+    "FromDetailHomePage": "từ ngày",
+    "ToDetailHomePage": "đến ngày"
 }

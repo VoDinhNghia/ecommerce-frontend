@@ -14,7 +14,7 @@ import { IproductReview } from "../../../../../interfaces/product.inteface";
 import { productActions } from "../../../../../store/actions";
 
 const ProductDetailComponent = (props: IpropProductDetailComponent) => {
-  const { productDetail = {}, fetchProductDetail, dispatch } = props;
+  const { productDetail = {}, fetchProductDetail, dispatch, fetchProducts } = props;
   const [state, setState] = useState({
     content: "",
     message: "",
@@ -32,6 +32,7 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
     });
     setTimeout(() => {
       fetchProductDetail();
+      fetchProducts();
     }, 100);
   };
 
@@ -50,6 +51,7 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
     }
     setTimeout(() => {
       fetchProductDetail();
+      fetchProducts();
     }, 100);
   };
 

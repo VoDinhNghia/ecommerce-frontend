@@ -12,6 +12,8 @@ import {
 } from "../../../../../interfaces/product.inteface";
 import moment from "moment";
 import { getDiscountProduct } from "../../../../../utils/product.util";
+import { withTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
   const { productDetail = {}, addToCart } = props;
@@ -63,44 +65,44 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
           <Table>
             <tbody>
               <tr>
-                <td>Product:</td>
+                <td>{t("ProductDetailHomePage")}:</td>
                 <td className="text-primary">{productDetail?.name}</td>
               </tr>
               <tr>
-                <td>Price:</td>
+                <td>{t("PriceDetailHomePage")}:</td>
                 <td className="fw-bold fs-6">
                   {productDetail?.price?.toLocaleString("en-US")} đ
                 </td>
               </tr>
               <tr>
-                <td>Quantity: </td>
+                <td>{t("QuantityDetailHomePage")}: </td>
                 <td>{productDetail?.quantity}</td>
               </tr>
               {currentDiscount ? (
                 <>
                   <tr>
-                    <td>Discount:</td>
+                    <td>{t("Sale")}:</td>
                     <td>
                       <span className="badge rounded-pill bg-primary DiscountLabel">
                         -{currentDiscount?.discount}%
                       </span>
-                      <i className="DiscountProductDetail ms-1">
-                        (from{" "}
+                      <span className="DiscountProductDetail ms-1">
+                        ({t("FromDetailHomePage")}{" "}
                         <span className="text-dark fw-bold">
                           {moment(currentDiscount?.startDate).format(
                             formatDate
                           )}
                         </span>{" "}
-                        to{" "}
+                        {t("ToDetailHomePage")}{" "}
                         <span className="text-dark fw-bold">
                           {moment(currentDiscount?.endDate).format(formatDate)}
                         </span>
                         )
-                      </i>
+                      </span>
                     </td>
                   </tr>
                   <tr>
-                    <td>Only:</td>
+                    <td>{t("OnlyDetailHomePage")}:</td>
                     <td className="fw-bold fs-6 text-success">
                       {productDetail?.price
                         ? Number(
@@ -123,7 +125,7 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
               variant="outline-primary"
               onClick={() => addToCart(productDetail)}
             >
-              <BsCartFill /> Add to cart
+              <BsCartFill /> {t("AddToCard")}
             </Button>
           </p>
         </Col>
@@ -132,4 +134,4 @@ const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
   );
 };
 
-export default ProductDetailImagesAndInfo;
+export default withTranslation()(ProductDetailImagesAndInfo);

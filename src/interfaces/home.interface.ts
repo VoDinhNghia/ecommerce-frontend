@@ -31,9 +31,10 @@ export interface IpropSlideImgAdv {
 
 export interface IpropProductDetailHomePage extends IpropModalCommon {
   dispatch?: any;
-  productDetail?: Iproduct;
+  productDetail?: Iproduct | any;
   productId?: string;
   addToCart?: any;
+  fetchProducts?: any;
 }
 
 export interface IpropProductDetailImageAndInfo {
@@ -45,4 +46,5 @@ export interface IpropProductDetailComponent {
   productDetail?: Iproduct;
   fetchProductDetail?: any;
   dispatch?: any;
+  fetchProducts?: any;
 }
