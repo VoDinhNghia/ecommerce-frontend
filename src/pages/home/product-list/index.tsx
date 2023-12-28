@@ -19,9 +19,10 @@ import { getCart, addTocart } from "../../../services/cart.service";
 import ProductDetailHomePage from "./product-detail";
 import { modalTypes } from "../../../constants/constant";
 import { Rating } from "react-simple-star-rating";
+import { withTranslation } from "react-i18next";
 
 const ProductListHomePage = (props: IpropProductHomePage) => {
-  const { category, listProducts = [], dispatch, fetchCart } = props;
+  const { category, listProducts = [], dispatch, fetchCart, t } = props;
   const [state, setState] = useState({
     title: "",
     isShowModalDetail: false,
@@ -96,7 +97,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
           <Form className="d-flex">
             <Form.Control
               type="search"
-              placeholder="Search product by name..."
+              placeholder={t("SearchProductByName")}
               className=""
               aria-label="Search"
               onChange={(event) => onSearch(event?.target?.value)}
@@ -140,11 +141,11 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                         <h5>
                           {discounts ? (
                             <span className="badge bg-danger ms-2 fw-bold">
-                              Sale (- {discounts?.discount}%)
+                              {t("Sale")} ({discounts?.discount}%)
                             </span>
                           ) : (
                             <span className="badge bg-success ms-2 fw-bold">
-                              New
+                              {t("New")}
                             </span>
                           )}
                         </h5>
@@ -189,7 +190,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                       <a href={`#${product?.name}`}>{product?.name}</a>
                     </Card.Title>
                     <Card.Text className="fw-bold">
-                      Available: {product?.quantity}
+                      {t("Available")}: {product?.quantity}
                     </Card.Text>
                     <Card.Text className="fw-bold">
                       <Rating
@@ -202,7 +203,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                   </Card.Body>
                   <span className="text-center">
                     <Button className="w-100" onClick={() => addCart(product)}>
-                      Add to card <BsCartFill />
+                      {t("AddToCard")} <BsCartFill />
                     </Button>{" "}
                   </span>
                 </Card>
@@ -236,4 +237,4 @@ const mapStateToProp = (state: IstateRedux) => {
   };
 };
 
-export default connect(mapStateToProp)(ProductListHomePage);
+export default connect(mapStateToProp)(withTranslation()(ProductListHomePage));

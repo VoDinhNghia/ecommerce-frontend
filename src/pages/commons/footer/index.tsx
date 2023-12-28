@@ -2,14 +2,18 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { routes } from "../../../constants/constant";
 import "./index.css";
+import { withTranslation } from "react-i18next";
+import { IpropFooterPage } from "../../../interfaces/common.interface";
 
-const FooterPage = () => {
+const FooterPage = (props: IpropFooterPage) => {
+  const { t } = props;
+
   return (
     <div>
       <div className="FooterPage mt-2 p-3 fs-6">
         <Row>
           <Col xl={3}>
-            <h5>About us</h5>
+            <h5>{t("About us")}</h5>
             <div className="mt-2">
               <p>Store name</p>
               <p>Address: </p>
@@ -19,7 +23,7 @@ const FooterPage = () => {
             </div>
           </Col>
           <Col xl={3}>
-            <h5>Other activities</h5>
+            <h5>{t("Other activities")}</h5>
             <div className="mt-2">
               <p>
                 <a href={routes.dashboard} className="text-muted">
@@ -39,7 +43,7 @@ const FooterPage = () => {
             </div>
           </Col>
           <Col xl={3}>
-            <h5>Expended infomation</h5>
+            <h5>{t("Expended infomation")}</h5>
             <div className="mt-2">
               <p>
                 <a href={routes.dashboard} className="text-muted">
@@ -64,7 +68,7 @@ const FooterPage = () => {
             </div>
           </Col>
           <Col xl={3}>
-            <h5>Utilities text</h5>
+            <h5>{t("Utilities")}</h5>
             <div className="mt-2">
               <p>
                 <a href={routes.dashboard} className="text-muted">
@@ -86,10 +90,10 @@ const FooterPage = () => {
         </Row>
       </div>
       <div className="text-center p-3 bg-primary text-white fs-6">
-        @Copyright 2023
+        @{t("Copyright")} 2023
       </div>
     </div>
   );
 };
 
-export default FooterPage;
+export default withTranslation()(FooterPage);

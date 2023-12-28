@@ -21,6 +21,7 @@ export interface IpropProductHomePage {
   category: any;
   listProducts?: Iproduct[];
   fetchCart?: any;
+  t?: any;
 }
 
 export interface IpropSlideImgAdv {

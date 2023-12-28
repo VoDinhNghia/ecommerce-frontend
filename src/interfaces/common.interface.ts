@@ -187,3 +187,7 @@ export interface IpropCheckBoxMui {
 export type IcheckBoxEvent = any;
 export type IchangeFileEvent = any;
 export type IformDataType = any;
+
+export interface IpropFooterPage {
+  t?: any;
+}
