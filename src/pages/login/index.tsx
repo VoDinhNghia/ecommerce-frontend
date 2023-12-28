@@ -17,6 +17,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import MenuHome from "../menu-home";
 import FooterPage from "../commons/footer";
 import { getCart } from "../../services/cart.service";
+import { withTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const LoginPage = () => {
   const {
@@ -73,10 +75,10 @@ const LoginPage = () => {
                 className="IconLoginPage"
               />
             </p>
-            <h3 className="text-center">Login</h3>
+            <h3 className="text-center">{t("LoginTitle")}</h3>
             <div className="p-4">
               <form onSubmit={handleSubmit(onSubmitHandlerLogin)}>
-                <p className="mt-3">Email: </p>
+                <p className="mt-3">{t("EmailLogin")}: </p>
                 <TextField
                   fullWidth={true}
                   size="small"
@@ -86,7 +88,7 @@ const LoginPage = () => {
                   helperText={errors["email"] ? errors["email"].message : ""}
                   {...register("email")}
                 />
-                <p className="mt-2">Password: </p>
+                <p className="mt-2">{t("PasswordLogin")}: </p>
                 <TextField
                   fullWidth={true}
                   size="small"
@@ -103,11 +105,11 @@ const LoginPage = () => {
                   variant="light"
                   className="mt-3 mb-2 w-100 text-primary fs-5"
                 >
-                  Login
+                  {t("LoginTitle")}
                 </Button>
               </form>
               <a href="/" className="text-decoration-none text-white">
-                Forget password ?
+                {t("Forget password")} ?
               </a>
             </div>
           </Col>
@@ -118,4 +120,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default withTranslation()(LoginPage);

@@ -19,5 +19,9 @@
     "Other activities": "Other activities",
     "Expended infomation": "Expended infomation",
     "Utilities": "Utilities",
-    "Copyright": "Copyright"
+    "Copyright": "Copyright",
+    "LoginTitle": "Login",
+    "Forget password": "Forget password",
+    "EmailLogin": "Email",
+    "PasswordLogin": "Password"
 }
