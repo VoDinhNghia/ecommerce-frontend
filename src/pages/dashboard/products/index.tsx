@@ -23,7 +23,7 @@ import HeaderTableCommon from "../../commons/header-table";
 import { headerProductTable } from "../../../utils/product.util";
 import { Button } from "react-bootstrap";
 import ActionTableCommon from "../../commons/actions-table";
-import { productActions } from "../../../store/actions";
+import { categoryActions, productActions } from "../../../store/actions";
 import PaginationTableCommon from "../../commons/pagination-table";
 import ModalProductPage from "./modals";
 import { modalTypes, routes } from "../../../constants/constant";
@@ -33,7 +33,7 @@ import ProductDiscount from "./discounts";
 import ProductReviewMgtPage from "./reviews";
 
 const ProductMgtPage = (props: IpropProductPage) => {
-  const { dispatch, listProducts = [], totalProduct = 0 } = props;
+  const { dispatch, listProducts = [], totalProduct = 0, listCategories = [] } = props;
   const [state, setState] = useState({
     page: 0,
     limit: 5,
@@ -70,6 +70,12 @@ const ProductMgtPage = (props: IpropProductPage) => {
     });
   };
 
+  const fetchCategories = () => {
+    dispatch({
+      type: categoryActions.GET_LIST_CATEGORY,
+    });
+  };
+
   const onSearch = (searchKey: string) => {
     dispatch({
       type: productActions.GET_LIST_PRODUCT,
@@ -81,6 +87,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
 
   useEffect(() => {
     fetchProducts(page + 1, limit);
+    fetchCategories();
   }, []);
 
   return (
@@ -211,6 +218,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 isShowModal={isShowModalAdd}
                 type={modalTypes.ADD}
                 productInfo={{}}
+                categories={listCategories}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalAdd: false })
                 }
@@ -220,6 +228,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 isShowModal={isShowModalUpdate}
                 type={modalTypes.UPDATE}
                 productInfo={rowData}
+                categories={listCategories}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalUpdate: false })
                 }
@@ -229,6 +238,7 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 isShowModal={isShowModalDelete}
                 type={modalTypes.DELETE}
                 productInfo={rowData}
+                categories={listCategories}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDelete: false })
                 }
@@ -285,6 +295,7 @@ const mapStateToProps = (state: IstateRedux) => {
   return {
     listProducts: state.ProductReducer.listProducts,
     totalProduct: state.ProductReducer.totalProduct,
+    listCategories: state.CategoryReducer.listCategories,
   };
 };
 

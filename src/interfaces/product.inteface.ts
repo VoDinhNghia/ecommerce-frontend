@@ -69,12 +69,13 @@ export interface IpropProductPage {
   dispatch?: any;
   listProducts?: Iproduct[];
   totalProduct?: number;
+  listCategories?: Icategory[] | any;
 }
 
 export interface ImodalProductPage extends IpropModalCommon {
   productInfo: Iproduct;
   fetchProducts: any;
-  listCategories: Icategory[] | any;
+  categories?: Icategory[] | any;
 }
 
 export interface IpropProductDetail extends IpropModalCommon {
@@ -120,4 +121,5 @@ export interface IpropModalProductReview extends IpropModalCommon {
   dispatch?: any;
   fetchProducts?: any;
   productInfo: Iproduct;
+  productDetail: Iproduct;
 }

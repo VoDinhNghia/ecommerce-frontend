@@ -4,7 +4,7 @@ import DialogModalCommonPage from "../../../commons/dialog-mui";
 import { ImodalProductPage } from "../../../../interfaces/product.inteface";
 import { inputTypes, modalTypes } from "../../../../constants/constant";
 import { Button } from "@mui/material";
-import { categoryActions, productActions } from "../../../../store/actions";
+import { productActions } from "../../../../store/actions";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -23,10 +23,10 @@ const ModalProductPage = (props: ImodalProductPage) => {
     onCloseModal,
     productInfo = {},
     dispatch,
-    listCategories = [],
+    categories = [],
     fetchProducts,
   } = props;
-  const categoryOptions = handleCategoryOptions(listCategories);
+  const categoryOptions = handleCategoryOptions(categories);
   const {
     handleSubmit,
     register,
@@ -61,12 +61,6 @@ const ModalProductPage = (props: ImodalProductPage) => {
     });
   };
 
-  const fetchCategories = () => {
-    dispatch({
-      type: categoryActions.GET_LIST_CATEGORY,
-    });
-  };
-
   const fetchAndCloseModal = () => {
     setTimeout(() => {
       fetchProducts();
@@ -82,8 +76,7 @@ const ModalProductPage = (props: ImodalProductPage) => {
       ...productInfo,
       categoryId: productInfo?.category?.id,
     });
-    fetchCategories();
-  }, [isSubmitSuccessful, productInfo]);
+  }, [isSubmitSuccessful]);
 
   const content = (
     <div>

@@ -49,7 +49,7 @@ export interface IuserReducer {
 export interface IstateRedux {
   UserReducer: IuserReducer;
   CategoryReducer: {
-    listCategories: Icategory[];
+    listCategories: Icategory[] | any;
     totalCategory: number;
   };
   ProductReducer: {
