@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import {
   IproductImage,
@@ -12,6 +12,7 @@ import {
   IchangeFileEvent,
   IcheckBoxEvent,
   IformDataType,
+  IstateRedux,
 } from "../../../../interfaces/common.interface";
 import { connect } from "react-redux";
 import { productActions } from "../../../../store/actions";
@@ -23,26 +24,18 @@ const ProductImages = (props: IpropProductImage) => {
     type,
     productInfo = {},
     dispatch,
-    fetchProducts,
+    productDetail = {},
   } = props;
   const [state, setState] = useState({
-    isShowBtnUpload: false,
     file: null,
     imageId: null,
     isAvatar: false,
     message: "",
+    activeKey: productImageTab.carousel.key,
   });
 
-  const onSelectTab = (key: string | null) => {
-    if (key === productImageTab.uploadImage.key) {
-      setState({ ...state, isShowBtnUpload: true });
-    } else {
-      setState({ ...state, isShowBtnUpload: false });
-    }
-  };
-
   const getIndexImage = (index: number) => {
-    const imageList = productInfo?.images || [];
+    const imageList = productDetail?.images || [];
     setState({
       ...state,
       imageId: imageList?.length > 0 ? imageList[index]?.id : null,
@@ -53,17 +46,20 @@ const ProductImages = (props: IpropProductImage) => {
     if (state?.file) {
       const formData: IformDataType = new FormData();
       formData.append("file", state?.file);
-      formData.append("productId", productInfo?.id);
+      formData.append("productId", productDetail?.id);
       formData.append("isAvatar", state?.isAvatar);
       dispatch({
         type: productActions.UPLOAD_PRODUCT_IMAGE,
         payload: formData,
       });
+      onSelectTab(productImageTab.carousel.key);
       setTimeout(() => {
-        fetchProducts();
-        onCloseModal();
+        fetchProductDetail();
       }, 100);
-      setState({ ...state, message: "" });
+      setState({
+        ...state,
+        message: "",
+      });
     } else {
       setState({ ...state, message: "please choose file to upload" });
     }
@@ -75,14 +71,30 @@ const ProductImages = (props: IpropProductImage) => {
       id: state?.imageId,
     });
     setTimeout(() => {
-      fetchProducts();
-      onCloseModal();
+      fetchProductDetail();
     }, 100);
   };
 
+  const onSelectTab = (key: string | null) => {
+    setState({ ...state, activeKey: key || "" });
+  };
+
+  const fetchProductDetail = () => {
+    if (productInfo?.id) {
+      dispatch({
+        type: productActions.GET_PRODUCT_DETAIL,
+        id: productInfo?.id,
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchProductDetail();
+  }, []);
+
   const content = (
     <Tabs
-      defaultActiveKey={productImageTab.carousel.key}
+      activeKey={state.activeKey}
       onSelect={(key) => onSelectTab(key)}
       className="fs-6"
     >
@@ -94,18 +106,18 @@ const ProductImages = (props: IpropProductImage) => {
           slide={false}
           interval={null}
           prevIcon={
-            productInfo?.images?.length > 0 ? (
+            productDetail?.images?.length > 0 ? (
               <FcPrevious className="IconCasoureImage" />
             ) : null
           }
           nextIcon={
-            productInfo?.images?.length > 0 ? (
+            productDetail?.images?.length > 0 ? (
               <FcNext className="IconCasoureImage" />
             ) : null
           }
           onSelect={(index) => getIndexImage(index)}
         >
-          {productInfo?.images?.map((image: IproductImage) => {
+          {productDetail?.images?.map((image: IproductImage) => {
             const imgId = image?.id || "";
             return (
               <Carousel.Item key={imgId}>
@@ -159,11 +171,17 @@ const ProductImages = (props: IpropProductImage) => {
       isShowModal={isShowModal}
       type={type}
       onCloseModal={() => onCloseModal()}
-      nameTitle="Product Images"
+      nameTitle={productDetail?.name}
       content={content}
       size={"sm"}
     />
   );
 };
 
-export default connect()(ProductImages);
+const mapStateToProp = (state: IstateRedux) => {
+  return {
+    productDetail: state.ProductReducer.productDetail,
+  };
+};
+
+export default connect(mapStateToProp)(ProductImages);

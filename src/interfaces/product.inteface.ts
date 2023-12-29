@@ -87,6 +87,7 @@ export interface IpropProductImage extends IpropModalCommon {
   dispatch?: any;
   productInfo: Iproduct;
   fetchProducts?: any;
+  productDetail?: Iproduct;
 }
 
 export interface IproductImage {
