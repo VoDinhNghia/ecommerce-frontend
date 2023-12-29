@@ -51,7 +51,6 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
     }
     setTimeout(() => {
       fetchProductDetail();
-      fetchProducts();
     }, 100);
   };
 

@@ -269,7 +269,6 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDiscount: false })
                 }
-                fetchProducts={() => fetchProducts(page + 1, limit)}
               />
               <ProductReviewMgtPage
                 type={modalTypes.VIEW}

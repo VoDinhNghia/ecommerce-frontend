@@ -34,7 +34,7 @@ const ProductReviewMgtPage = (props: IpropModalProductReview) => {
       isShowModal={isShowModal}
       onCloseModal={() => onCloseModal()}
       content={content}
-      nameTitle="View product review"
+      nameTitle={productDetail?.name}
       size={"sm"}
     />
   );

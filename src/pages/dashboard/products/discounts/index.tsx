@@ -33,6 +33,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import TextFieldCommon from "../../../commons/textfield-input";
 import { productActions } from "../../../../store/actions";
 import ProductDiscountAction from "./actions";
+import { IstateRedux } from "../../../../interfaces/common.interface";
 
 const ProductDiscount = (props: IpropProductDiscount) => {
   const {
@@ -41,12 +42,13 @@ const ProductDiscount = (props: IpropProductDiscount) => {
     type,
     productInfo = {},
     dispatch,
-    fetchProducts,
+    productDetail = {},
   } = props;
   const [state, setState] = useState({
     isShowModalUpdate: false,
     isShowModalDelete: false,
     rowData: {},
+    activeKey: productDiscountTab.table.key,
   });
   const {
     handleSubmit,
@@ -65,20 +67,34 @@ const ProductDiscount = (props: IpropProductDiscount) => {
         productId: productInfo?.id,
       },
     });
+    onSelectKeyTab(productDiscountTab.table.key);
     setTimeout(() => {
-      fetchProducts();
-      onCloseModal();
+      fetchProductDetail();
     }, 100);
   };
+
+  const onSelectKeyTab = (key: string | null) => {
+    setState({ ...state, activeKey: key || "" });
+  }
+
+  const fetchProductDetail = () => {
+    if (productInfo?.id) {
+      dispatch({
+        type: productActions.GET_PRODUCT_DETAIL,
+        id: productInfo?.id,
+      });
+    }
+  }
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
     }
+    fetchProductDetail();
   }, [isSubmitSuccessful]);
 
   const content = (
-    <Tabs defaultActiveKey={productDiscountTab.table.key} className="fs-6">
+    <Tabs activeKey={state.activeKey} onSelect={(key) => onSelectKeyTab(key)} className="fs-6">
       <Tab
         eventKey={productDiscountTab.table.key}
         title={productDiscountTab.table.title}
@@ -87,7 +103,7 @@ const ProductDiscount = (props: IpropProductDiscount) => {
           <Table stickyHeader aria-label="product discount table">
             <HeaderTableCommon headerList={headerDiscountTable} />
             <TableBody>
-              {productInfo?.discounts?.map(
+              {productDetail?.discounts?.map(
                 (dis: IproductDiscount, index: number) => {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={dis?.id}>
@@ -154,7 +170,7 @@ const ProductDiscount = (props: IpropProductDiscount) => {
       isShowModal={isShowModal}
       type={type}
       onCloseModal={() => onCloseModal()}
-      nameTitle="Product Discount"
+      nameTitle={`${productDetail?.name}`}
       content={content}
       size={"sm"}
     />
@@ -163,10 +179,16 @@ const ProductDiscount = (props: IpropProductDiscount) => {
       type={modalTypes.DELETE}
       discountInfo={state.rowData}
       onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
-      fetchProducts={() => fetchProducts()}
+      fetchProducts={() => fetchProductDetail()}
     />
     </>
   );
 };
 
-export default connect()(ProductDiscount);
+const mapStateToProp = (state: IstateRedux) => {
+  return {
+    productDetail: state.ProductReducer.productDetail,
+  }
+}
+
+export default connect(mapStateToProp)(ProductDiscount);
