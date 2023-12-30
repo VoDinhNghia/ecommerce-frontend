@@ -75,6 +75,8 @@ const ModalProductPage = (props: ImodalProductPage) => {
     reset({
       ...productInfo,
       categoryId: productInfo?.category?.id,
+      price: productInfo?.price?.toString(),
+      quantity: productInfo?.quantity?.toString(),
     });
   }, [isSubmitSuccessful]);
 

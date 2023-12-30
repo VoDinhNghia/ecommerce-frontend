@@ -6,7 +6,7 @@ import { IuserInfo } from "./login.interface";
 export interface IcreateProduct {
   name?: string;
   description?: string;
-  price?: number;
+  price?: number | any;
   quantity?: number | any;
   categoryId?: string;
 }
