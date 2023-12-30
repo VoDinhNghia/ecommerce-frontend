@@ -164,3 +164,31 @@ export const calculatorPrice = (price = 0, discount = 0) => {
   const result = Number(price - (discount * price) / 100);
   return result;
 };
+
+export const headerReviewTable = [
+  {
+    id: "index",
+    label: "#",
+    minWidth: 120,
+  },
+  {
+    id: "content",
+    label: "Content",
+    minWidth: 120,
+  },
+  {
+    id: "createdAt",
+    label: "Created At",
+    minWidth: 120,
+  },
+  {
+    id: "user",
+    label: "User",
+    minWidth: 120,
+  },
+  {
+    id: "actions",
+    label: "Action",
+    minWidth: 102,
+  },
+];
