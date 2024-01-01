@@ -125,3 +125,9 @@ export interface IpropModalProductReview extends IpropModalCommon {
   productInfo: Iproduct;
   productDetail: Iproduct;
 }
+
+export interface IpropModalActionReview extends IpropModalCommon {
+  dispatch?: any;
+  fetchProductDetail?: any;
+  reviewInfo: IproductReview;
+}

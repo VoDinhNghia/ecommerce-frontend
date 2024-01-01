@@ -36,7 +36,7 @@ const SlideImgAdvHomePage = (props: IpropSlideImgAdv) => {
                   src={`${API_URL}/slide-images/${imgAdv?.url}`}
                   alt=""
                   width="100%"
-                  height={350}
+                  height={300}
                 />
               </Carousel.Item>
             );

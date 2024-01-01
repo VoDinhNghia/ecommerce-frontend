@@ -165,11 +165,10 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                             ).toLocaleString("en-US")}
                             đ{" "}
                           </span>
-                          ({" "}
-                          <del className="text-danger">
+                          {" "}
+                          <del className="text-muted">
                             {product?.price?.toLocaleString("en-US")}đ
                           </del>{" "}
-                          )
                         </>
                       ) : (
                         <span className="OriginPrice">{`${product?.price?.toLocaleString(

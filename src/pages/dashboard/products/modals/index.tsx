@@ -157,7 +157,7 @@ const ModalProductPage = (props: ImodalProductPage) => {
       onCloseModal={() => onCloseModal()}
       content={content}
       onDelete={() => onDelete()}
-      nameTitle="product"
+      nameTitle={productInfo?.name}
     />
   );
 };

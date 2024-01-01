@@ -20,9 +20,10 @@ import {
 import HeaderTableCommon from "../../../commons/header-table";
 import { headerReviewTable } from "../../../../utils/product.util";
 import moment from "moment";
-import { formatDate } from "../../../../constants/constant";
+import { formatDate, modalTypes } from "../../../../constants/constant";
 import ActionTableCommon from "../../../commons/actions-table";
 import ReadMoreCommon from "../../../commons/readmore";
+import ReviewProductActionMgtPage from "./action";
 
 const ProductReviewMgtPage = (props: IpropModalProductReview) => {
   const {
@@ -59,6 +60,7 @@ const ProductReviewMgtPage = (props: IpropModalProductReview) => {
       });
     }
   };
+
   useEffect(() => {
     fetchProductDetail();
   }, [productInfo]);
@@ -121,14 +123,23 @@ const ProductReviewMgtPage = (props: IpropModalProductReview) => {
   );
 
   return (
-    <DialogModalCommonPage
-      type={type}
-      isShowModal={isShowModal}
-      onCloseModal={() => onCloseModal()}
-      content={content}
-      nameTitle={productDetail?.name}
-      size={"md"}
-    />
+    <>
+      <DialogModalCommonPage
+        type={type}
+        isShowModal={isShowModal}
+        onCloseModal={() => onCloseModal()}
+        content={content}
+        nameTitle={productDetail?.name}
+        size={"md"}
+      />
+      <ReviewProductActionMgtPage
+        type={modalTypes.DELETE}
+        isShowModal={state.isShowModalDelete}
+        onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
+        fetchProductDetail={() => fetchProductDetail()}
+        reviewInfo={state.rowData}
+      />
+    </>
   );
 };
 
