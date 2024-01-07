@@ -14,7 +14,7 @@ const CategoryHomePage = (props: IpropCategoryHomePage) => {
   const { listCategories = [], state, setState, t } = props;
 
   return (
-    <div className="rounded-top rounded-bottom">
+    <div className="rounded-top rounded-bottom mt-1">
       <CDBSidebar
         textColor="#333"
         backgroundColor="#f0f0f0"

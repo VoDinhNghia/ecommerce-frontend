@@ -38,24 +38,24 @@ const HomePage = (props: IpropHomePage) => {
   }, []);
 
   return (
-    <div>
+    <div className="BackgroundGradientHomePage overflow-hidden">
       <MenuHomePage numberCart={numberCart || getCart()?.length} />
       <SlideImgAdvHomePage />
-      <Container>
+      <Container fluid>
         <Row className="mt-2 mb-4">
-        <Col xl={3} className="HomePageCategoryLeft">
-          <CategoryHomePage
-            listCategories={listCategories}
-            state={state}
-            setState={setState}
-          />
-        </Col>
-        <Col xl={9}>
-          <ProductListHomePage
-            category={category || listCategories[0]}
-            fetchCart={() => fetchCart()}
-          />
-        </Col>
+          <Col xl={3} className="HomePageCategoryLeft">
+            <CategoryHomePage
+              listCategories={listCategories}
+              state={state}
+              setState={setState}
+            />
+          </Col>
+          <Col xl={9}>
+            <ProductListHomePage
+              category={category || listCategories[0]}
+              fetchCart={() => fetchCart()}
+            />
+          </Col>
         </Row>
       </Container>
       <FooterPage />

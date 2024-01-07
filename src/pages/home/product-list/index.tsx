@@ -92,21 +92,17 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
 
   return (
     <div className="mt-2">
-      <Card className="bg-success">
-        <Card.Body>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder={t("SearchProductByName")}
-              className=""
-              aria-label="Search"
-              onChange={(event) => onSearch(event?.target?.value)}
-            />
-          </Form>
-        </Card.Body>
-      </Card>
+      <Form className="d-flex mb-1">
+        <Form.Control
+          type="search"
+          placeholder={t("SearchProductByName")}
+          className=""
+          aria-label="Search"
+          onChange={(event) => onSearch(event?.target?.value)}
+        />
+      </Form>
       <Row>
-        <p className="mt-2 fs-5 ms-2 text-center fw-bold">
+        <p className="mt-2 fs-5 ms-2 text-center text-white fw-bold">
           {t(state?.title) || category?.name}{" "}
           <span className="badge bg-primary rounded-pill">
             {listProducts?.length || 0}
@@ -121,7 +117,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                 0
               ) / product?.rates?.length;
             return (
-              <Col xl={4} key={product?.id}>
+              <Col xl={3} key={product?.id}>
                 <Card className="mt-3 ProductItemHomePage">
                   <a href={`#${product?.name}`}>
                     <Card.Img
@@ -164,8 +160,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                               )
                             ).toLocaleString("en-US")}
                             đ{" "}
-                          </span>
-                          {" "}
+                          </span>{" "}
                           <del className="text-muted">
                             {product?.price?.toLocaleString("en-US")}đ
                           </del>{" "}
