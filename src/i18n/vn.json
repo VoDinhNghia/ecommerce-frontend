@@ -29,5 +29,11 @@
     "OnlyDetailHomePage": "Chỉ còn",
     "FromDetailHomePage": "từ ngày",
     "ToDetailHomePage": "đến ngày",
-    "Search results": "Kết quả tìm kiếm"
+    "Search results": "Kết quả tìm kiếm",
+    "titleSignUp": "Đăng ký",
+    "mobileSignUp": "Số điện thoại",
+    "addressSignUp": "Địa chỉ",
+    "firstNameSignUp": "Tên",
+    "middleNameSignUp": "Tên đệm",
+    "lastNameSignUp": "Họ"
 }

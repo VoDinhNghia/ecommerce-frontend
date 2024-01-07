@@ -137,6 +137,7 @@ export interface IpropTextFieldForm {
   errors: any;
   type?: string;
   rows?: number;
+  placeholder?: string;
 }
 
 export interface IpropSelectReactForm {

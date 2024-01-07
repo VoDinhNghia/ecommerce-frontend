@@ -4,7 +4,7 @@ import { IpropTextFieldForm } from "../../../interfaces/common.interface";
 import { inputTypes } from "../../../constants/constant";
 
 const TextFieldCommon = (props: IpropTextFieldForm) => {
-  const { errors, register, field, defaultValue = "", type = inputTypes.TEXT, rows = 4 } = props;
+  const { errors, register, field, defaultValue = "", type = inputTypes.TEXT, rows = 4, placeholder = "" } = props;
 
   return (
     <TextField
@@ -14,6 +14,7 @@ const TextFieldCommon = (props: IpropTextFieldForm) => {
       rows={type === inputTypes.TEXT_AREA ? rows : null}
       multiline={type === inputTypes.TEXT_AREA ? true : false}
       defaultValue={defaultValue}
+      placeholder={placeholder}
       error={errors ? !!errors[field] : null}
       helperText={errors && errors[field] ? errors[field].message : ""}
       {...register(field)}

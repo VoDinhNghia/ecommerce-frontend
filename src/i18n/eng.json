@@ -30,5 +30,11 @@
     "OnlyDetailHomePage": "Only",
     "FromDetailHomePage": "from",
     "ToDetailHomePage": "to",
-    "Search results": "Search results"
+    "Search results": "Search results",
+    "titleSignUp": "Sign Up",
+    "mobileSignUp": "Mobile",
+    "addressSignUp": "Address",
+    "firstNameSignUp": "First name",
+    "middleNameSignUp": "Middle name",
+    "lastNameSignUp": "Last name"
 }

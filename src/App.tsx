@@ -20,6 +20,7 @@ import { I18nextProvider } from "react-i18next";
 import CategoryMgtPage from "./pages/dashboard/categories";
 import ProductMgtPage from "./pages/dashboard/products";
 import CartDetailPage from "./pages/carts";
+import SignUpPage from "./pages/signup";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path={routes.login} element={<LoginPage />} />
+            <Route path={routes.register} element={<SignUpPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path={routes.home} element={<HomePage />} />
             <Route path={routes.cartDetail} element={<CartDetailPage />} />
