@@ -3,11 +3,10 @@
 import { NotificationManager } from "react-notifications";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Row, Col, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "./index.css";
 import { login } from "../../services/auth.service";
-import { routes } from "../../constants/constant";
-import { TextField } from "@mui/material";
+import { inputTypes, routes } from "../../constants/constant";
 import {
   registerSchemaLoginForm,
   IregisterInputLoginForm,
@@ -19,6 +18,14 @@ import FooterPage from "../commons/footer";
 import { getCart } from "../../services/cart.service";
 import { withTranslation } from "react-i18next";
 import { t } from "i18next";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+} from "mdb-react-ui-kit";
+import TextFieldCommon from "../commons/textfield-input";
 
 const LoginPage = () => {
   const {
@@ -58,63 +65,72 @@ const LoginPage = () => {
   return (
     <div>
       <MenuHome numberCart={getCart()?.length || 0} />
-      <div className="LoginPage">
-        <Row>
-          <Col xl={6}>
-            <img
-              src="/images/store-login.png"
-              className="ImgLoginPage"
-              height="420"
-            />
-          </Col>
-          <Col xl={6} className="p-4">
-            <p className="text-center">
-              <img
-                src="/images/icon-login.jpg"
-                alt=""
-                className="IconLoginPage"
-              />
-            </p>
-            <h3 className="text-center">{t("LoginTitle")}</h3>
-            <div className="p-4">
-              <form onSubmit={handleSubmit(onSubmitHandlerLogin)}>
-                <p className="mt-3">{t("EmailLogin")}: </p>
-                <TextField
-                  fullWidth={true}
-                  size="small"
-                  type="email"
-                  className="border border-white"
-                  error={!!errors["email"]}
-                  helperText={errors["email"] ? errors["email"].message : ""}
-                  {...register("email")}
-                />
-                <p className="mt-2">{t("PasswordLogin")}: </p>
-                <TextField
-                  fullWidth={true}
-                  size="small"
-                  type="password"
-                  className="border border-white"
-                  error={!!errors["password"]}
-                  helperText={
-                    errors["password"] ? errors["password"].message : ""
-                  }
-                  {...register("password")}
-                />
-                <Button
-                  type="submit"
-                  variant="light"
-                  className="mt-3 mb-2 w-100 text-primary fs-5"
-                >
-                  {t("LoginTitle")}
-                </Button>
-              </form>
-              <a href="/" className="text-decoration-none text-white">
-                {t("Forget password")} ?
-              </a>
-            </div>
-          </Col>
-        </Row>
-      </div>
+      <form onSubmit={handleSubmit(onSubmitHandlerLogin)}>
+        <MDBContainer
+          fluid
+          className="p-4 background-radial-gradient overflow-hidden"
+        >
+          <MDBRow>
+            <MDBCol
+              md="6"
+              className="text-center text-md-start d-flex flex-column justify-content-center"
+            >
+              <h1 className="my-5 display-3 fw-bold ls-tight px-3 TextColor">
+                The best offer <br />
+                <span className="TextColor">for your store</span>
+              </h1>
+              <p className="TextColor">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+                quibusdam tempora at cupiditate quis eum maiores libero
+                veritatis? Dicta facilis sint aliquid ipsum atque?
+              </p>
+            </MDBCol>
+            <MDBCol md="6" className="position-relative">
+              <div
+                id="radius-shape-1"
+                className="position-absolute rounded-circle shadow-5-strong"
+              ></div>
+              <div
+                id="radius-shape-2"
+                className="position-absolute shadow-5-strong"
+              ></div>
+              <MDBCard className="my-5 bg-glass">
+                <MDBCardBody className="p-5">
+                  <p className="text-center">
+                    <img
+                      src="/images/icon-login.jpg"
+                      alt=""
+                      className="IconLoginPage"
+                    />
+                  </p>
+                  <br />
+                  <br />
+                  <TextFieldCommon
+                    field="email"
+                    type={inputTypes.EMAIL}
+                    errors={errors}
+                    register={register}
+                    placeholder={t("EmailLogin")}
+                  />
+                  <br />
+                  <br />
+                  <TextFieldCommon
+                    field="password"
+                    type={inputTypes.PASSWORD}
+                    errors={errors}
+                    register={register}
+                    placeholder={t("PasswordLogin")}
+                  />
+                  <Button className="w-100 mt-3" type="submit">
+                    {t("LoginTitle")}
+                  </Button>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </form>
       <FooterPage />
     </div>
   );
