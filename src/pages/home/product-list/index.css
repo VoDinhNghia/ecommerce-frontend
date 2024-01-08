@@ -31,7 +31,7 @@
       hsl(218, 41%, 19%) 80%,
       transparent 100%
     );
-  background: linear-gradient(-45deg, #110704, #0a0004, #0d2a35, #000807);
+  background: linear-gradient(260deg,#010c04,#0f0101,#050530);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 }
