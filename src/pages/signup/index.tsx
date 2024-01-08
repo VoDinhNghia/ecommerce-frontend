@@ -8,7 +8,7 @@ import { getCart } from "../../services/cart.service";
 import { withTranslation } from "react-i18next";
 import { t } from "i18next";
 import TextFieldCommon from "../commons/textfield-input";
-import { inputTypes } from "../../constants/constant";
+import { inputTypes, routes } from "../../constants/constant";
 import {
   MDBContainer,
   MDBRow,
@@ -17,9 +17,18 @@ import {
   MDBCardBody,
 } from "mdb-react-ui-kit";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IregisterSchemaSignUp, registerSchemaSignUp } from "../../utils/signUp.util";
+import {
+  IregisterSchemaSignUp,
+  registerSchemaSignUp,
+} from "../../utils/signUp.util";
+import { IsignUpPage } from "../../interfaces/signup.interface";
+import { userActions } from "../../store/actions";
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 
-const SignUpPage = () => {
+const SignUpPage = (props: IsignUpPage) => {
+  const { dispatch } = props;
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -30,8 +39,14 @@ const SignUpPage = () => {
   });
 
   const handleAdd: SubmitHandler<IregisterSchemaSignUp> = (values) => {
-    console.log(values);
-  }
+    dispatch({
+      type: userActions.ADD_USER,
+      payload: values,
+    });
+    setTimeout(() => {
+      navigate(routes.login);
+    }, 70);
+  };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -56,7 +71,6 @@ const SignUpPage = () => {
                 The best offer <br />
                 <span className="TextColor">for your store</span>
               </h1>
-
               <p className="TextColor">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Eveniet, itaque accusantium odio, soluta, corrupti aliquam
@@ -143,4 +157,4 @@ const SignUpPage = () => {
   );
 };
 
-export default withTranslation()(SignUpPage);
+export default connect()(withTranslation()(SignUpPage));
