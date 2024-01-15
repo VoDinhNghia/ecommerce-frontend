@@ -5,11 +5,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import MenuHomePage from "../menu-home";
 import FooterPage from "../commons/footer";
-import {
-  addTocart,
-  getCart,
-  removeCart,
-} from "../../services/cart.service";
+import { addTocart, getCart, removeCart } from "../../services/cart.service";
 import {
   TableBody,
   TableContainer,
@@ -173,10 +169,6 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    listProducts: state.ProductReducer.listProducts,
-  };
-};
-
-export default connect(mapStateToProp)(CartDetailPage);
+export default connect((state: IstateRedux) => ({
+  listProducts: state.ProductReducer.listProducts,
+}))(CartDetailPage);

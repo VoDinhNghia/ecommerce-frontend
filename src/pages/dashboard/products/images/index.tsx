@@ -178,10 +178,6 @@ const ProductImages = (props: IpropProductImage) => {
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    productDetail: state.ProductReducer.productDetail,
-  };
-};
-
-export default connect(mapStateToProp)(ProductImages);
+export default connect((state: IstateRedux) => ({
+  productDetail: state.ProductReducer.productDetail,
+}))(ProductImages);

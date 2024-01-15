@@ -143,10 +143,6 @@ const ProductReviewMgtPage = (props: IpropModalProductReview) => {
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    productDetail: state.ProductReducer.productDetail,
-  };
-};
-
-export default connect(mapStateToProp)(ProductReviewMgtPage);
+export default connect((state: IstateRedux) => ({
+  productDetail: state.ProductReducer.productDetail,
+}))(ProductReviewMgtPage);

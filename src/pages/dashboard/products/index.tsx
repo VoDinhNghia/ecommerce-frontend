@@ -33,7 +33,12 @@ import ProductDiscount from "./discounts";
 import ProductReviewMgtPage from "./reviews";
 
 const ProductMgtPage = (props: IpropProductPage) => {
-  const { dispatch, listProducts = [], totalProduct = 0, listCategories = [] } = props;
+  const {
+    dispatch,
+    listProducts = [],
+    totalProduct = 0,
+    listCategories = [],
+  } = props;
   const [state, setState] = useState({
     page: 0,
     limit: 5,
@@ -290,12 +295,8 @@ const ProductMgtPage = (props: IpropProductPage) => {
   );
 };
 
-const mapStateToProps = (state: IstateRedux) => {
-  return {
-    listProducts: state.ProductReducer.listProducts,
-    totalProduct: state.ProductReducer.totalProduct,
-    listCategories: state.CategoryReducer.listCategories,
-  };
-};
-
-export default connect(mapStateToProps)(ProductMgtPage);
+export default connect((state: IstateRedux) => ({
+  listProducts: state.ProductReducer.listProducts,
+  totalProduct: state.ProductReducer.totalProduct,
+  listCategories: state.CategoryReducer.listCategories,
+}))(ProductMgtPage);

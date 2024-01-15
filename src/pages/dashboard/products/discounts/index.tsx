@@ -75,7 +75,7 @@ const ProductDiscount = (props: IpropProductDiscount) => {
 
   const onSelectKeyTab = (key: string | null) => {
     setState({ ...state, activeKey: key || "" });
-  }
+  };
 
   const fetchProductDetail = () => {
     if (productInfo?.id) {
@@ -84,7 +84,7 @@ const ProductDiscount = (props: IpropProductDiscount) => {
         id: productInfo?.id,
       });
     }
-  }
+  };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -94,7 +94,11 @@ const ProductDiscount = (props: IpropProductDiscount) => {
   }, [isSubmitSuccessful]);
 
   const content = (
-    <Tabs activeKey={state.activeKey} onSelect={(key) => onSelectKeyTab(key)} className="fs-6">
+    <Tabs
+      activeKey={state.activeKey}
+      onSelect={(key) => onSelectKeyTab(key)}
+      className="fs-6"
+    >
       <Tab
         eventKey={productDiscountTab.table.key}
         title={productDiscountTab.table.title}
@@ -166,29 +170,25 @@ const ProductDiscount = (props: IpropProductDiscount) => {
   );
   return (
     <>
-    <DialogModalCommonPage
-      isShowModal={isShowModal}
-      type={type}
-      onCloseModal={() => onCloseModal()}
-      nameTitle={`${productDetail?.name}`}
-      content={content}
-      size={"sm"}
-    />
-    <ProductDiscountAction 
-      isShowModal={state.isShowModalDelete}
-      type={modalTypes.DELETE}
-      discountInfo={state.rowData}
-      onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
-      fetchProducts={() => fetchProductDetail()}
-    />
+      <DialogModalCommonPage
+        isShowModal={isShowModal}
+        type={type}
+        onCloseModal={() => onCloseModal()}
+        nameTitle={`${productDetail?.name}`}
+        content={content}
+        size={"sm"}
+      />
+      <ProductDiscountAction
+        isShowModal={state.isShowModalDelete}
+        type={modalTypes.DELETE}
+        discountInfo={state.rowData}
+        onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
+        fetchProducts={() => fetchProductDetail()}
+      />
     </>
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    productDetail: state.ProductReducer.productDetail,
-  }
-}
-
-export default connect(mapStateToProp)(ProductDiscount);
+export default connect((state: IstateRedux) => ({
+  productDetail: state.ProductReducer.productDetail,
+}))(ProductDiscount);

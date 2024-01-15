@@ -63,10 +63,6 @@ const HomePage = (props: IpropHomePage) => {
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    listCategories: state.CategoryReducer.listCategories,
-  };
-};
-
-export default connect(mapStateToProp)(HomePage);
+export default connect((state: IstateRedux) => ({
+  listCategories: state.CategoryReducer.listCategories,
+}))(HomePage);

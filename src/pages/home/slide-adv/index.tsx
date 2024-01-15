@@ -47,10 +47,6 @@ const SlideImgAdvHomePage = (props: IpropSlideImgAdv) => {
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    listSlideImgAdv: state.SlideImgAdvReducer.listSlideImgAdv,
-  };
-};
-
-export default connect(mapStateToProp)(SlideImgAdvHomePage);
+export default connect((state: IstateRedux) => ({
+  listSlideImgAdv: state.SlideImgAdvReducer.listSlideImgAdv,
+}))(SlideImgAdvHomePage);

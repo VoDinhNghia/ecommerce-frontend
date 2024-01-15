@@ -226,10 +226,6 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    listProducts: state.ProductReducer.listProducts,
-  };
-};
-
-export default connect(mapStateToProp)(withTranslation()(ProductListHomePage));
+export default connect((state: IstateRedux) => ({
+  listProducts: state.ProductReducer.listProducts,
+}))(withTranslation()(ProductListHomePage));

@@ -112,10 +112,6 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    listSlideImgAdv: state.SlideImgAdvReducer.listSlideImgAdv,
-  };
-};
-
-export default connect(mapStateToProp)(SlideImageAdvSetting);
+export default connect((state: IstateRedux) => ({
+  listSlideImgAdv: state.SlideImgAdvReducer.listSlideImgAdv,
+}))(SlideImageAdvSetting);

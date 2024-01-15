@@ -162,10 +162,6 @@ const ModalProductPage = (props: ImodalProductPage) => {
   );
 };
 
-const mapStateToProp = (state: IstateRedux) => {
-  return {
-    listCategories: state.CategoryReducer.listCategories,
-  };
-};
-
-export default connect(mapStateToProp)(ModalProductPage);
+export default connect((state: IstateRedux) => ({
+  listCategories: state.CategoryReducer.listCategories,
+}))(ModalProductPage);

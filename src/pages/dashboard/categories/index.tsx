@@ -193,11 +193,7 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
   );
 };
 
-const mapStateToProps = (state: IstateRedux) => {
-  return {
-    listCategories: state.CategoryReducer.listCategories,
-    totalCategory: state.CategoryReducer.totalCategory,
-  };
-};
-
-export default connect(mapStateToProps)(CategoryMgtPage);
+export default connect((state: IstateRedux) => ({
+  listCategories: state.CategoryReducer.listCategories,
+  totalCategory: state.CategoryReducer.totalCategory,
+}))(CategoryMgtPage);

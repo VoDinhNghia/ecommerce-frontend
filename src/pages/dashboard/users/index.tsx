@@ -6,9 +6,15 @@ import FooterPage from "../../commons/footer";
 import { Container } from "rsuite";
 import { connect } from "react-redux";
 import { IstateRedux } from "../../../interfaces/common.interface";
-import { IpropUserMgt, IrowUserTable } from "../../../interfaces/user.interface";
+import {
+  IpropUserMgt,
+  IrowUserTable,
+} from "../../../interfaces/user.interface";
 import { userActions } from "../../../store/actions";
-import { handleDataUserTable, headersUserTable } from "../../../utils/user.util";
+import {
+  handleDataUserTable,
+  headersUserTable,
+} from "../../../utils/user.util";
 import {
   Table,
   TableBody,
@@ -77,7 +83,7 @@ const UserManagementPage = (props: IpropUserMgt) => {
           <Container>
             <MenuPage />
             <Container className="p-3">
-              <TitleHeaderPage title="User management page"/>
+              <TitleHeaderPage title="User management page" />
               <AddAndSearchTable
                 title="Add new user"
                 onSearch={(searchKey: string) => onSearch(searchKey)}
@@ -129,22 +135,28 @@ const UserManagementPage = (props: IpropUserMgt) => {
                 type={modalTypes.ADD}
                 isShowModal={isShowModalAdd}
                 userInfo={{}}
-                onCloseModal={() => setState({ ...state, isShowModalAdd: false })}
-                fetchUsers={() => fetchUsers(page + 1, limit)} 
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalAdd: false })
+                }
+                fetchUsers={() => fetchUsers(page + 1, limit)}
               />
               <ModalUserPage
                 type={modalTypes.UPDATE}
                 isShowModal={isShowModalUpdate}
                 userInfo={rowData}
-                onCloseModal={() => setState({ ...state, isShowModalUpdate: false })}
-                fetchUsers={() => fetchUsers(page + 1, limit)} 
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalUpdate: false })
+                }
+                fetchUsers={() => fetchUsers(page + 1, limit)}
               />
               <ModalUserPage
                 type={modalTypes.DELETE}
                 isShowModal={isShowModalDelete}
                 userInfo={rowData}
-                onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
-                fetchUsers={() => fetchUsers(page + 1, limit)} 
+                onCloseModal={() =>
+                  setState({ ...state, isShowModalDelete: false })
+                }
+                fetchUsers={() => fetchUsers(page + 1, limit)}
               />
             </Container>
           </Container>
@@ -157,11 +169,7 @@ const UserManagementPage = (props: IpropUserMgt) => {
   );
 };
 
-const mapStateToProps = (state: IstateRedux) => {
-  return {
-    listUsers: state.UserReducer.listUsers,
-    totalUser: state.UserReducer.totalUser,
-  };
-};
-
-export default connect(mapStateToProps)(UserManagementPage);
+export default connect((state: IstateRedux) => ({
+  listUsers: state.UserReducer.listUsers,
+  totalUser: state.UserReducer.totalUser,
+}))(UserManagementPage);
