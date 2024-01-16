@@ -16,7 +16,9 @@ const MenuPage = () => {
   const isRoleSa = validateRoleSa();
   const [expand, setExpand] = useState(true);
   const userInfo = getCurrentUser();
-  const userName = `${userInfo?.lastName} ${userInfo?.middleName} ${userInfo?.firstName}`;
+  const userName = `${userInfo?.lastName || ""} ${userInfo?.middleName || ""} ${
+    userInfo?.firstName || ""
+  }`;
 
   const logOutHandle = () => {
     logOut();
@@ -65,44 +67,40 @@ const MenuPage = () => {
               {moduleNames.HOME_PAGE}
             </Nav.Item>
             {isRoleSa ? (
-              <Nav.Item
-                eventKey={moduleNames.USER_MANAGEMENT}
-                icon={<UserMgtIcon />}
-                className="ItemMenuPage"
-                href={routes.userMgt}
-              >
-                {moduleNames.USER_MANAGEMENT}
-              </Nav.Item>
-            ) : null}
-            {isRoleSa ? (
-              <Nav.Item
-                eventKey={moduleNames.CATEGORY}
-                icon={<CategoryIcon />}
-                className="ItemMenuPage"
-                href={routes.category}
-              >
-                {moduleNames.CATEGORY}
-              </Nav.Item>
-            ) : null}
-            {isRoleSa ? (
-              <Nav.Item
-                eventKey={moduleNames.PRODUCT}
-                icon={<ProductIcon />}
-                className="ItemMenuPage"
-                href={routes.product}
-              >
-                {moduleNames.PRODUCT}
-              </Nav.Item>
-            ) : null}
-            {isRoleSa ? (
-              <Nav.Item
-                eventKey={moduleNames.SETTINGS}
-                icon={<SettingIcon />}
-                className="ItemMenuPage"
-                href={routes.settings}
-              >
-                {moduleNames.SETTINGS}
-              </Nav.Item>
+              <>
+                <Nav.Item
+                  eventKey={moduleNames.USER_MANAGEMENT}
+                  icon={<UserMgtIcon />}
+                  className="ItemMenuPage"
+                  href={routes.userMgt}
+                >
+                  {moduleNames.USER_MANAGEMENT}
+                </Nav.Item>
+                <Nav.Item
+                  eventKey={moduleNames.CATEGORY}
+                  icon={<CategoryIcon />}
+                  className="ItemMenuPage"
+                  href={routes.category}
+                >
+                  {moduleNames.CATEGORY}
+                </Nav.Item>
+                <Nav.Item
+                  eventKey={moduleNames.PRODUCT}
+                  icon={<ProductIcon />}
+                  className="ItemMenuPage"
+                  href={routes.product}
+                >
+                  {moduleNames.PRODUCT}
+                </Nav.Item>
+                <Nav.Item
+                  eventKey={moduleNames.SETTINGS}
+                  icon={<SettingIcon />}
+                  className="ItemMenuPage"
+                  href={routes.settings}
+                >
+                  {moduleNames.SETTINGS}
+                </Nav.Item>
+              </>
             ) : null}
             <Nav.Item
               eventKey="LOGOUT"
