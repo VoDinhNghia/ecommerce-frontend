@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Icategory } from "./category.interface";
 import { IpropModalCommon } from "./common.interface";
 import { Iproduct } from "./product.inteface";

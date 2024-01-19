@@ -1,6 +1,5 @@
 import { IpropModalCommon } from "./common.interface";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IcreateCategory {
   name?: string;
   description?: string;

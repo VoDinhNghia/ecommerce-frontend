@@ -1,5 +1,6 @@
 import { takeLatest } from "redux-saga/effects";
 import { settingActions } from "../actions";
+import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
 import {
   createSlideImg,
   deleteSlideImg,
@@ -12,7 +13,6 @@ import {
   removeSagaCommon,
   updateSagaCommon,
 } from "../common";
-import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
 
 function* addSlideImgAdv(params: IparamSaga) {
   yield addSagaCommon(createSlideImg, params, "Add slide image");
@@ -35,7 +35,7 @@ function* deleteSlideImageAdv(params: IparamSaga) {
   yield removeSagaCommon(deleteSlideImg, params, "Delete slide image");
 }
 
-function* SlideImageAdvSaga() {
+export default function* SlideImageAdvSaga() {
   yield takeLatest<ItakeLatestSaga>(
     settingActions.ADD_SLIDE_IMAGE,
     addSlideImgAdv
@@ -53,5 +53,3 @@ function* SlideImageAdvSaga() {
     editSlideImage
   );
 }
-
-export default SlideImageAdvSaga;

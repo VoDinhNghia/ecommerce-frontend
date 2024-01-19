@@ -1,18 +1,18 @@
 import { takeLatest } from "redux-saga/effects";
+import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
+import { categoryActions } from "../actions";
 import {
   createCategory,
   updateCategory,
   deleteCategory,
   getCategories,
 } from "../../services/category.service";
-import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
 import {
   addSagaCommon,
   fetchListSagaCommon,
   removeSagaCommon,
   updateSagaCommon,
 } from "../common";
-import { categoryActions } from "../actions";
 
 function* fetchListCategories(params: IparamSaga) {
   yield fetchListSagaCommon(
@@ -35,7 +35,7 @@ function* removeCategory(params: IparamSaga) {
   yield removeSagaCommon(deleteCategory, params, "Delete category");
 }
 
-function* CategorySaga() {
+export default function* CategorySaga() {
   yield takeLatest<ItakeLatestSaga>(
     categoryActions.GET_LIST_CATEGORY,
     fetchListCategories
@@ -53,5 +53,3 @@ function* CategorySaga() {
     removeCategory
   );
 }
-
-export default CategorySaga;

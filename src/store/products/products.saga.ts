@@ -1,4 +1,13 @@
 import { takeLatest } from "redux-saga/effects";
+import { productActions } from "../actions";
+import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
+import {
+  addSagaCommon,
+  fetchDetailSagaCommon,
+  fetchListSagaCommon,
+  removeSagaCommon,
+  updateSagaCommon,
+} from "../common";
 import {
   createProduct,
   updateProduct,
@@ -17,15 +26,6 @@ import {
   updateReview,
   deleteReview,
 } from "../../services/products.service";
-import { productActions } from "../actions";
-import { IparamSaga, ItakeLatestSaga } from "../../interfaces/common.interface";
-import {
-  addSagaCommon,
-  fetchDetailSagaCommon,
-  fetchListSagaCommon,
-  removeSagaCommon,
-  updateSagaCommon,
-} from "../common";
 
 function* addProduct(params: IparamSaga) {
   yield addSagaCommon(createProduct, params, "Add product");
@@ -101,7 +101,7 @@ function* removeReview(params: IparamSaga) {
   yield removeSagaCommon(deleteReview, params, "Delete product review");
 }
 
-function* ProductSaga() {
+export default function* ProductSaga() {
   yield takeLatest<ItakeLatestSaga>(productActions.ADD_PRODUCT, addProduct);
   yield takeLatest<ItakeLatestSaga>(productActions.UPDATE_PRODUCT, editProduct);
   yield takeLatest<ItakeLatestSaga>(
@@ -158,5 +158,3 @@ function* ProductSaga() {
     removeReview
   );
 }
-
-export default ProductSaga;

@@ -4,7 +4,7 @@ import CategorySaga from "./categories/categories.saga";
 import ProductSaga from "./products/products.saga";
 import SlideImageAdvSaga from "./settings/settings.saga";
 
-function* rootSaga() {
+export default function* rootSaga() {
   yield all([
     fork(UserSaga),
     fork(CategorySaga),
@@ -12,5 +12,3 @@ function* rootSaga() {
     fork(SlideImageAdvSaga),
   ]);
 }
-
-export default rootSaga;

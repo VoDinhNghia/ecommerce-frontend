@@ -6,7 +6,7 @@ const initState = {
   totalSlideImgAdv: 0,
 };
 
-const SlideImgAdvReducer = (state = initState, actions: IactionRedux) => {
+export const SlideImgAdvReducer = (state = initState, actions: IactionRedux) => {
   switch (actions?.type) {
     case settingActions.GET_SLIDE_IMAGE:
       return {
@@ -24,5 +24,3 @@ const SlideImgAdvReducer = (state = initState, actions: IactionRedux) => {
       return state;
   }
 };
-
-export default SlideImgAdvReducer;

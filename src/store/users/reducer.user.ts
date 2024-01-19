@@ -6,7 +6,7 @@ const initState = {
   totalUser: 0,
 };
 
-const UserReducer = (state = initState, action: IactionRedux) => {
+export const UserReducer = (state = initState, action: IactionRedux) => {
   switch (action.type) {
     case userActions.GET_LIST_USER:
       return {
@@ -24,5 +24,3 @@ const UserReducer = (state = initState, action: IactionRedux) => {
       return state;
   }
 };
-
-export default UserReducer;

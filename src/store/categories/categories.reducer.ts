@@ -6,7 +6,7 @@ const initState = {
   totalCategory: 0,
 };
 
-const CategoryReducer = (state = initState, actions: IactionRedux) => {
+export const CategoryReducer = (state = initState, actions: IactionRedux) => {
   switch (actions.type) {
     case categoryActions.GET_LIST_CATEGORY:
       return {
@@ -24,5 +24,3 @@ const CategoryReducer = (state = initState, actions: IactionRedux) => {
       return state;
   }
 };
-
-export default CategoryReducer;

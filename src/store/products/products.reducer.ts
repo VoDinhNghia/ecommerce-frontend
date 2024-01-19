@@ -7,7 +7,7 @@ const initState = {
   productDetail: {},
 };
 
-const ProductReducer = (state = initState, action: IactionRedux) => {
+export const ProductReducer = (state = initState, action: IactionRedux) => {
   switch (action?.type) {
     case productActions.GET_LIST_PRODUCT:
       return {
@@ -31,5 +31,3 @@ const ProductReducer = (state = initState, action: IactionRedux) => {
       return state;
   }
 };
-
-export default ProductReducer;

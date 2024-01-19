@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
-
 import { Icategory } from "./category.interface";
 import { Iproduct } from "./product.inteface";
 import { IslideImageAdv } from "./settings.interface";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface IeventOnchangeInput {
   target: {
     value: string;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Navigate } from "react-router-dom";
 import { getCurrentUser } from "../services/auth.service";
 import { routes, userRoles } from "../constants/constant";

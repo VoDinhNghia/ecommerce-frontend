@@ -2,7 +2,6 @@ import { Icategory } from "./category.interface";
 import { IpropModalCommon } from "./common.interface";
 import { IuserInfo } from "./login.interface";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IcreateProduct {
   name?: string;
   description?: string;

@@ -55,7 +55,7 @@ module.exports = {
     ],
     "@typescript-eslint/member-delimiter-style": "error",
     "@typescript-eslint/member-ordering": "error",
-    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/naming-convention": [
       "error",
       { selector: "default", format: ["strictCamelCase", "StrictPascalCase"] },

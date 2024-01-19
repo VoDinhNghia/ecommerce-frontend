@@ -9,6 +9,15 @@ import { withTranslation } from "react-i18next";
 import { t } from "i18next";
 import TextFieldCommon from "../commons/textfield-input";
 import { inputTypes, routes } from "../../constants/constant";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { IsignUpPage } from "../../interfaces/signup.interface";
+import { userActions } from "../../store/actions";
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  IregisterSchemaSignUp,
+  registerSchemaSignUp,
+} from "../../utils/signUp.util";
 import {
   MDBContainer,
   MDBRow,
@@ -16,15 +25,6 @@ import {
   MDBCard,
   MDBCardBody,
 } from "mdb-react-ui-kit";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  IregisterSchemaSignUp,
-  registerSchemaSignUp,
-} from "../../utils/signUp.util";
-import { IsignUpPage } from "../../interfaces/signup.interface";
-import { userActions } from "../../store/actions";
-import { useNavigate } from "react-router-dom";
-import { connect } from "react-redux";
 
 const SignUpPage = (props: IsignUpPage) => {
   const { dispatch } = props;
