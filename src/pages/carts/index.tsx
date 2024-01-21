@@ -6,18 +6,8 @@ import "./index.css";
 import MenuHomePage from "../menu-home";
 import FooterPage from "../commons/footer";
 import { addTocart, getCart, removeCart } from "../../services/cart.service";
-import {
-  TableBody,
-  TableContainer,
-  TableCell,
-  TableRow,
-  Table,
-} from "@mui/material";
-import HeaderTableCommon from "../commons/header-table";
-import { headerTableCart } from "../../utils/cart.util";
-import { Container, ButtonGroup, Button, Form } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 import { Iproduct } from "../../interfaces/product.inteface";
-import { BsPlus, BsDashLg, BsTrash } from "react-icons/bs";
 import { connect } from "react-redux";
 import { IstateRedux } from "../../interfaces/common.interface";
 import {
@@ -25,6 +15,17 @@ import {
   IpropCartDetailPage,
 } from "../../interfaces/cart.interface";
 import { productActions } from "../../store/actions";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCol,
+  MDBContainer,
+  MDBIcon,
+  MDBRow,
+  MDBTypography,
+} from "mdb-react-ui-kit";
+import { routes } from "../../constants/constant";
 
 const CartDetailPage = (props: IpropCartDetailPage) => {
   const { dispatch, listProducts } = props;
@@ -99,71 +100,138 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
   return (
     <div>
       <MenuHomePage numberCart={numberCart} />
-      <Container className="mt-2 mb-3">
-        <TableContainer>
-          <Table stickyHeader aria-label="cart table">
-            <HeaderTableCommon headerList={headerTableCart} />
-            <TableBody>
-              {carts?.map((cart: Iproduct, index) => {
-                return (
-                  <TableRow key={cart?.id} hover role="checkbox" tabIndex={-1}>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>
-                      <img src={cart?.images} alt="" width={100} height={50} />
-                    </TableCell>
-                    <TableCell className="text-primary">{cart?.name}</TableCell>
-                    <TableCell>
-                      {cart?.price?.toLocaleString("en-US")}đ
-                    </TableCell>
-                    <TableCell>{cart?.quantity}</TableCell>
-                    <TableCell>
-                      <ButtonGroup>
-                        <Button
-                          variant="outline-primary"
-                          className="me-1"
-                          size="sm"
-                          onClick={() => addCart(cart)}
-                        >
-                          <BsPlus />
-                        </Button>{" "}
-                        <Form.Control
-                          type="number"
-                          className="FormControl"
-                          size="sm"
-                          defaultValue={1}
-                          onChange={(e: IformAddToCart) =>
-                            setState({
-                              ...state,
-                              numberQuantity: Number(e?.target?.value),
-                            })
-                          }
-                        />
-                        <Button
-                          variant="outline-danger"
-                          size="sm"
-                          className="ms-1"
-                          onClick={() => subtractCart(cart)}
-                        >
-                          <BsDashLg />
-                        </Button>
-                      </ButtonGroup>
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => clearCarts(cart)}
+      <section style={{ backgroundColor: "#eee" }}>
+        <MDBContainer>
+          <MDBRow className="justify-content-center align-items-center h-100">
+            <MDBCol>
+              <MDBCard
+                className="shopping-cart"
+                style={{ borderRadius: "15px" }}
+              >
+                <MDBCardBody className="text-black">
+                  <MDBRow>
+                    <Col xl={7} className="px-5 py-4">
+                      <MDBTypography
+                        tag="h3"
+                        className="mb-5 pt-2 text-center fw-bold text-uppercase"
                       >
-                        <BsTrash />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
+                        Your products
+                      </MDBTypography>
+
+                      {carts?.map((cart: Iproduct) => {
+                        return (
+                          <div
+                            className="d-flex align-items-center mb-5"
+                            key={cart?.id}
+                          >
+                            <div className="flex-shrink-0">
+                              <MDBCardImage
+                                src={cart?.images}
+                                fluid
+                                style={{ width: "150px" }}
+                                alt="Generic placeholder image"
+                              />
+                            </div>
+
+                            <div className="flex-grow-1 ms-3">
+                              <Button
+                                className="float-end"
+                                size="sm"
+                                variant="outline-danger"
+                                onClick={() => clearCarts(cart)}
+                              >
+                                <MDBIcon fas icon="times" />
+                              </Button>
+                              <MDBTypography tag="h5" className="text-primary">
+                                {cart?.name}
+                              </MDBTypography>
+                              <MDBTypography tag="h6">
+                                Quantity: {cart?.quantity}
+                              </MDBTypography>
+
+                              <div className="d-flex align-items-center">
+                                <p className="fs-6 fw-bold mb-0 me-5 pe-3 text-danger">
+                                  {cart?.price?.toLocaleString("en-US")} đ
+                                </p>
+
+                                <div className="def-number-input number-input safari_only">
+                                  <button
+                                    className="minus"
+                                    onClick={() => subtractCart(cart)}
+                                  ></button>
+                                  <input
+                                    className="quantity fw-bold text-black"
+                                    min={0}
+                                    defaultValue={1}
+                                    type="number"
+                                    onChange={(e: IformAddToCart) =>
+                                      setState({
+                                        ...state,
+                                        numberQuantity: Number(
+                                          e?.target?.value
+                                        ),
+                                      })
+                                    }
+                                  />
+                                  <button
+                                    className="plus"
+                                    onClick={() => addCart(cart)}
+                                  ></button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      <hr
+                        className="mb-4"
+                        style={{
+                          height: "2px",
+                          backgroundColor: "#1266f1",
+                          opacity: 1,
+                        }}
+                      />
+                      <div
+                        className="d-flex justify-content-between p-2 mb-2"
+                        style={{ backgroundColor: "#e1f5fe" }}
+                      >
+                        <MDBTypography tag="h5" className="fw-bold mb-0">
+                          Total:
+                        </MDBTypography>
+                        <MDBTypography
+                          tag="h5"
+                          className="fw-bold mb-0"
+                        ></MDBTypography>
+                      </div>
+                    </Col>
+                    <Col xl={5} className="px-5 py-4">
+                      <MDBTypography
+                        tag="h3"
+                        className="mb-5 pt-2 text-center fw-bold text-uppercase"
+                      >
+                        Payment
+                      </MDBTypography>
+                      <form className="mb-5">
+                        <MDBTypography
+                          tag="h5"
+                          className="fw-bold mb-5"
+                          style={{ position: "absolute", bottom: "0" }}
+                        >
+                          <a href={routes.home}>
+                            <MDBIcon fas icon="angle-left me-2" />
+                            Back to shopping
+                          </a>
+                        </MDBTypography>
+                      </form>
+                    </Col>
+                  </MDBRow>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </section>
       <FooterPage />
     </div>
   );
