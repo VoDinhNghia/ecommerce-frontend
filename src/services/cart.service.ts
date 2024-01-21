@@ -3,31 +3,20 @@ import { Iproduct } from "../interfaces/product.inteface";
 export const addTocart = (product: Iproduct, quantity = 1) => {
   const carts = getCart();
   if (product?.id) {
-    const newItem = {
-      id: product?.id,
-      price: product?.price,
-      images: product?.images,
-      name: product?.name,
-      quantity,
-    };
-    if (carts.length > 0) {
-      const checkItem = carts.find(
-        (item: { id: string }) => item.id === newItem.id
-      );
-      if (checkItem) {
-        for (const item of carts) {
-          if (item.id === newItem.id) {
-            item.quantity += quantity;
-          }
+    const checkItem = carts.find(
+      (item: { id: string }) => item.id === product.id
+    );
+    if (checkItem) {
+      for (const item of carts) {
+        if (item.id === product.id) {
+          item.quantity += quantity;
         }
-      } else {
-        carts.push(newItem);
       }
     } else {
-      carts.push(newItem);
+      carts.push({ ...product, quantity });
     }
-    localStorage.setItem("cart", JSON.stringify(carts));
   }
+  localStorage.setItem("cart", JSON.stringify(carts));
 };
 
 export const getCart = () => {
@@ -39,7 +28,7 @@ export const removeCart = (product: Iproduct, quantity = 1) => {
   const carts = getCart();
   const newCarts = [];
   for (const item of carts) {
-    if (item?.id === product?.id) {
+    if (item.id === product.id) {
       item.quantity -= quantity;
       if (item.quantity > 0) {
         newCarts.push(item);
