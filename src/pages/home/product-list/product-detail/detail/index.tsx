@@ -45,10 +45,8 @@ const ProductDetailComponent = (props: IpropProductDetailComponent) => {
           content: state.content,
         },
       });
-      setState({ ...state, message: "" });
-    } else {
-      setState({ ...state, message: "please enter review" });
     }
+    setState({ ...state, message: state.content ? "" : "please enter review" });
     setTimeout(() => {
       fetchProductDetail();
     }, 100);

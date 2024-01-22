@@ -10,16 +10,18 @@ import { IstateRedux } from "../../../interfaces/common.interface";
 import { productActions } from "../../../store/actions";
 import { BsCartFill } from "react-icons/bs";
 import {
+  caculatorRate,
   calculatorPrice,
   getAvatarProductImage,
   getDiscountProduct,
 } from "../../../utils/product.util";
-import { Iproduct, IproductRate } from "../../../interfaces/product.inteface";
-import { getCart, addTocart } from "../../../services/cart.service";
+import { Iproduct } from "../../../interfaces/product.inteface";
+import { addTocart } from "../../../services/cart.service";
 import ProductDetailHomePage from "./product-detail";
 import { modalTypes } from "../../../constants/constant";
 import { Rating } from "react-simple-star-rating";
 import { withTranslation } from "react-i18next";
+import { addToCartHomePage } from "../../../utils/cart.util";
 
 const ProductListHomePage = (props: IpropProductHomePage) => {
   const { category, listProducts = [], dispatch, fetchCart, t } = props;
@@ -30,20 +32,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
   });
 
   const addCart = (product: Iproduct) => {
-    const carts = getCart();
-    const srcImage = getAvatarProductImage(product);
-    const checkDiscount = getDiscountProduct(product);
-    const productCheck = carts?.find(
-      (cart: { id: string }) => cart?.id === product?.id
-    );
-    const productDetail = {
-      name: product?.name,
-      images: srcImage,
-      id: product?.id,
-      price: checkDiscount
-        ? calculatorPrice(product?.price, checkDiscount?.discount)
-        : product?.price,
-    };
+    const { productCheck, productDetail } = addToCartHomePage(product);
     if (productCheck?.quantity >= product?.quantity) {
       NotificationManager.error(
         "quantity in warehouse is not enough",
@@ -67,23 +56,12 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
   };
 
   const onSearch = (searchKey: string) => {
-    if (searchKey) {
-      dispatch({
-        type: productActions.GET_LIST_PRODUCT,
-        payload: {
-          searchKey,
-        },
-      });
-      setState({ ...state, title: "Search results" });
-    } else {
-      dispatch({
-        type: productActions.GET_LIST_PRODUCT,
-        payload: {
-          categoryId: category?.id,
-        },
-      });
-      setState({ ...state, title: "" });
-    }
+    const payload = searchKey ? { searchKey } : { categoryId: category?.id };
+    setState({ ...state, title: searchKey ? "Search results" : "" });
+    dispatch({
+      type: productActions.GET_LIST_PRODUCT,
+      payload,
+    });
   };
 
   useEffect(() => {
@@ -111,11 +89,11 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
         {listProducts?.length > 0 ? (
           listProducts?.map((product) => {
             const discounts = getDiscountProduct(product);
-            const rates =
-              product?.rates?.reduce(
-                (pre: number, next: IproductRate) => pre + (next?.rate || 0),
-                0
-              ) / product?.rates?.length;
+            const rates = caculatorRate(product?.rates);
+            const calPrice = calculatorPrice(
+              product?.price,
+              discounts?.discount
+            );
             return (
               <Col xl={3} key={product?.id}>
                 <Card className="mt-3 ProductItemHomePage">
@@ -153,13 +131,7 @@ const ProductListHomePage = (props: IpropProductHomePage) => {
                       {discounts ? (
                         <>
                           <span className="OriginPrice">
-                            {Number(
-                              calculatorPrice(
-                                product?.price,
-                                discounts?.discount
-                              )
-                            ).toLocaleString("en-US")}
-                            đ{" "}
+                            {Number(calPrice).toLocaleString("en-US")}đ{" "}
                           </span>{" "}
                           <del className="text-muted">
                             {product?.price?.toLocaleString("en-US")}đ

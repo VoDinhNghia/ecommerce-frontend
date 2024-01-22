@@ -46,7 +46,7 @@ const CategoryHomePage = (props: IpropCategoryHomePage) => {
                   size="sm"
                   key={category?.id}
                   className="text-dark w-100 text-start"
-                  onClick={() => setState({ ...state, category: category })}
+                  onClick={() => setState({ ...state, category })}
                 >
                   <CDBSidebarMenuItem icon="bars" className="fs-6">
                     {category?.name}

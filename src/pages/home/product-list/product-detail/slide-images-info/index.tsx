@@ -6,23 +6,19 @@ import { BsCartFill } from "react-icons/bs";
 import { FcPrevious, FcNext } from "react-icons/fc";
 import { Rating } from "react-simple-star-rating";
 import { API_URL, formatDate } from "../../../../../constants/constant";
-import {
-  IproductImage,
-  IproductRate,
-} from "../../../../../interfaces/product.inteface";
+import { IproductImage } from "../../../../../interfaces/product.inteface";
 import moment from "moment";
-import { getDiscountProduct } from "../../../../../utils/product.util";
+import {
+  caculatorRate,
+  getDiscountProduct,
+} from "../../../../../utils/product.util";
 import { withTranslation } from "react-i18next";
 import { t } from "i18next";
 
 const ProductDetailImagesAndInfo = (props: IpropProductDetailImageAndInfo) => {
   const { productDetail = {}, addToCart } = props;
   const { images = [], rates = [] } = productDetail;
-  const rating =
-    rates?.reduce(
-      (pre: number, next: IproductRate) => pre + (next?.rate || 0),
-      0
-    ) / rates?.length;
+  const rating = caculatorRate(rates);
   const currentDiscount = getDiscountProduct(productDetail);
 
   return (

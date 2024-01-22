@@ -1,3 +1,11 @@
+import { Iproduct } from "../interfaces/product.inteface";
+import { getCart } from "../services/cart.service";
+import {
+  calculatorPrice,
+  getAvatarProductImage,
+  getDiscountProduct,
+} from "./product.util";
+
 export const headerTableCart = [
   {
     id: "index",
@@ -32,6 +40,27 @@ export const headerTableCart = [
   {
     id: "clear",
     label: "Clear",
-    minWidth: 120
-  }
+    minWidth: 120,
+  },
 ];
+
+export const addToCartHomePage = (product: Iproduct) => {
+  const carts = getCart();
+  const srcImage = getAvatarProductImage(product);
+  const checkDiscount = getDiscountProduct(product);
+  const productCheck = carts?.find(
+    (cart: { id: string }) => cart?.id === product?.id
+  );
+  const productDetail = {
+    name: product?.name,
+    images: srcImage,
+    id: product?.id,
+    price: checkDiscount
+      ? calculatorPrice(product?.price, checkDiscount?.discount)
+      : product?.price,
+  };
+  return {
+    productCheck,
+    productDetail,
+  };
+};

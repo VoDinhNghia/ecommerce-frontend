@@ -20,8 +20,6 @@ const HomePage = (props: IpropHomePage) => {
     numberCart: 0,
   });
 
-  const { category, numberCart } = state;
-
   const fetchCart = () => {
     const cart = getCart();
     setState({ ...state, numberCart: cart?.length || 0 });
@@ -39,7 +37,7 @@ const HomePage = (props: IpropHomePage) => {
 
   return (
     <div className="BackgroundGradientHomePage overflow-hidden">
-      <MenuHomePage numberCart={numberCart || getCart()?.length} />
+      <MenuHomePage numberCart={state.numberCart || getCart()?.length} />
       <SlideImgAdvHomePage />
       <Container fluid>
         <Row className="mt-2 mb-4">
@@ -52,7 +50,7 @@ const HomePage = (props: IpropHomePage) => {
           </Col>
           <Col xl={9}>
             <ProductListHomePage
-              category={category || listCategories[0]}
+              category={state.category || listCategories[0]}
               fetchCart={() => fetchCart()}
             />
           </Col>

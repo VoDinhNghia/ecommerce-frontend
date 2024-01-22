@@ -1,5 +1,5 @@
 import { TypeOf, number, object, string } from "zod";
-import { Iproduct } from "../interfaces/product.inteface";
+import { Iproduct, IproductRate } from "../interfaces/product.inteface";
 import { API_URL, formatDate } from "../constants/constant";
 import moment from "moment";
 
@@ -113,6 +113,15 @@ export const getDiscountProduct = (product: Iproduct) => {
         moment(dis?.endDate).format(formatDate)
   );
   return discounts;
+};
+
+export const caculatorRate = (rates: IproductRate[]) => {
+  const rate =
+    rates?.reduce(
+      (pre: number, next: IproductRate) => pre + (next?.rate || 0),
+      0
+    ) / rates?.length;
+  return rate;
 };
 
 export const headerDiscountTable = [
