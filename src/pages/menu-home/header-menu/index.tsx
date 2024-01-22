@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./index.css";
-import { IpropHeaderMenu } from "../../../interfaces/menu-home-page";
 import {
   modalTypes,
   optionLanguage,
@@ -8,7 +7,7 @@ import {
 } from "../../../constants/constant";
 import { getCurrentUser, logOut } from "../../../services/auth.service";
 import { IeventOnchangeSelect } from "../../../interfaces/common.interface";
-import i18next from "i18next";
+import i18next, { t } from "i18next";
 import { Container, Dropdown } from "react-bootstrap";
 import { FaSignInAlt } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
@@ -17,8 +16,7 @@ import Select from "react-select";
 import { withTranslation } from "react-i18next";
 import ModalBootstrapCommon from "../../commons/modal-bootstrap";
 
-const HeaderMenuPage = (props: IpropHeaderMenu) => {
-  const { t } = props;
+const HeaderMenuPage = () => {
   const currentUser = getCurrentUser();
   const [state, setState] = useState({
     isLanguage: false,
