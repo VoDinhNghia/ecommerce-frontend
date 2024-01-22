@@ -44,7 +44,7 @@ export const clearCart = () => {
   localStorage.removeItem("cart");
 };
 
-export const calculatorTotal = () => {
+export const caculatorTotalPrice = () => {
   const carts = getCart();
   const total = carts?.reduce(
     (pre: number, next: { quantity: number; price: number }) =>

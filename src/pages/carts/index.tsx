@@ -5,7 +5,12 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import MenuHomePage from "../menu-home";
 import FooterPage from "../commons/footer";
-import { addTocart, getCart, removeCart } from "../../services/cart.service";
+import {
+  addTocart,
+  caculatorTotalPrice,
+  getCart,
+  removeCart,
+} from "../../services/cart.service";
 import { Button, Col } from "react-bootstrap";
 import { Iproduct } from "../../interfaces/product.inteface";
 import { connect } from "react-redux";
@@ -91,6 +96,8 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
       fetchCarts();
     }, 70);
   };
+
+  const totalPrice = caculatorTotalPrice();
 
   useEffect(() => {
     fetchCarts();
@@ -199,10 +206,9 @@ const CartDetailPage = (props: IpropCartDetailPage) => {
                         <MDBTypography tag="h5" className="fw-bold mb-0">
                           Total:
                         </MDBTypography>
-                        <MDBTypography
-                          tag="h5"
-                          className="fw-bold mb-0"
-                        ></MDBTypography>
+                        <MDBTypography tag="h5" className="fw-bold mb-0">
+                          {totalPrice?.toLocaleString("en-US")} đ
+                        </MDBTypography>
                       </div>
                     </Col>
                     <Col xl={5} className="px-5 py-4">
