@@ -20,11 +20,6 @@ const ProfileDashboardPage = () => {
     isShowModalUpdatePassword: false,
     isShowModalUpdateProfile: false,
   });
-  const {
-    isShowModalUpdate,
-    isShowModalUpdatePassword,
-    isShowModalUpdateProfile,
-  } = state;
   const userInfo = getCurrentUser();
 
   return (
@@ -85,13 +80,13 @@ const ProfileDashboardPage = () => {
       </Card>
       <DashboardModalPage
         type={modalTypes.UPDATE}
-        isShowModal={isShowModalUpdate}
+        isShowModal={state.isShowModalUpdate}
         onCloseModal={() => setState({ ...state, isShowModalUpdate: false })}
         userInfo={userInfo}
       />
       <DashboardModalPage
         type={modalTypes.UPDATE_PASSWORD}
-        isShowModal={isShowModalUpdatePassword}
+        isShowModal={state.isShowModalUpdatePassword}
         onCloseModal={() =>
           setState({ ...state, isShowModalUpdatePassword: false })
         }
@@ -99,7 +94,7 @@ const ProfileDashboardPage = () => {
       />
       <DashboardModalPage
         type={modalTypes.UPDATE_PROFILE}
-        isShowModal={isShowModalUpdateProfile}
+        isShowModal={state.isShowModalUpdateProfile}
         onCloseModal={() =>
           setState({ ...state, isShowModalUpdateProfile: false })
         }
