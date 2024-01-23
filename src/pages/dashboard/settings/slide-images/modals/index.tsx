@@ -34,40 +34,36 @@ const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
       formData.append("file", state?.file);
       formData.append("description", state?.description);
       formData.append("isActive", state?.isActive);
-      dispatch({
-        type: settingActions.ADD_SLIDE_IMAGE,
-        payload: formData,
-      });
-      setTimeout(() => {
-        fetchSlideImg();
-        onCloseModal();
-      }, 100);
-      setState({ ...state, message: "" });
-    } else {
-      setState({ ...state, message: "please choose file to upload" });
+      actionSlideModal(settingActions.ADD_SLIDE_IMAGE, "", formData);
     }
+    setState({
+      ...state,
+      message: state.file ? "" : "please choose file to upload",
+    });
   };
 
   const updateSlideImg = () => {
-    dispatch({
-      type: settingActions.UPDATE_SLIDE_IMAGE,
-      id: slideImageInfo?.id,
-      payload: {
-        isActive: state?.isActive,
-        description: state?.description || slideImageInfo?.description,
-      },
+    actionSlideModal(settingActions.UPDATE_SLIDE_IMAGE, slideImageInfo?.id, {
+      isActive: state?.isActive || slideImageInfo.isActive,
+      description: state?.description || slideImageInfo?.description,
     });
-    setTimeout(() => {
-      fetchSlideImg();
-      onCloseModal();
-    }, 100);
   };
 
   const onDelete = () => {
-    dispatch({
-      type: settingActions.DELETE_SLIDE_IMAGE,
-      id: slideImageInfo?.id,
-    });
+    actionSlideModal(settingActions.DELETE_SLIDE_IMAGE, slideImageInfo?.id);
+  };
+
+  const actionSlideModal = (action: string, id = "", payload = {}) => {
+    const actionSaga: { id?: string; payload?: object; type: string } = {
+      type: action,
+    };
+    if (id) {
+      actionSaga.id = id;
+    }
+    if (payload) {
+      actionSaga.payload = payload;
+    }
+    dispatch(actionSaga);
     setTimeout(() => {
       fetchSlideImg();
       onCloseModal();

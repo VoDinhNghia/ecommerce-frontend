@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddAndSearchTable from "../../../commons/add-search-table";
 import { connect } from "react-redux";
 import { IpropSlideImgAdvPage } from "../../../../interfaces/settings.interface";
-import { IstateRedux } from "../../../../interfaces/common.interface";
+import { IparamsFetchList, IstateRedux } from "../../../../interfaces/common.interface";
 import { settingActions } from "../../../../store/actions";
 import {
   TableBody,
@@ -26,37 +26,27 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
     isShowModalDelete: false,
   });
 
-  const { isShowModalAdd, isShowModalDelete, isShowModalUpdate, rowData } =
-    state;
-
   const fetchSlideImg = () => {
-    dispatch({
-      type: settingActions.GET_SLIDE_IMAGE,
-    });
+    fetchSlideCommon({});
   };
 
   const onSearch = (searchKey: string) => {
+    fetchSlideCommon({ searchKey });
+  };
+
+  const fetchSlideCommon = (payload: IparamsFetchList) => {
     dispatch({
       type: settingActions.GET_SLIDE_IMAGE,
-      payload: {
-        searchKey,
-      },
+      payload,
     });
-  };
+  }
 
   useEffect(() => {
     fetchSlideImg();
   }, []);
 
-  return (
-    <div>
-      <AddAndSearchTable
-        title="Add Image"
-        disableSearch={false}
-        onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
-        onSearch={(e: string) => onSearch(e)}
-      />
-      <TableContainer>
+  const TableSettingSlide = (
+    <TableContainer>
         <Table stickyHeader arial-label="slide image table">
           <HeaderTableCommon headerList={headerSlideImageTable} />
           <TableBody>
@@ -87,24 +77,35 @@ const SlideImageAdvSetting = (props: IpropSlideImgAdvPage) => {
           </TableBody>
         </Table>
       </TableContainer>
+  )
+
+  return (
+    <div>
+      <AddAndSearchTable
+        title="Add Image"
+        disableSearch={false}
+        onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
+        onSearch={(e: string) => onSearch(e)}
+      />
+      {TableSettingSlide}
       <ModalSlideImages
-        isShowModal={isShowModalAdd}
+        isShowModal={state.isShowModalAdd}
         type={modalTypes.ADD}
         slideImageInfo={{}}
         fetchSlideImg={() => fetchSlideImg()}
         onCloseModal={() => setState({ ...state, isShowModalAdd: false })}
       />
       <ModalSlideImages
-        isShowModal={isShowModalUpdate}
+        isShowModal={state.isShowModalUpdate}
         type={modalTypes.UPDATE}
-        slideImageInfo={rowData}
+        slideImageInfo={state.rowData}
         fetchSlideImg={() => fetchSlideImg()}
         onCloseModal={() => setState({ ...state, isShowModalUpdate: false })}
       />
       <ModalSlideImages
-        isShowModal={isShowModalDelete}
+        isShowModal={state.isShowModalDelete}
         type={modalTypes.DELETE}
-        slideImageInfo={rowData}
+        slideImageInfo={state.rowData}
         fetchSlideImg={() => fetchSlideImg()}
         onCloseModal={() => setState({ ...state, isShowModalDelete: false })}
       />
