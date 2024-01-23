@@ -52,48 +52,120 @@ const ProductMgtPage = (props: IpropProductPage) => {
     isShowModalReview: false,
   });
   const isRoleSa = validateRoleSa();
-  const {
-    page,
-    limit,
-    isShowModalAdd,
-    isShowModalDelete,
-    isShowModalUpdate,
-    rowData,
-    isShowModalDetail,
-    isShowModalImage,
-    isShowModalDiscount,
-    isShowModalReview,
-  } = state;
-
-  const fetchProducts = (page: number, limit: number) => {
-    dispatch({
-      type: productActions.GET_LIST_PRODUCT,
-      payload: {
-        page,
-        limit,
-      },
-    });
-  };
-
   const fetchCategories = () => {
     dispatch({
       type: categoryActions.GET_LIST_CATEGORY,
     });
   };
-
+  const fetchProducts = (page: number, limit: number) => {
+    fetchProductCommon({ page, limit });
+  };
   const onSearch = (searchKey: string) => {
+    fetchProductCommon({ searchKey });
+  };
+  const fetchProductCommon = (payload = {}) => {
     dispatch({
       type: productActions.GET_LIST_PRODUCT,
-      payload: {
-        searchKey,
-      },
+      payload,
     });
   };
-
   useEffect(() => {
-    fetchProducts(page + 1, limit);
+    fetchProducts(state.page + 1, state.limit);
     fetchCategories();
   }, []);
+
+  const TableProduct = (
+    <TableContainer>
+      <Table stickyHeader aria-label="product table">
+        <HeaderTableCommon headerList={headerProductTable} />
+        <TableBody>
+          {listProducts?.map((product: Iproduct, index: number) => {
+            return (
+              <TableRow hover role="checkbox" tabIndex={-1} key={product?.id}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell className="text-primary">{product?.name}</TableCell>
+                <TableCell>{product?.description}</TableCell>
+                <TableCell>
+                  <span>{product?.price?.toLocaleString("en-US")}đ</span>
+                </TableCell>
+                <TableCell>{product?.quantity}</TableCell>
+                <TableCell className="text-primary">
+                  <a href={routes.category}>{product?.category?.name}</a>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() =>
+                      setState({
+                        ...state,
+                        isShowModalDetail: true,
+                        rowData: product,
+                      })
+                    }
+                  >
+                    {product.detail ? "View" : "Add"}
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() =>
+                      setState({
+                        ...state,
+                        isShowModalReview: true,
+                        rowData: product,
+                      })
+                    }
+                  >
+                    View
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() =>
+                      setState({
+                        ...state,
+                        isShowModalDiscount: true,
+                        rowData: product,
+                      })
+                    }
+                  >
+                    View
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() =>
+                      setState({
+                        ...state,
+                        isShowModalImage: true,
+                        rowData: product,
+                      })
+                    }
+                  >
+                    View
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <ActionTableCommon
+                    state={state}
+                    setState={setState}
+                    rowData={product}
+                  />
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 
   return (
     <div>
@@ -108,111 +180,11 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 onSearch={(key: string) => onSearch(key)}
                 onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
               />
-              <TableContainer>
-                <Table stickyHeader aria-label="product table">
-                  <HeaderTableCommon headerList={headerProductTable} />
-                  <TableBody>
-                    {listProducts?.map((product: Iproduct, index: number) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={product?.id}
-                        >
-                          <TableCell>{index + 1}</TableCell>
-                          <TableCell className="text-primary">
-                            {product?.name}
-                          </TableCell>
-                          <TableCell>{product?.description}</TableCell>
-                          <TableCell>
-                            <span>
-                              {product?.price?.toLocaleString("en-US")}đ
-                            </span>
-                          </TableCell>
-                          <TableCell>{product?.quantity}</TableCell>
-                          <TableCell className="text-primary">
-                            <a href={routes.category}>
-                              {product?.category?.name}
-                            </a>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outline-primary"
-                              size="sm"
-                              onClick={() =>
-                                setState({
-                                  ...state,
-                                  isShowModalDetail: true,
-                                  rowData: product,
-                                })
-                              }
-                            >
-                              {product.detail ? "View" : "Add"}
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outline-primary"
-                              size="sm"
-                              onClick={() =>
-                                setState({
-                                  ...state,
-                                  isShowModalReview: true,
-                                  rowData: product,
-                                })
-                              }
-                            >
-                              View
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outline-primary"
-                              size="sm"
-                              onClick={() =>
-                                setState({
-                                  ...state,
-                                  isShowModalDiscount: true,
-                                  rowData: product,
-                                })
-                              }
-                            >
-                              View
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outline-primary"
-                              size="sm"
-                              onClick={() =>
-                                setState({
-                                  ...state,
-                                  isShowModalImage: true,
-                                  rowData: product,
-                                })
-                              }
-                            >
-                              View
-                            </Button>
-                          </TableCell>
-                          <TableCell>
-                            <ActionTableCommon
-                              state={state}
-                              setState={setState}
-                              rowData={product}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              {TableProduct}
               <PaginationTableCommon
                 total={totalProduct}
-                limit={limit}
-                page={page}
+                limit={state.limit}
+                page={state.page}
                 setState={setState}
                 state={state}
                 fetchList={(page: number, limit: number) =>
@@ -220,69 +192,69 @@ const ProductMgtPage = (props: IpropProductPage) => {
                 }
               />
               <ModalProductPage
-                isShowModal={isShowModalAdd}
+                isShowModal={state.isShowModalAdd}
                 type={modalTypes.ADD}
                 productInfo={{}}
                 categories={listCategories}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalAdd: false })
                 }
-                fetchProducts={() => fetchProducts(page + 1, limit)}
+                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
               />
               <ModalProductPage
-                isShowModal={isShowModalUpdate}
+                isShowModal={state.isShowModalUpdate}
                 type={modalTypes.UPDATE}
-                productInfo={rowData}
+                productInfo={state.rowData}
                 categories={listCategories}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalUpdate: false })
                 }
-                fetchProducts={() => fetchProducts(page + 1, limit)}
+                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
               />
               <ModalProductPage
-                isShowModal={isShowModalDelete}
+                isShowModal={state.isShowModalDelete}
                 type={modalTypes.DELETE}
-                productInfo={rowData}
+                productInfo={state.rowData}
                 categories={listCategories}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDelete: false })
                 }
-                fetchProducts={() => fetchProducts(page + 1, limit)}
+                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
               />
               <ProductDetail
-                isShowModal={isShowModalDetail}
+                isShowModal={state.isShowModalDetail}
                 type={modalTypes.VIEW}
-                productInfo={rowData}
+                productInfo={state.rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDetail: false })
                 }
-                fetchProducts={() => fetchProducts(page + 1, limit)}
+                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
               />
               <ProductImages
-                isShowModal={isShowModalImage}
+                isShowModal={state.isShowModalImage}
                 type={modalTypes.VIEW}
-                productInfo={rowData}
+                productInfo={state.rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalImage: false })
                 }
-                fetchProducts={() => fetchProducts(page + 1, limit)}
+                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
               />
               <ProductDiscount
-                isShowModal={isShowModalDiscount}
+                isShowModal={state.isShowModalDiscount}
                 type={modalTypes.VIEW}
-                productInfo={rowData}
+                productInfo={state.rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDiscount: false })
                 }
               />
               <ProductReviewMgtPage
                 type={modalTypes.VIEW}
-                isShowModal={isShowModalReview}
-                productInfo={rowData}
+                isShowModal={state.isShowModalReview}
+                productInfo={state.rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalReview: false })
                 }
-                fetchProducts={() => fetchProducts(page + 1, limit)}
+                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
               />
             </Container>
           </Container>
