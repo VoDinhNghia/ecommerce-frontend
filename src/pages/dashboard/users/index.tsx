@@ -5,7 +5,10 @@ import MenuPage from "../../commons/menu";
 import FooterPage from "../../commons/footer";
 import { Container } from "rsuite";
 import { connect } from "react-redux";
-import { IstateRedux } from "../../../interfaces/common.interface";
+import {
+  IparamsFetchList,
+  IstateRedux,
+} from "../../../interfaces/common.interface";
 import {
   IpropUserMgt,
   IrowUserTable,
@@ -44,37 +47,53 @@ const UserManagementPage = (props: IpropUserMgt) => {
   const isRoleSa = validateRoleSa();
   const columns = headersUserTable();
   const rows = handleDataUserTable(listUsers);
-  const {
-    page,
-    limit,
-    isShowModalAdd,
-    isShowModalDelete,
-    isShowModalUpdate,
-    rowData,
-  } = state;
 
   const fetchUsers = (page: number, limit: number) => {
-    dispatch({
-      type: userActions.GET_LIST_USER,
-      payload: {
-        page,
-        limit,
-      },
-    });
+    fetchCommon({ page, limit });
   };
 
   const onSearch = (searchKey: string) => {
+    fetchCommon({ searchKey });
+  };
+
+  const fetchCommon = (payload: IparamsFetchList) => {
     dispatch({
       type: userActions.GET_LIST_USER,
-      payload: {
-        searchKey,
-      },
+      payload,
     });
   };
 
   useEffect(() => {
-    fetchUsers(page + 1, limit);
+    fetchUsers(state.page + 1, state.limit);
   }, []);
+
+  const TableUser = (
+    <TableContainer>
+      <Table stickyHeader aria-label="user table">
+        <HeaderTableCommon headerList={columns} />
+        <TableBody>
+          {rows?.map((row: IrowUserTable) => {
+            return (
+              <TableRow hover role="checkbox" tabIndex={-1} key={row?.code}>
+                <TableCell>{row.index}</TableCell>
+                <TableCell className="text-primary">{row.name}</TableCell>
+                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.code}</TableCell>
+                <TableCell>{row.role}</TableCell>
+                <TableCell>
+                  <ActionTableCommon
+                    setState={setState}
+                    state={state}
+                    rowData={row}
+                  />
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 
   return (
     <div>
@@ -89,42 +108,11 @@ const UserManagementPage = (props: IpropUserMgt) => {
                 onSearch={(searchKey: string) => onSearch(searchKey)}
                 onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
               />
-              <TableContainer>
-                <Table stickyHeader aria-label="user table">
-                  <HeaderTableCommon headerList={columns} />
-                  <TableBody>
-                    {rows?.map((row: IrowUserTable) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row?.code}
-                        >
-                          <TableCell>{row.index}</TableCell>
-                          <TableCell className="text-primary">
-                            {row.name}
-                          </TableCell>
-                          <TableCell>{row.email}</TableCell>
-                          <TableCell>{row.code}</TableCell>
-                          <TableCell>{row.role}</TableCell>
-                          <TableCell>
-                            <ActionTableCommon
-                              setState={setState}
-                              state={state}
-                              rowData={row}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              {TableUser}
               <PaginationTableCommon
                 total={totalUser}
-                limit={limit}
-                page={page}
+                limit={state.limit}
+                page={state.page}
                 setState={setState}
                 state={state}
                 fetchList={(page: number, limit: number) =>
@@ -133,30 +121,30 @@ const UserManagementPage = (props: IpropUserMgt) => {
               />
               <ModalUserPage
                 type={modalTypes.ADD}
-                isShowModal={isShowModalAdd}
+                isShowModal={state.isShowModalAdd}
                 userInfo={{}}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalAdd: false })
                 }
-                fetchUsers={() => fetchUsers(page + 1, limit)}
+                fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
               />
               <ModalUserPage
                 type={modalTypes.UPDATE}
-                isShowModal={isShowModalUpdate}
-                userInfo={rowData}
+                isShowModal={state.isShowModalUpdate}
+                userInfo={state.rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalUpdate: false })
                 }
-                fetchUsers={() => fetchUsers(page + 1, limit)}
+                fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
               />
               <ModalUserPage
                 type={modalTypes.DELETE}
-                isShowModal={isShowModalDelete}
-                userInfo={rowData}
+                isShowModal={state.isShowModalDelete}
+                userInfo={state.rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDelete: false })
                 }
-                fetchUsers={() => fetchUsers(page + 1, limit)}
+                fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
               />
             </Container>
           </Container>
