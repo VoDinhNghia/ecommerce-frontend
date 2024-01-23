@@ -191,3 +191,9 @@ export type IformDataType = any;
 export interface IpropFooterPage {
   t?: any;
 }
+
+export interface IactionSagaCommon {
+  type: string;
+  id?: string | null;
+  payload?: object;
+}

@@ -11,7 +11,7 @@ import {
   IregisterSchemaProduct,
   registerSchemaProduct,
 } from "../../../../utils/product.util";
-import { IstateRedux } from "../../../../interfaces/common.interface";
+import { IactionSagaCommon, IstateRedux } from "../../../../interfaces/common.interface";
 import { handleCategoryOptions } from "../../../../utils/util";
 import TextFieldCommon from "../../../commons/textfield-input";
 import SelectReactCommon from "../../../commons/select-react";
@@ -54,7 +54,7 @@ const ModalProductPage = (props: ImodalProductPage) => {
   };
 
   const actionSagaCommon = (type: string, id = "", payload = {}) => {
-    const action: { type: string; id?: string; payload?: object } = { type };
+    const action: IactionSagaCommon= { type };
     if (id) {
       action.id = id;
     }

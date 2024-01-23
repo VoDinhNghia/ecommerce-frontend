@@ -9,6 +9,7 @@ import { API_URL, productImageTab } from "../../../../constants/constant";
 import { FcPrevious, FcNext } from "react-icons/fc";
 import DialogModalCommonPage from "../../../commons/dialog-mui";
 import {
+  IactionSagaCommon,
   IchangeFileEvent,
   IcheckBoxEvent,
   IformDataType,
@@ -48,31 +49,24 @@ const ProductImages = (props: IpropProductImage) => {
       formData.append("file", state?.file);
       formData.append("productId", productDetail?.id);
       formData.append("isAvatar", state?.isAvatar);
-      dispatch({
-        type: productActions.UPLOAD_PRODUCT_IMAGE,
-        payload: formData,
-      });
+      actionCommon(productActions.UPLOAD_PRODUCT_IMAGE, "", formData, true);
       onSelectTab(productImageTab.carousel.key);
-      setTimeout(() => {
-        fetchProductDetail();
-      }, 100);
-      setState({
-        ...state,
-        message: "",
-      });
-    } else {
-      setState({ ...state, message: "please choose file to upload" });
     }
+    setState({
+      ...state,
+      message: state?.file ? "" : "please choose file to upload",
+    });
   };
 
   const deleteImage = () => {
-    dispatch({
-      type: productActions.DELETE_PRODUCT_IMAGE,
-      id: state?.imageId,
-    });
-    setTimeout(() => {
-      fetchProductDetail();
-    }, 100);
+    if (state?.imageId) {
+      actionCommon(
+        productActions.DELETE_PRODUCT_IMAGE,
+        state?.imageId,
+        {},
+        true
+      );
+    }
   };
 
   const onSelectTab = (key: string | null) => {
@@ -81,10 +75,31 @@ const ProductImages = (props: IpropProductImage) => {
 
   const fetchProductDetail = () => {
     if (productInfo?.id) {
-      dispatch({
-        type: productActions.GET_PRODUCT_DETAIL,
-        id: productInfo?.id,
-      });
+      actionCommon(
+        productActions.GET_PRODUCT_DETAIL,
+        productInfo?.id,
+        {},
+        false
+      );
+    }
+  };
+
+  const actionCommon = (
+    type: string,
+    id = "",
+    payload = {},
+    isFresh = false
+  ) => {
+    const action: IactionSagaCommon = { type };
+    if (id) {
+      action.id = id;
+    }
+    action.payload = payload;
+    dispatch(action);
+    if (isFresh) {
+      setTimeout(() => {
+        fetchProductDetail();
+      }, 100);
     }
   };
 

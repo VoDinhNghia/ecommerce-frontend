@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import { modalTypes } from "../../../../../constants/constant";
 import { Form } from "react-bootstrap";
 import {
+  IactionSagaCommon,
   IchangeFileEvent,
   IcheckBoxEvent,
   IformDataType,
@@ -54,15 +55,11 @@ const ModalSlideImages = (props: IpropModalSlideImgAdv) => {
   };
 
   const actionSlideModal = (action: string, id = "", payload = {}) => {
-    const actionSaga: { id?: string; payload?: object; type: string } = {
-      type: action,
-    };
+    const actionSaga: IactionSagaCommon = { type: action };
     if (id) {
       actionSaga.id = id;
     }
-    if (payload) {
-      actionSaga.payload = payload;
-    }
+    actionSaga.payload = payload;
     dispatch(actionSaga);
     setTimeout(() => {
       fetchSlideImg();
