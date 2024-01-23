@@ -42,26 +42,24 @@ const ModalProductPage = (props: ImodalProductPage) => {
       type: productActions.ADD_PRODUCT,
       payload: values,
     });
-    fetchAndCloseModal();
+    actionSagaCommon(productActions.ADD_PRODUCT, "", values);
   };
 
   const handleUpdate: SubmitHandler<IregisterSchemaProduct> = (values) => {
-    dispatch({
-      type: productActions.UPDATE_PRODUCT,
-      id: productInfo?.id,
-      payload: values,
-    });
-    fetchAndCloseModal();
+    actionSagaCommon(productActions.UPDATE_PRODUCT, productInfo?.id, values);
   };
 
   const onDelete = () => {
-    dispatch({
-      type: productActions.DELETE_PRODUCT,
-      id: productInfo?.id,
-    });
+    actionSagaCommon(productActions.DELETE_PRODUCT, productInfo?.id, {});
   };
 
-  const fetchAndCloseModal = () => {
+  const actionSagaCommon = (type: string, id = "", payload = {}) => {
+    const action: { type: string; id?: string; payload?: object } = { type };
+    if (id) {
+      action.id = id;
+    }
+    action.payload = payload;
+    dispatch(action);
     setTimeout(() => {
       fetchProducts();
       onCloseModal();
