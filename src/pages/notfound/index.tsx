@@ -1,5 +1,4 @@
 import React from "react";
-import "./index.css";
 import MenuHome from "../menu-home";
 import { getCart } from "../../services/cart.service";
 import Footer from "../commons/footer";
