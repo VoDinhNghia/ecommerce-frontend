@@ -5,14 +5,14 @@ import DialogModalCommonPage from "../../../commons/dialog-mui";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mui/material";
-import {
-  IregisterSchemaProductDetail,
-  registerSchemaProductDetail,
-} from "../../../../utils/product.util";
 import TextFieldCommon from "../../../commons/textfield-input";
 import { formatDate, inputTypes } from "../../../../constants/constant";
 import { productActions } from "../../../../store/actions";
 import moment from "moment";
+import {
+  IregisterSchemaProductDetail,
+  registerSchemaProductDetail,
+} from "../../../../utils/product.util";
 
 const ProductDetail = (props: IpropProductDetail) => {
   const {
@@ -53,6 +53,39 @@ const ProductDetail = (props: IpropProductDetail) => {
     }
   }, [isSubmitSuccessful]);
 
+  const FormAddDetail = (
+    <form onSubmit={handleSubmit(handleAdd)}>
+      <p>DateOfManufacture: </p>
+      <TextFieldCommon
+        field="dateOfManufacture"
+        type={inputTypes.DATE}
+        register={register}
+        errors={errors}
+      />
+      <p className="mt-2">country: </p>
+      <TextFieldCommon field="country" register={register} errors={errors} />
+      <p className="mt-2">color: </p>
+      <TextFieldCommon field="color" register={register} errors={errors} />
+      <p className="mt-2">inputPower: </p>
+      <TextFieldCommon field="inputPower" register={register} errors={errors} />
+      <p className="mt-2">mainboard: </p>
+      <TextFieldCommon field="mainboard" register={register} errors={errors} />
+      <p className="mt-2">memory: </p>
+      <TextFieldCommon field="memory" register={register} errors={errors} />
+      <p className="mt-2">size: </p>
+      <TextFieldCommon field="size" register={register} errors={errors} />
+      <p className="mt-2">warrantyExpiration: </p>
+      <TextFieldCommon
+        field="warrantyExpiration"
+        register={register}
+        errors={errors}
+      />
+      <Button variant="contained" className="mt-3 w-100" type="submit">
+        Save
+      </Button>{" "}
+    </form>
+  );
+
   const content = (
     <div>
       {productInfo?.detail ? (
@@ -70,58 +103,7 @@ const ProductDetail = (props: IpropProductDetail) => {
           <p>warrantyExpiration: {productInfo?.detail?.warrantyExpiration}</p>
         </div>
       ) : (
-        <div>
-          <form onSubmit={handleSubmit(handleAdd)}>
-            <p>DateOfManufacture: </p>
-            <TextFieldCommon
-              field="dateOfManufacture"
-              type={inputTypes.DATE}
-              register={register}
-              errors={errors}
-            />
-            <p className="mt-2">country: </p>
-            <TextFieldCommon
-              field="country"
-              register={register}
-              errors={errors}
-            />
-            <p className="mt-2">color: </p>
-            <TextFieldCommon
-              field="color"
-              register={register}
-              errors={errors}
-            />
-            <p className="mt-2">inputPower: </p>
-            <TextFieldCommon
-              field="inputPower"
-              register={register}
-              errors={errors}
-            />
-            <p className="mt-2">mainboard: </p>
-            <TextFieldCommon
-              field="mainboard"
-              register={register}
-              errors={errors}
-            />
-            <p className="mt-2">memory: </p>
-            <TextFieldCommon
-              field="memory"
-              register={register}
-              errors={errors}
-            />
-            <p className="mt-2">size: </p>
-            <TextFieldCommon field="size" register={register} errors={errors} />
-            <p className="mt-2">warrantyExpiration: </p>
-            <TextFieldCommon
-              field="warrantyExpiration"
-              register={register}
-              errors={errors}
-            />
-            <Button variant="contained" className="mt-3 w-100" type="submit">
-              Save
-            </Button>{" "}
-          </form>
-        </div>
+        <div>{FormAddDetail}</div>
       )}
     </div>
   );
