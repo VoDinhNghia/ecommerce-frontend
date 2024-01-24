@@ -2,7 +2,6 @@
 // @ts-ignore
 import { NotificationManager } from "react-notifications";
 import React, { useEffect, useState } from "react";
-import "./index.css";
 import { Form, Button, Card, Col, Row } from "react-bootstrap";
 import { IpropProductHomePage } from "../../../interfaces/home.interface";
 import { connect } from "react-redux";

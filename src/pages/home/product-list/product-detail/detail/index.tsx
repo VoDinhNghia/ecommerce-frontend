@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./index.css";
 import { IpropProductDetailComponent } from "../../../../../interfaces/home.interface";
 import { connect } from "react-redux";
 import {

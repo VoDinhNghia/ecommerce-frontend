@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "react-notifications/lib/notifications.css";
 import "rsuite/dist/rsuite.min.css";
+import "./scss/home.scss";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

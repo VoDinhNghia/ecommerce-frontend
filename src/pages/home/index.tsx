@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
 import FooterPage from "../commons/footer";
 import MenuHomePage from "../menu-home";
 import { Row, Col, Container } from "react-bootstrap";

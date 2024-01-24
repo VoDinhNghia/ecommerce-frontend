@@ -1,5 +1,4 @@
 import React from "react";
-import "./index.css";
 import { IpropProductDetailImageAndInfo } from "../../../../../interfaces/home.interface";
 import { Row, Col, Carousel, Button, Table } from "react-bootstrap";
 import { BsCartFill } from "react-icons/bs";
