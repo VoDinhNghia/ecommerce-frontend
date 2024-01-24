@@ -22,7 +22,7 @@ const DialogModalCommonPage = (props: ImodalCommon) => {
     onFilter,
     isShowButtonUpdate = false,
     onUpdate,
-    size = "xs"
+    size = "xs",
   } = props;
 
   return (
