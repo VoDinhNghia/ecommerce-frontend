@@ -9,6 +9,7 @@ import AddAndSearchTable from "../../commons/add-search-table";
 import { connect } from "react-redux";
 import {
   IallStateReadMore,
+  IparamsFetchList,
   IstateRedux,
 } from "../../../interfaces/common.interface";
 import {
@@ -43,18 +44,9 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
     isShowModalUpdate: false,
     isShowModalDelete: false,
   });
-  const {
-    page,
-    limit,
-    readMore,
-    rowData,
-    isShowModalAdd,
-    isShowModalDelete,
-    isShowModalUpdate,
-  } = state;
 
-  const categoryReadMore: IallStateReadMore = rowData;
-  const allStateReadMore: IallStateReadMore = readMore;
+  const categoryReadMore: IallStateReadMore = state.rowData;
+  const allStateReadMore: IallStateReadMore = state.readMore;
 
   const handleReadMore = (categoryInfo: IallStateReadMore) => {
     const isReadMore = allStateReadMore[`${categoryInfo?.id}`];
@@ -66,27 +58,61 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
   };
 
   const fetchCategories = (page: number, limit: number) => {
-    dispatch({
-      type: categoryActions.GET_LIST_CATEGORY,
-      payload: {
-        limit,
-        page,
-      },
-    });
+    fetchCategoryCommon({ limit, page });
   };
 
   const onSearch = (searchKey: string) => {
+    fetchCategoryCommon({ searchKey });
+  };
+
+  const fetchCategoryCommon = (payload: IparamsFetchList) => {
     dispatch({
       type: categoryActions.GET_LIST_CATEGORY,
-      payload: {
-        searchKey,
-      },
+      payload,
     });
   };
 
   useEffect(() => {
-    fetchCategories(page + 1, limit);
+    fetchCategories(state.page + 1, state.limit);
   }, []);
+
+  const TableCategories = (
+    <TableContainer>
+      <Table stickyHeader aria-label="category table">
+        <HeaderTableCommon headerList={headerTableCategory} />
+        <TableBody>
+          {listCategories?.map((category: Icategory, index: number) => {
+            return (
+              <TableRow hover role="checkbox" tabIndex={-1} key={category?.id}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell className="text-primary">{category?.name}</TableCell>
+                <TableCell>
+                  <ReadMoreCommon
+                    isReadMore={
+                      category.id === categoryReadMore?.id
+                        ? allStateReadMore[`${category.id}`]
+                        : false
+                    }
+                    setReadMore={() => handleReadMore(category)}
+                    lengthSlice={40}
+                  >
+                    {category?.description}
+                  </ReadMoreCommon>
+                </TableCell>
+                <TableCell>
+                  <ActionTableCommon
+                    setState={setState}
+                    state={state}
+                    rowData={category}
+                  />
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 
   return (
     <div>
@@ -101,54 +127,11 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
                 onSearch={(searchKey: string) => onSearch(searchKey)}
                 onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
               />
-              <TableContainer>
-                <Table stickyHeader aria-label="category table">
-                  <HeaderTableCommon headerList={headerTableCategory} />
-                  <TableBody>
-                    {listCategories?.map(
-                      (category: Icategory, index: number) => {
-                        return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={category?.id}
-                          >
-                            <TableCell>{index + 1}</TableCell>
-                            <TableCell className="text-primary">
-                              {category?.name}
-                            </TableCell>
-                            <TableCell>
-                              <ReadMoreCommon
-                                isReadMore={
-                                  category.id === categoryReadMore?.id
-                                    ? allStateReadMore[`${category.id}`]
-                                    : false
-                                }
-                                setReadMore={() => handleReadMore(category)}
-                                lengthSlice={40}
-                              >
-                                {category?.description}
-                              </ReadMoreCommon>
-                            </TableCell>
-                            <TableCell>
-                              <ActionTableCommon
-                                setState={setState}
-                                state={state}
-                                rowData={category}
-                              />
-                            </TableCell>
-                          </TableRow>
-                        );
-                      }
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              {TableCategories}
               <PaginationTableCommon
                 total={totalCategory}
-                limit={limit}
-                page={page}
+                limit={state.limit}
+                page={state.page}
                 setState={setState}
                 state={state}
                 fetchList={(page: number, limit: number) =>
@@ -157,30 +140,36 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
               />
               <ModalCategory
                 type={modalTypes.ADD}
-                isShowModal={isShowModalAdd}
+                isShowModal={state.isShowModalAdd}
                 categoryInfo={{}}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalAdd: false })
                 }
-                fetchCategories={() => fetchCategories(page + 1, limit)}
+                fetchCategories={() =>
+                  fetchCategories(state.page + 1, state.limit)
+                }
               />
               <ModalCategory
                 type={modalTypes.UPDATE}
-                isShowModal={isShowModalUpdate}
-                categoryInfo={rowData}
+                isShowModal={state.isShowModalUpdate}
+                categoryInfo={state.rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalUpdate: false })
                 }
-                fetchCategories={() => fetchCategories(page + 1, limit)}
+                fetchCategories={() =>
+                  fetchCategories(state.page + 1, state.limit)
+                }
               />
               <ModalCategory
                 type={modalTypes.DELETE}
-                isShowModal={isShowModalDelete}
-                categoryInfo={rowData}
+                isShowModal={state.isShowModalDelete}
+                categoryInfo={state.rowData}
                 onCloseModal={() =>
                   setState({ ...state, isShowModalDelete: false })
                 }
-                fetchCategories={() => fetchCategories(page + 1, limit)}
+                fetchCategories={() =>
+                  fetchCategories(state.page + 1, state.limit)
+                }
               />
             </Container>
           </Container>
