@@ -1,5 +1,4 @@
 import React from "react";
-import "./index.css";
 import { IpropMenuHomePage } from "../../interfaces/menu-home-page";
 import HeaderMenuPage from "./header-menu";
 import { getCurrentUser } from "../../services/auth.service";
