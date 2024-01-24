@@ -4,13 +4,8 @@ import { NotificationManager } from "react-notifications";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import "./index.css";
 import { login } from "../../services/auth.service";
 import { inputTypes, routes } from "../../constants/constant";
-import {
-  registerSchemaLoginForm,
-  IregisterInputLoginForm,
-} from "../../utils/login.util";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MenuHome from "../menu-home";
@@ -18,6 +13,7 @@ import FooterPage from "../commons/footer";
 import { getCart } from "../../services/cart.service";
 import { withTranslation } from "react-i18next";
 import { t } from "i18next";
+import TextFieldCommon from "../commons/textfield-input";
 import {
   MDBContainer,
   MDBRow,
@@ -25,7 +21,10 @@ import {
   MDBCard,
   MDBCardBody,
 } from "mdb-react-ui-kit";
-import TextFieldCommon from "../commons/textfield-input";
+import {
+  registerSchemaLoginForm,
+  IregisterInputLoginForm,
+} from "../../utils/login.util";
 
 const LoginPage = () => {
   const {
