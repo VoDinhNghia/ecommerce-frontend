@@ -12,6 +12,7 @@ import "./styles/home.scss";
 import "./styles/login.scss";
 import "./styles/menu-home.scss";
 import "./styles/notfound.scss";
+import "./styles/signup.scss";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

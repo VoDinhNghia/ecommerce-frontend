@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
-import "./index.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import MenuHome from "../menu-home";
 import FooterPage from "../commons/footer";
