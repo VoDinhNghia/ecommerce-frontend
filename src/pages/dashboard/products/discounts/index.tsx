@@ -93,6 +93,69 @@ const ProductDiscount = (props: IpropProductDiscount) => {
     fetchProductDetail();
   }, [isSubmitSuccessful]);
 
+  const TableDiscount = (
+    <TableContainer className="mt-2">
+      <Table stickyHeader aria-label="product discount table">
+        <HeaderTableCommon headerList={headerDiscountTable} />
+        <TableBody>
+          {productDetail?.discounts?.map(
+            (dis: IproductDiscount, index: number) => {
+              return (
+                <TableRow hover role="checkbox" tabIndex={-1} key={dis?.id}>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{dis?.discount}%</TableCell>
+                  <TableCell>
+                    {moment(dis?.startDate).format(formatDate)}
+                  </TableCell>
+                  <TableCell>
+                    {moment(dis?.endDate).format(formatDate)}
+                  </TableCell>
+                  <TableCell>
+                    <ActionTableCommon
+                      setState={setState}
+                      state={state}
+                      rowData={dis}
+                      disableBtnUpdate={true}
+                    />
+                  </TableCell>
+                </TableRow>
+              );
+            }
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+
+  const FormAddDiscount = (
+    <form onSubmit={handleSubmit(handleAdd)}>
+      <p>Discount: </p>
+      <TextFieldCommon
+        field="discount"
+        type={inputTypes.NUMBER}
+        errors={errors}
+        register={register}
+      />
+      <p className="mt-2">startDate: </p>
+      <TextFieldCommon
+        field="startDate"
+        type={inputTypes.DATE}
+        errors={errors}
+        register={register}
+      />
+      <p className="mt-2">endDate: </p>
+      <TextFieldCommon
+        field="endDate"
+        type={inputTypes.DATE}
+        errors={errors}
+        register={register}
+      />
+      <Button variant="contained" className="mt-3 w-100" type="submit">
+        Save
+      </Button>
+    </form>
+  );
+
   const content = (
     <Tabs
       activeKey={state.activeKey}
@@ -103,68 +166,13 @@ const ProductDiscount = (props: IpropProductDiscount) => {
         eventKey={productDiscountTab.table.key}
         title={productDiscountTab.table.title}
       >
-        <TableContainer className="mt-2">
-          <Table stickyHeader aria-label="product discount table">
-            <HeaderTableCommon headerList={headerDiscountTable} />
-            <TableBody>
-              {productDetail?.discounts?.map(
-                (dis: IproductDiscount, index: number) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={dis?.id}>
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell>{dis?.discount}%</TableCell>
-                      <TableCell>
-                        {moment(dis?.startDate).format(formatDate)}
-                      </TableCell>
-                      <TableCell>
-                        {moment(dis?.endDate).format(formatDate)}
-                      </TableCell>
-                      <TableCell>
-                        <ActionTableCommon
-                          setState={setState}
-                          state={state}
-                          rowData={dis}
-                          disableBtnUpdate={true}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                }
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {TableDiscount}
       </Tab>
       <Tab
         eventKey={productDiscountTab.addDiscount.key}
         title={productDiscountTab.addDiscount.title}
       >
-        <form onSubmit={handleSubmit(handleAdd)}>
-          <p>Discount: </p>
-          <TextFieldCommon
-            field="discount"
-            type={inputTypes.NUMBER}
-            errors={errors}
-            register={register}
-          />
-          <p className="mt-2">startDate: </p>
-          <TextFieldCommon
-            field="startDate"
-            type={inputTypes.DATE}
-            errors={errors}
-            register={register}
-          />
-          <p className="mt-2">endDate: </p>
-          <TextFieldCommon
-            field="endDate"
-            type={inputTypes.DATE}
-            errors={errors}
-            register={register}
-          />
-          <Button variant="contained" className="mt-3 w-100" type="submit">
-            Save
-          </Button>
-        </form>
+        {FormAddDiscount}
       </Tab>
     </Tabs>
   );
