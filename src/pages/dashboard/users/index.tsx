@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
 import ForbidenPage from "../../commons/forbiden";
 import MenuPage from "../../commons/menu";
 import FooterPage from "../../commons/footer";

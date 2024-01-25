@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./index.css";
 import { Container } from "rsuite";
 import {
   Card,
