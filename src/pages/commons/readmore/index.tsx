@@ -1,5 +1,4 @@
 import React from "react";
-import "./index.css";
 import { Button } from "react-bootstrap";
 import { IpropReadMore } from "../../../interfaces/common.interface";
 

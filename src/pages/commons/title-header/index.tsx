@@ -1,6 +1,5 @@
 import React from "react";
 import { IpropTitleHeader } from "../../../interfaces/common.interface";
-import "./index.css";
 
 const TitleHeaderPage = (props: IpropTitleHeader) => {
   const { title } = props;

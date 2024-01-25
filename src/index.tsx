@@ -14,6 +14,7 @@ import "./styles/menu-home.scss";
 import "./styles/notfound.scss";
 import "./styles/signup.scss";
 import "./styles/dashboard.scss";
+import "./styles/commons.scss";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

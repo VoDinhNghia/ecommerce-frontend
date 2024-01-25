@@ -4,7 +4,6 @@ import NavToggleMenuPage from "./nav-toggle";
 import LogOutIcon from "@rsuite/icons/legacy/SignOut";
 import { getCurrentUser, logOut } from "../../../services/auth.service";
 import { moduleNames, routes } from "../../../constants/constant";
-import "./index.css";
 import UserMgtIcon from "@rsuite/icons/legacy/Group";
 import SettingIcon from "@rsuite/icons/legacy/GearCircle";
 import HomeIcon from "@rsuite/icons/legacy/Home";

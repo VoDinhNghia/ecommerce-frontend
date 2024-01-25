@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { routes } from "../../../constants/constant";
-import "./index.css";
 import { withTranslation } from "react-i18next";
 import { IpropFooterPage } from "../../../interfaces/common.interface";
 

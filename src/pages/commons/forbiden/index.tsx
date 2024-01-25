@@ -1,5 +1,4 @@
 import React from "react";
-import "./index.css";
 import { routes } from "../../../constants/constant";
 
 const ForbidenPage = () => {
