@@ -15,6 +15,7 @@ import "./styles/notfound.scss";
 import "./styles/signup.scss";
 import "./styles/dashboard.scss";
 import "./styles/commons.scss";
+import "./styles/cart.scss";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
