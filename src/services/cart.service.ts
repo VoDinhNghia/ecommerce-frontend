@@ -2,19 +2,13 @@ import { Iproduct } from "../interfaces/product.inteface";
 
 export const addTocart = (product: Iproduct, quantity = 1) => {
   const carts = getCart();
-  if (product?.id) {
-    const checkItem = carts.find(
-      (item: { id: string }) => item.id === product.id
-    );
-    if (checkItem) {
-      for (const item of carts) {
-        if (item.id === product.id) {
-          item.quantity += quantity;
-        }
-      }
-    } else {
-      carts.push({ ...product, quantity });
-    }
+  const checkProduct = carts.find(
+    (item: Iproduct) => item.id === product.id
+  );
+  if (checkProduct) {
+    checkProduct.quantity += quantity;
+  } else {
+    carts.push({ ...product, quantity });
   }
   localStorage.setItem("cart", JSON.stringify(carts));
 };
@@ -26,17 +20,11 @@ export const getCart = () => {
 
 export const removeCart = (product: Iproduct, quantity = 1) => {
   const carts = getCart();
-  const newCarts = [];
-  for (const item of carts) {
-    if (item.id === product.id) {
-      item.quantity -= quantity;
-      if (item.quantity > 0) {
-        newCarts.push(item);
-      }
-    } else {
-      newCarts.push(item);
-    }
+  const checkProduct = carts.find((item: Iproduct) => item.id === product.id);
+  if (checkProduct) {
+    checkProduct.quantity -= quantity;
   }
+  const newCarts = carts.filter((item: Iproduct) => item.quantity > 0);
   localStorage.setItem("cart", JSON.stringify(newCarts));
 };
 
