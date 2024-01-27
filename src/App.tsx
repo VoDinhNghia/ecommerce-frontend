@@ -5,11 +5,10 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/login";
-import { routes } from "./constants/constant";
+import { routes, userRoles } from "./constants/constant";
 import store from "./store";
 import { Provider } from "react-redux";
 import DashboardPage from "./pages/dashboard";
-import ProtectedAdminRoutes from "./utils/protected-route-admin.util";
 import NotfoundPage from "./pages/notfound";
 import UserManagementPage from "./pages/dashboard/users";
 import SettingMgtPage from "./pages/dashboard/settings";
@@ -36,7 +35,9 @@ const App = () => {
             <Route
               path={routes.dashboard}
               element={
-                <ProtectedRoutes>
+                <ProtectedRoutes
+                  roles={[userRoles.SUPPER_ADMIN, userRoles.USER]}
+                >
                   <DashboardPage />
                 </ProtectedRoutes>
               }
@@ -44,33 +45,33 @@ const App = () => {
             <Route
               path={routes.userMgt}
               element={
-                <ProtectedAdminRoutes>
+                <ProtectedRoutes roles={[userRoles.SUPPER_ADMIN]}>
                   <UserManagementPage />
-                </ProtectedAdminRoutes>
+                </ProtectedRoutes>
               }
             />
             <Route
               path={routes.settings}
               element={
-                <ProtectedAdminRoutes>
+                <ProtectedRoutes roles={[userRoles.SUPPER_ADMIN]}>
                   <SettingMgtPage />
-                </ProtectedAdminRoutes>
+                </ProtectedRoutes>
               }
             />
             <Route
               path={routes.category}
               element={
-                <ProtectedAdminRoutes>
+                <ProtectedRoutes roles={[userRoles.SUPPER_ADMIN]}>
                   <CategoryMgtPage />
-                </ProtectedAdminRoutes>
+                </ProtectedRoutes>
               }
             />
             <Route
               path={routes.product}
               element={
-                <ProtectedAdminRoutes>
+                <ProtectedRoutes roles={[userRoles.SUPPER_ADMIN]}>
                   <ProductMgtPage />
-                </ProtectedAdminRoutes>
+                </ProtectedRoutes>
               }
             />
             <Route path="*" element={<NotfoundPage />} />

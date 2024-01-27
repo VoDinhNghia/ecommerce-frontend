@@ -49,7 +49,7 @@ export const addToCartHomePage = (product: Iproduct) => {
   const srcImage = getAvatarProductImage(product);
   const checkDiscount = getDiscountProduct(product);
   const productCheck = carts?.find(
-    (cart: { id: string }) => cart?.id === product?.id
+    (cart: Iproduct) => cart?.id === product?.id
   );
   const productDetail = {
     name: product?.name,

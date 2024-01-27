@@ -1,10 +1,10 @@
 import { Navigate } from "react-router-dom";
 import { getCurrentUser } from "../services/auth.service";
-import { routes, userRoles } from "../constants/constant";
+import { routes } from "../constants/constant";
 
-const ProtectedRoutes = ({ children }: any) => {
+const ProtectedRoutes = ({ children, roles }: any) => {
   const user = getCurrentUser();
-  if (user?.role === userRoles.USER || user?.role === userRoles.SUPPER_ADMIN) {
+  if (roles?.includes(user?.role)) {
     return children;
   }
   return Navigate({ to: routes.login, replace: true });
