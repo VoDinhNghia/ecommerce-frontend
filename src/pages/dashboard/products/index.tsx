@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Container } from "rsuite";
 import MenuPage from "../../commons/menu";
 import FooterPage from "../../commons/footer";
-import { validateRoleSa } from "../../../utils/permission.util";
-import ForbidenPage from "../../commons/forbiden";
 import TitleHeaderPage from "../../commons/title-header";
 import AddAndSearchTable from "../../commons/add-search-table";
 import {
@@ -51,7 +49,6 @@ const ProductMgtPage = (props: IpropProductPage) => {
     isShowModalDiscount: false,
     isShowModalReview: false,
   });
-  const isRoleSa = validateRoleSa();
   const fetchCategories = () => {
     dispatch({
       type: categoryActions.GET_LIST_CATEGORY,
@@ -168,101 +165,91 @@ const ProductMgtPage = (props: IpropProductPage) => {
   );
 
   return (
-    <div>
-      {isRoleSa ? (
-        <div className="show-fake-browser slidebar-page mt-1">
-          <Container>
-            <MenuPage />
-            <Container className="p-3">
-              <TitleHeaderPage title="Products Management" />
-              <AddAndSearchTable
-                title="Add product"
-                onSearch={(key: string) => onSearch(key)}
-                onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
-              />
-              {TableProduct}
-              <PaginationTableCommon
-                total={totalProduct}
-                limit={state.limit}
-                page={state.page}
-                setState={setState}
-                state={state}
-                fetchList={(page: number, limit: number) =>
-                  fetchProducts(page, limit)
-                }
-              />
-              <ModalProductPage
-                isShowModal={state.isShowModalAdd}
-                type={modalTypes.ADD}
-                productInfo={{}}
-                categories={listCategories}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalAdd: false })
-                }
-                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
-              />
-              <ModalProductPage
-                isShowModal={state.isShowModalUpdate}
-                type={modalTypes.UPDATE}
-                productInfo={state.rowData}
-                categories={listCategories}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalUpdate: false })
-                }
-                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
-              />
-              <ModalProductPage
-                isShowModal={state.isShowModalDelete}
-                type={modalTypes.DELETE}
-                productInfo={state.rowData}
-                categories={listCategories}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalDelete: false })
-                }
-                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
-              />
-              <ProductDetail
-                isShowModal={state.isShowModalDetail}
-                type={modalTypes.VIEW}
-                productInfo={state.rowData}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalDetail: false })
-                }
-                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
-              />
-              <ProductImages
-                isShowModal={state.isShowModalImage}
-                type={modalTypes.VIEW}
-                productInfo={state.rowData}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalImage: false })
-                }
-                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
-              />
-              <ProductDiscount
-                isShowModal={state.isShowModalDiscount}
-                type={modalTypes.VIEW}
-                productInfo={state.rowData}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalDiscount: false })
-                }
-              />
-              <ProductReviewMgtPage
-                type={modalTypes.VIEW}
-                isShowModal={state.isShowModalReview}
-                productInfo={state.rowData}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalReview: false })
-                }
-                fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
-              />
-            </Container>
-          </Container>
-          <FooterPage />
-        </div>
-      ) : (
-        <ForbidenPage />
-      )}
+    <div className="show-fake-browser slidebar-page mt-1">
+      <Container>
+        <MenuPage />
+        <Container className="p-3">
+          <TitleHeaderPage title="Products Management" />
+          <AddAndSearchTable
+            title="Add product"
+            onSearch={(key: string) => onSearch(key)}
+            onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
+          />
+          {TableProduct}
+          <PaginationTableCommon
+            total={totalProduct}
+            limit={state.limit}
+            page={state.page}
+            setState={setState}
+            state={state}
+            fetchList={(page: number, limit: number) =>
+              fetchProducts(page, limit)
+            }
+          />
+          <ModalProductPage
+            isShowModal={state.isShowModalAdd}
+            type={modalTypes.ADD}
+            productInfo={{}}
+            categories={listCategories}
+            onCloseModal={() => setState({ ...state, isShowModalAdd: false })}
+            fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
+          />
+          <ModalProductPage
+            isShowModal={state.isShowModalUpdate}
+            type={modalTypes.UPDATE}
+            productInfo={state.rowData}
+            categories={listCategories}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalUpdate: false })
+            }
+            fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
+          />
+          <ModalProductPage
+            isShowModal={state.isShowModalDelete}
+            type={modalTypes.DELETE}
+            productInfo={state.rowData}
+            categories={listCategories}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalDelete: false })
+            }
+            fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
+          />
+          <ProductDetail
+            isShowModal={state.isShowModalDetail}
+            type={modalTypes.VIEW}
+            productInfo={state.rowData}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalDetail: false })
+            }
+            fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
+          />
+          <ProductImages
+            isShowModal={state.isShowModalImage}
+            type={modalTypes.VIEW}
+            productInfo={state.rowData}
+            onCloseModal={() => setState({ ...state, isShowModalImage: false })}
+            fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
+          />
+          <ProductDiscount
+            isShowModal={state.isShowModalDiscount}
+            type={modalTypes.VIEW}
+            productInfo={state.rowData}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalDiscount: false })
+            }
+          />
+          <ProductReviewMgtPage
+            type={modalTypes.VIEW}
+            isShowModal={state.isShowModalReview}
+            productInfo={state.rowData}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalReview: false })
+            }
+            fetchProducts={() => fetchProducts(state.page + 1, state.limit)}
+          />
+        </Container>
+      </Container>
+      <FooterPage />
     </div>
   );
 };

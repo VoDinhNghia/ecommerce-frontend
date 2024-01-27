@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ForbidenPage from "../../commons/forbiden";
-import { validateRoleSa } from "../../../utils/permission.util";
 import { Container } from "rsuite";
 import MenuPage from "../../commons/menu";
 import FooterPage from "../../commons/footer";
@@ -34,7 +32,6 @@ import { modalTypes } from "../../../constants/constant";
 
 const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
   const { dispatch, listCategories = [], totalCategory = 0 } = props;
-  const isRoleSa = validateRoleSa();
   const [state, setState] = useState({
     page: 0,
     limit: 5,
@@ -115,69 +112,55 @@ const CategoryMgtPage = (props: IpropCategoryMgtPage) => {
   );
 
   return (
-    <div>
-      {isRoleSa ? (
-        <div className="show-fake-browser slidebar-page mt-1">
-          <Container>
-            <MenuPage />
-            <Container className="p-3">
-              <TitleHeaderPage title="Categories Management Page" />
-              <AddAndSearchTable
-                title="Add Category"
-                onSearch={(searchKey: string) => onSearch(searchKey)}
-                onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
-              />
-              {TableCategories}
-              <PaginationTableCommon
-                total={totalCategory}
-                limit={state.limit}
-                page={state.page}
-                setState={setState}
-                state={state}
-                fetchList={(page: number, limit: number) =>
-                  fetchCategories(page, limit)
-                }
-              />
-              <ModalCategory
-                type={modalTypes.ADD}
-                isShowModal={state.isShowModalAdd}
-                categoryInfo={{}}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalAdd: false })
-                }
-                fetchCategories={() =>
-                  fetchCategories(state.page + 1, state.limit)
-                }
-              />
-              <ModalCategory
-                type={modalTypes.UPDATE}
-                isShowModal={state.isShowModalUpdate}
-                categoryInfo={state.rowData}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalUpdate: false })
-                }
-                fetchCategories={() =>
-                  fetchCategories(state.page + 1, state.limit)
-                }
-              />
-              <ModalCategory
-                type={modalTypes.DELETE}
-                isShowModal={state.isShowModalDelete}
-                categoryInfo={state.rowData}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalDelete: false })
-                }
-                fetchCategories={() =>
-                  fetchCategories(state.page + 1, state.limit)
-                }
-              />
-            </Container>
-          </Container>
-          <FooterPage />
-        </div>
-      ) : (
-        <ForbidenPage />
-      )}
+    <div className="show-fake-browser slidebar-page mt-1">
+      <Container>
+        <MenuPage />
+        <Container className="p-3">
+          <TitleHeaderPage title="Categories Management Page" />
+          <AddAndSearchTable
+            title="Add Category"
+            onSearch={(searchKey: string) => onSearch(searchKey)}
+            onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
+          />
+          {TableCategories}
+          <PaginationTableCommon
+            total={totalCategory}
+            limit={state.limit}
+            page={state.page}
+            setState={setState}
+            state={state}
+            fetchList={(page: number, limit: number) =>
+              fetchCategories(page, limit)
+            }
+          />
+          <ModalCategory
+            type={modalTypes.ADD}
+            isShowModal={state.isShowModalAdd}
+            categoryInfo={{}}
+            onCloseModal={() => setState({ ...state, isShowModalAdd: false })}
+            fetchCategories={() => fetchCategories(state.page + 1, state.limit)}
+          />
+          <ModalCategory
+            type={modalTypes.UPDATE}
+            isShowModal={state.isShowModalUpdate}
+            categoryInfo={state.rowData}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalUpdate: false })
+            }
+            fetchCategories={() => fetchCategories(state.page + 1, state.limit)}
+          />
+          <ModalCategory
+            type={modalTypes.DELETE}
+            isShowModal={state.isShowModalDelete}
+            categoryInfo={state.rowData}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalDelete: false })
+            }
+            fetchCategories={() => fetchCategories(state.page + 1, state.limit)}
+          />
+        </Container>
+      </Container>
+      <FooterPage />
     </div>
   );
 };

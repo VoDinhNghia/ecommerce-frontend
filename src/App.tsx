@@ -20,6 +20,8 @@ import CategoryMgtPage from "./pages/dashboard/categories";
 import ProductMgtPage from "./pages/dashboard/products";
 import CartDetailPage from "./pages/carts";
 import SignUpPage from "./pages/signup";
+import { validateRoleSa } from "./utils/permission.util";
+import ForbidenPage from "./pages/commons/forbiden";
 
 const App = () => {
   return (
@@ -37,6 +39,7 @@ const App = () => {
               element={
                 <ProtectedRoutes
                   roles={[userRoles.SUPPER_ADMIN, userRoles.USER]}
+                  isPermission={true}
                 >
                   <DashboardPage />
                 </ProtectedRoutes>
@@ -45,7 +48,10 @@ const App = () => {
             <Route
               path={routes.userMgt}
               element={
-                <ProtectedRoutes roles={[userRoles.SUPPER_ADMIN]}>
+                <ProtectedRoutes
+                  roles={[userRoles.SUPPER_ADMIN]}
+                  isPermission={validateRoleSa()}
+                >
                   <UserManagementPage />
                 </ProtectedRoutes>
               }
@@ -53,7 +59,10 @@ const App = () => {
             <Route
               path={routes.settings}
               element={
-                <ProtectedRoutes roles={[userRoles.SUPPER_ADMIN]}>
+                <ProtectedRoutes
+                  roles={[userRoles.SUPPER_ADMIN]}
+                  isPermission={validateRoleSa()}
+                >
                   <SettingMgtPage />
                 </ProtectedRoutes>
               }
@@ -61,7 +70,10 @@ const App = () => {
             <Route
               path={routes.category}
               element={
-                <ProtectedRoutes roles={[userRoles.SUPPER_ADMIN]}>
+                <ProtectedRoutes
+                  roles={[userRoles.SUPPER_ADMIN]}
+                  isPermission={validateRoleSa()}
+                >
                   <CategoryMgtPage />
                 </ProtectedRoutes>
               }
@@ -69,11 +81,15 @@ const App = () => {
             <Route
               path={routes.product}
               element={
-                <ProtectedRoutes roles={[userRoles.SUPPER_ADMIN]}>
+                <ProtectedRoutes
+                  roles={[userRoles.SUPPER_ADMIN]}
+                  isPermission={validateRoleSa()}
+                >
                   <ProductMgtPage />
                 </ProtectedRoutes>
               }
             />
+            <Route path={routes.forbiden} element={<ForbidenPage />} />
             <Route path="*" element={<NotfoundPage />} />
           </Routes>
           <NotificationContainer />

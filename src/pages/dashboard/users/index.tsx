@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ForbidenPage from "../../commons/forbiden";
 import MenuPage from "../../commons/menu";
 import FooterPage from "../../commons/footer";
 import { Container } from "rsuite";
@@ -29,7 +28,6 @@ import HeaderTableCommon from "../../commons/header-table";
 import PaginationTableCommon from "../../commons/pagination-table";
 import ActionTableCommon from "../../commons/actions-table";
 import TitleHeaderPage from "../../commons/title-header";
-import { validateRoleSa } from "../../../utils/permission.util";
 import ModalUserPage from "./modals";
 import { modalTypes } from "../../../constants/constant";
 
@@ -43,7 +41,6 @@ const UserManagementPage = (props: IpropUserMgt) => {
     isShowModalDelete: false,
     rowData: {},
   });
-  const isRoleSa = validateRoleSa();
   const columns = headersUserTable();
   const rows = handleDataUserTable(listUsers);
 
@@ -95,63 +92,53 @@ const UserManagementPage = (props: IpropUserMgt) => {
   );
 
   return (
-    <div>
-      {isRoleSa ? (
-        <div className="show-fake-browser slidebar-page mt-1">
-          <Container>
-            <MenuPage />
-            <Container className="p-3">
-              <TitleHeaderPage title="User management page" />
-              <AddAndSearchTable
-                title="Add new user"
-                onSearch={(searchKey: string) => onSearch(searchKey)}
-                onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
-              />
-              {TableUser}
-              <PaginationTableCommon
-                total={totalUser}
-                limit={state.limit}
-                page={state.page}
-                setState={setState}
-                state={state}
-                fetchList={(page: number, limit: number) =>
-                  fetchUsers(page, limit)
-                }
-              />
-              <ModalUserPage
-                type={modalTypes.ADD}
-                isShowModal={state.isShowModalAdd}
-                userInfo={{}}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalAdd: false })
-                }
-                fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
-              />
-              <ModalUserPage
-                type={modalTypes.UPDATE}
-                isShowModal={state.isShowModalUpdate}
-                userInfo={state.rowData}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalUpdate: false })
-                }
-                fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
-              />
-              <ModalUserPage
-                type={modalTypes.DELETE}
-                isShowModal={state.isShowModalDelete}
-                userInfo={state.rowData}
-                onCloseModal={() =>
-                  setState({ ...state, isShowModalDelete: false })
-                }
-                fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
-              />
-            </Container>
-          </Container>
-          <FooterPage />
-        </div>
-      ) : (
-        <ForbidenPage />
-      )}
+    <div className="show-fake-browser slidebar-page mt-1">
+      <Container>
+        <MenuPage />
+        <Container className="p-3">
+          <TitleHeaderPage title="User management page" />
+          <AddAndSearchTable
+            title="Add new user"
+            onSearch={(searchKey: string) => onSearch(searchKey)}
+            onShowAdd={() => setState({ ...state, isShowModalAdd: true })}
+          />
+          {TableUser}
+          <PaginationTableCommon
+            total={totalUser}
+            limit={state.limit}
+            page={state.page}
+            setState={setState}
+            state={state}
+            fetchList={(page: number, limit: number) => fetchUsers(page, limit)}
+          />
+          <ModalUserPage
+            type={modalTypes.ADD}
+            isShowModal={state.isShowModalAdd}
+            userInfo={{}}
+            onCloseModal={() => setState({ ...state, isShowModalAdd: false })}
+            fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
+          />
+          <ModalUserPage
+            type={modalTypes.UPDATE}
+            isShowModal={state.isShowModalUpdate}
+            userInfo={state.rowData}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalUpdate: false })
+            }
+            fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
+          />
+          <ModalUserPage
+            type={modalTypes.DELETE}
+            isShowModal={state.isShowModalDelete}
+            userInfo={state.rowData}
+            onCloseModal={() =>
+              setState({ ...state, isShowModalDelete: false })
+            }
+            fetchUsers={() => fetchUsers(state.page + 1, state.limit)}
+          />
+        </Container>
+      </Container>
+      <FooterPage />
     </div>
   );
 };

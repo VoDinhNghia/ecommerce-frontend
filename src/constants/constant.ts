@@ -19,6 +19,7 @@ export const routes = {
   contactQuestion: "/contact-question",
   contactAdmin: "/contact-question-mgt",
   services: "/services",
+  forbiden: "/forbiden",
 };
 
 export const API_URL = process.env.REACT_APP_API_URL;
