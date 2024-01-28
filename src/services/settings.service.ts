@@ -1,35 +1,30 @@
-import axios from "axios";
-import { API_URL } from "../constants/constant";
-import { setHeaderAxios, setMultipartHeader } from "./auth.service";
 import {
   IcreateSlideImg,
   IfetchSlideImg,
 } from "../interfaces/settings.interface";
+import {
+  addMultiPartService,
+  deleteService,
+  fetchService,
+  updateService,
+} from "./common.service";
 
 export const createSlideImg = async (payload: IcreateSlideImg) => {
-  const res = await axios.post(`${API_URL}/api/slide-image`, payload, {
-    headers: setMultipartHeader(),
-  });
+  const res = await addMultiPartService("/api/slide-image", payload);
   return res;
 };
 
 export const updateSlideImg = async (id: string, payload: IcreateSlideImg) => {
-  const res = await axios.put(`${API_URL}/api/slide-image/${id}`, payload, {
-    headers: setHeaderAxios(),
-  });
+  const res = await updateService(`/api/slide-image/${id}`, payload);
   return res;
 };
 
 export const getAllSlideImg = async (payload: IfetchSlideImg) => {
-  const res = await axios.get(`${API_URL}/api/slide-image`, {
-    params: payload,
-  });
+  const res = await fetchService("/api/slide-image", payload, false);
   return res;
 };
 
 export const deleteSlideImg = async (id: string) => {
-  const res = await axios.delete(`${API_URL}/api/slide-image/${id}`, {
-    headers: setHeaderAxios(),
-  });
+  const res = await deleteService(`/api/slide-image/${id}`);
   return res;
 };
